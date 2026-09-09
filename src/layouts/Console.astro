@@ -1,0 +1,56 @@
+---
+/**
+ * The console shell.
+ *
+ * Everything here is static HTML — nav, headings, prose. No island, no WASM,
+ * no JavaScript at all beyond what a page explicitly mounts. A console's
+ * chrome has no reason to cost a 1.9 MB download before it can show a
+ * heading.
+ */
+interface Props {
+  title: string;
+  lede?: string;
+}
+
+const { title, lede } = Astro.props;
+const nav = [
+  { href: "/", label: "Overview" },
+  { href: "/components", label: "Components" },
+  { href: "/tokens", label: "Tokens" },
+  { href: "/architecture", label: "Architecture" },
+];
+const here = Astro.url.pathname.replace(/\.html$/, "") || "/";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Mzizi console</title>
+    <meta
+      name="description"
+      content="The Mzizi console — component registry, design tokens, and the DNA-helix architecture."
+    />
+    <link rel="stylesheet" href="/console.css" />
+  </head>
+  <body>
+    <nav class="console-nav" aria-label="Console">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={here === item.href ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <main>
+      <h1>{title}</h1>
+      {lede && <p class="lede">{lede}</p>}
+      <slot />
+    </main>
+  </body>
+</html>

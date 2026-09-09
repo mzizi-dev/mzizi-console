@@ -1,0 +1,40 @@
+---
+import Console from "../layouts/Console.astro";
+
+/**
+ * Overview. Entirely static — there is nothing on this page that needs the
+ * registry, so it ships as HTML and loads no WASM at all.
+ */
+const surfaces = [
+  { label: "Registry and site", href: "https://mzizi.dev", text: "mzizi.dev" },
+  { label: "API", href: "https://api.mzizi.dev/v1", text: "api.mzizi.dev/v1" },
+  {
+    label: "MCP",
+    href: "https://mcp.mzizi.dev/mcp",
+    text: "mcp.mzizi.dev/mcp",
+  },
+  {
+    label: "Documentation",
+    href: "https://docs.bundu.org/mzizi",
+    text: "docs.bundu.org/mzizi",
+  },
+];
+---
+
+<Console
+  title="Mzizi"
+  lede="The design system of the Mzizi research program — tokens, components, and the DNA double helix the frontend architecture is organised around."
+>
+  <dl class="surfaces">
+    {
+      surfaces.map((s) => (
+        <>
+          <dt>{s.label}</dt>
+          <dd>
+            <a href={s.href}>{s.text}</a>
+          </dd>
+        </>
+      ))
+    }
+  </dl>
+</Console>
