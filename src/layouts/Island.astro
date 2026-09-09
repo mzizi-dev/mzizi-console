@@ -1,0 +1,56 @@
+---
+/**
+ * Mount point for a Rust/Dioxus island.
+ *
+ * One WASM bundle serves every island; `data-island` tells it which view to
+ * render. One binary rather than one per route: the Dioxus runtime is most of
+ * the bytes, so three bundles would ship it three times.
+ *
+ * The `<noscript>` is not a formality. This console's data comes from the API
+ * at runtime, so without script there is genuinely nothing to show — and
+ * saying so is better than an empty panel that looks like an outage.
+ */
+interface Props {
+  name: "components" | "tokens" | "architecture";
+  /** What a reader misses when the island cannot run. */
+  fallback: string;
+}
+
+const { name, fallback } = Astro.props;
+---
+
+<div id="island" data-island={name} class="island">
+  <p class="state">Loading…</p>
+</div>
+<noscript>
+  <p class="state">{fallback}</p>
+</noscript>
+<script is:inline type="module">
+  // `is:inline` is load-bearing. The bundle is built by cargo + wasm-bindgen
+  // into `public/island/`, which Astro copies to `dist/` verbatim — it is not
+  // part of the Vite graph. Without `is:inline`, Astro tries to RESOLVE this
+  // import at build time and fails with "Module not found", because the file
+  // it names is an output of a different toolchain that has no reason to exist
+  // when the JS build runs.
+  //
+  // A dynamic import so it never blocks the static chrome above it from
+  // painting: the heading and nav are already HTML by the time this starts.
+  // No argument: wasm-bindgen's init resolves the `.wasm` relative to its own
+  // module URL, so the path lives in exactly one place. Passing it positionally
+  // also trips a deprecation warning in wasm-bindgen 0.2.127.
+  import("/island/mzizi-console.js")
+    .then((m) => m.default())
+    .catch((error) => {
+      const host = document.getElementById("island");
+      if (host) {
+        host.innerHTML = "";
+        const p = document.createElement("p");
+        p.className = "state error";
+        // The reason is SHOWN. An island that fails silently leaves a
+        // "Loading…" that never resolves, which reads as a hung page rather
+        // than a broken one.
+        p.textContent = `Could not start the console: ${String(error)}`;
+        host.appendChild(p);
+      }
+    });
+</script>

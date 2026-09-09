@@ -1,0 +1,50 @@
+# app.mzizi.dev — the Mzizi console, as a Rust/Dioxus WASM app.
+#
+# This replaces `@nyuchi/mzizi-console-app`, a Svelte mini-app the Nyuchi
+# Console mounted under `/apps/mzizi/*`. Two things change at once and both are
+# deliberate:
+#
+#   * It becomes a STANDALONE surface at `app.mzizi.dev` rather than a
+#     package another app mounts.
+#   * It becomes Rust. The framework doctrine (nyuchi/mzizi#269) is that the UI
+#     is Astro and underneath is Rust first, TypeScript second, with no third UI
+#     framework — not Svelte, not React, not Vue. `mzizi-tools#82` records the
+#     decision to make this one a full Rust UI rather than an Astro shell,
+#     because it administers a Rust stack.
+#
+# Dioxus 0.7, matching `mzizi-rs/crates/mzizi-ui` in the framework repo, so the
+# dashboard and the component registry it browses speak the same dialect.
+[package]
+name = "mzizi-console"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "Apache-2.0"
+repository = "https://github.com/mzizi-dev/mzizi-console"
+homepage = "https://app.mzizi.dev"
+description = "The Mzizi console — registry, tokens and DNA-helix architecture, as a Dioxus WASM app."
+publish = false
+
+[dependencies]
+dioxus = { version = "0.7", features = ["web"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# `reqwest` rather than a hand-rolled `web_sys::fetch`: on wasm32 it compiles
+# down to the browser's own fetch, and it keeps the client testable off the web.
+reqwest = { version = "0.12", default-features = false, features = ["json"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+web-sys = { version = "0.3", features = ["Window", "Location"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+todo = "deny"
+unwrap_used = "deny"
+expect_used = "deny"

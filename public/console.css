@@ -1,0 +1,186 @@
+/* The console's own styling.
+ *
+ * Deliberately small and token-shaped. The seven minerals are declared here as
+ * custom properties with BOTH themes, because this page renders swatches of
+ * them — it is one of the few surfaces where the palette is the content rather
+ * than the styling. Everything else references a semantic token.
+ *
+ * These values are the palette's, served by /v1/brand. They are duplicated here
+ * only for the page chrome; the swatches on the Tokens route are painted from
+ * the API response, so a change in the palette shows there without an edit
+ * here. */
+
+:root {
+  color-scheme: light dark;
+
+  --ground: #faf8f4;
+  --raised: #ffffff;
+  --ink: #1b1a17;
+  --ink-soft: #4a463f;
+  --rule: #e2dcd1;
+  --accent: #0047ab;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #171613;
+    --raised: #1f1e1a;
+    --ink: #f3f1ec;
+    --ink-soft: #c2bcb0;
+    --rule: #302e28;
+    --accent: #00b0ff;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.console-nav {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem;
+  border-block-end: 1px solid var(--rule);
+  background: var(--raised);
+  position: sticky;
+  inset-block-start: 0;
+}
+
+.console-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.console-nav a:hover,
+.console-nav a:focus-visible {
+  color: var(--ink);
+}
+
+main {
+  max-width: 60rem;
+  /* Logical properties throughout — the registry's own rule, and this console
+   * is meant to be usable in RTL. */
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  padding-block: 2rem 4rem;
+}
+
+h1 {
+  font-size: 1.9rem;
+  letter-spacing: -0.02em;
+  margin-block: 0 0.5rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-block: 2rem 0.75rem;
+}
+
+.lede {
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+.muted {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-block: 0.15rem 0;
+}
+
+.state {
+  color: var(--ink-soft);
+}
+
+.state.error {
+  color: #9c3f1e;
+}
+
+@media (prefers-color-scheme: dark) {
+  .state.error {
+    color: #ff8a65;
+  }
+}
+
+.component-list,
+.node-list,
+.strand-list,
+.mineral-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.component-list {
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+.component-list li,
+.node-list li,
+.strand-list li,
+.mineral li {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: var(--raised);
+}
+
+.mineral {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: var(--raised);
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.mineral p {
+  grid-column: 1 / -1;
+}
+
+.swatch {
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.install {
+  overflow-x: auto;
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.surfaces {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1.25rem;
+  margin-block-start: 1.5rem;
+}
+
+.surfaces dt {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.surfaces dd {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}

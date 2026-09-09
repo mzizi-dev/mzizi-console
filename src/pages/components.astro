@@ -1,0 +1,14 @@
+---
+import Console from "../layouts/Console.astro";
+import Island from "../layouts/Island.astro";
+---
+
+<Console
+  title="Components"
+  lede="The registry, grouped by helix node. Read live from the API, so what you see is what a consumer would install right now."
+>
+  <Island
+    name="components"
+    fallback="The component list is read from api.mzizi.dev at runtime, so it needs scripting. Browse it at mzizi.dev/components instead."
+  />
+</Console>
