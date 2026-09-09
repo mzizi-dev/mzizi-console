@@ -8,3 +8,6 @@ public/island/
 .astro/
 
 node_modules/
+
+# macOS
+.DS_Store
