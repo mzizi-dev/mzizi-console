@@ -11,7 +11,7 @@
 //! They are snapshots, so they can go stale — but a stale snapshot fails loudly
 //! here, which is better than a client that discovers the drift in a browser.
 
-use mzizi_dashboard::api::{Architecture, Brand, Envelope, RegistryIndex};
+use mzizi_console::api::{Architecture, Brand, Envelope, RegistryIndex};
 
 fn load(name: &str) -> String {
     std::fs::read_to_string(format!(

@@ -8,7 +8,7 @@
 //! `data-island` attribute, because the Dioxus runtime is most of the bytes and
 //! three bundles would ship it three times.
 
-use mzizi_dashboard::island::Root;
+use mzizi_console::island::Root;
 
 fn main() {
     dioxus::logger::initialize_default();
