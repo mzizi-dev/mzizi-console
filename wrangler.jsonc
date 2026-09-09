@@ -1,0 +1,44 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mzizi-console",
+  "compatibility_date": "2026-05-22",
+
+  // A site is a Worker with Static Assets — the shape the domain-and-docs
+  // routing convention sets for every Bundu surface, and the same shape
+  // docs.nyuchi.com already runs.
+  //
+  // There is no `main`. This Worker has no code of its own: Astro emits the
+  // HTML, cargo + wasm-bindgen emit the island, and the asset server is all
+  // the routing either of them needs.
+  "assets": {
+    "directory": "./dist",
+    // The app routes on the location HASH, so every URL it serves is
+    // `/index.html` with a different fragment. `single-page-application` is
+    // still correct — it is what makes a hard refresh of a deep link work
+    // rather than 404 — but the hash routing means a missing rewrite rule
+    // cannot silently break deep links, which is why it was chosen.
+    "not_found_handling": "single-page-application",
+  },
+
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+
+  // mzizi.dev DNS is on Cloudflare now (see mzizi-mcp/wrangler.toml for the
+  // same convention on that Worker).
+  // A custom domain takes a BARE HOSTNAME. Wildcards and paths are rejected
+  // ("Wildcard operators (*) are not allowed in Custom Domains"), and a custom
+  // domain already routes every path on the hostname to this Worker, so a `/*`
+  // is both invalid and redundant. `zone_name` is inferred and only means
+  // anything on a non-custom-domain route.
+  //
+  // The previous form carried all three and could never deploy — which is why
+  // `dashboard.mzizi.dev` never existed. mzizi-mcp had the identical defect
+  // (mzizi-dev/agent-tools#102) and failed the same silent way: Workers Builds
+  // previews upload a version WITHOUT applying routes, so the config is only
+  // validated on the production deploy.
+  "routes": [
+    {
+      "pattern": "app.mzizi.dev",
+      "custom_domain": true,
+    },
+  ],
+}
