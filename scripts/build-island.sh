@@ -41,8 +41,18 @@ else
 fi
 
 printf '%s\n' "island bundle:"
-# `find -printf` has no float format; sizes come from `stat`, which does.
-find "$OUT" -type f -exec stat -c '%s %n' {} + \
+# `find -printf` has no float format; sizes come from `stat`, which does — but
+# the two `stat`s disagree on how to ask. GNU takes `-c '%s %n'`; BSD (macOS)
+# takes `-f '%z %N'` and EXITS NON-ZERO on `-c`. Under `set -euo pipefail` that
+# aborted the whole build here, AFTER the bundle had been correctly produced —
+# so the failure looked like a build error when it was only the size report.
+# CI is ubuntu-latest and never saw it; every macOS contributor did.
+if stat -c '%s' "$0" >/dev/null 2>&1; then
+  stat_fmt=(-c '%s %n')       # GNU coreutils
+else
+  stat_fmt=(-f '%z %N')       # BSD / macOS
+fi
+find "$OUT" -type f -exec stat "${stat_fmt[@]}" {} + \
   | sort -rn \
   | awk '{ total += $1; printf "  %8.1f KiB  %s\n", $1/1024, $2 }
          END { printf "  %8.1f KiB  TOTAL across %d files\n", total/1024, NR }'
