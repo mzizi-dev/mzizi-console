@@ -7,6 +7,18 @@ import Island from "../layouts/Island.astro";
   title="Components"
   lede="The registry, grouped by helix node. Read live from the API, so what you see is what a consumer would install right now."
 >
+  {/*
+    The fallback names `api.mzizi.dev` because that is now what the island
+    reads (`api::DEFAULT_API_BASE`). It said so before the host existed, which
+    made it a true-sounding sentence about a dead address; it is true on
+    purpose now.
+
+    NOTE the second half: `mzizi.dev/components` is a REGISTRY page, and it
+    200s only while the apex is still the Next.js registry. When the apex
+    becomes `mzizi-dev/mzizi-site`, this no-JS escape hatch 404s — the static
+    site has no /components. Re-point it as part of that cutover; see the
+    runbook in mzizi-site/README.md.
+  */}
   <Island
     name="components"
     fallback="The component list is read from api.mzizi.dev at runtime, so it needs scripting. Browse it at mzizi.dev/components instead."
