@@ -7,6 +7,12 @@ import Island from "../layouts/Island.astro";
   title="Architecture"
   lede="The Mzizi DNA double helix — nodes on an engineering and a meaning backbone, held by cross-cutting rungs."
 >
+  {/*
+    `api.mzizi.dev` is deliberate and matches `api::DEFAULT_API_BASE`; it was
+    written before that host resolved. `mzizi.dev/architecture` is a REGISTRY
+    page and survives only while the apex is the Next.js registry — see the
+    note in components.astro and the cutover runbook in mzizi-site/README.md.
+  */}
   <Island
     name="architecture"
     fallback="The helix is read from api.mzizi.dev at runtime, so it needs scripting. See mzizi.dev/architecture instead."

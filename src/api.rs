@@ -20,19 +20,50 @@
 use serde::Deserialize;
 /// Base URL of the Mzizi registry API.
 ///
-/// `https://mzizi.dev/api/v1`, and that is a correction rather than a
-/// preference. This previously read `https://api.mzizi.dev/v1` on the grounds
-/// that "the API moved to its own Worker (nyuchi/mzizi#285); the old form still
-/// resolves — the API Worker accepts both". Measured, the reverse is true:
+/// `https://api.mzizi.dev/v1`. This constant has now held three values, and the
+/// order matters, because the middle one was right at the time and is wrong now.
 ///
-///   api.mzizi.dev      -> NXDOMAIN, no DNS record at all
-///   mzizi.dev/api/v1   -> 200
+/// **As imported**, it read `https://api.mzizi.dev/v1`, justified as a move to
+/// the canonical address because "the old form still resolves — the API Worker
+/// accepts both". That was asserted rather than measured, and it was false in
+/// both halves: there was no API Worker, and the host did not exist.
 ///
-/// So the console was pointed at a host that does not exist and would have
-/// rendered every view empty against a "healthy" API. Switch back the day
-/// api.mzizi.dev actually answers; until then this is the only address that
-/// serves the registry.
-pub const DEFAULT_API_BASE: &str = "https://mzizi.dev/api/v1";
+/// **Corrected** to `https://mzizi.dev/api/v1`, because measurement said:
+///
+/// ```text
+/// api.mzizi.dev      -> NXDOMAIN, no DNS record at all
+/// mzizi.dev/api/v1   -> 200
+/// ```
+///
+/// The console had been pointed at a host that did not resolve, and would have
+/// rendered every view empty against a perfectly healthy API. That correction
+/// carried an explicit condition: switch back the day `api.mzizi.dev` actually
+/// answers, and not before.
+///
+/// **Switched back**, because that day arrived. `mzizi-dev/mzizi-api-gateway`
+/// shipped and holds `api.mzizi.dev` as a custom domain. Re-measured before this
+/// change, every endpoint this client reads is byte-identical through both:
+///
+/// ```text
+/// endpoint         api.mzizi.dev/v1    mzizi.dev/api/v1
+/// /ui              200, sha d50a1a43   200, sha d50a1a43
+/// /brand           200, sha d6b4d94c   200, sha d6b4d94c
+/// /architecture    200, sha fb2878ac   200, sha fb2878ac
+/// /ui/NAME         200, sha e1653f3c   200, sha e1653f3c
+/// ```
+///
+/// They are identical because the gateway currently PROXIES to the apex — its
+/// `/v1/health` reports `"origin": "https://mzizi.dev/api"`. So this change does
+/// not yet move the console onto a different server. It moves the console onto a
+/// different NAME, one the gateway owns and can repoint.
+///
+/// That indirection is the entire point. `mzizi.dev` is due to stop serving the
+/// API — the apex is to become the static site in `mzizi-dev/mzizi-site` — and
+/// anything still addressing `mzizi.dev/api/v1` on that day starts 404ing. The
+/// gateway is the seam that survives the move. Do not "simplify" this back to
+/// the apex: the previous value was correct only for as long as `api.mzizi.dev`
+/// was missing, and it is the address with the shorter remaining life.
+pub const DEFAULT_API_BASE: &str = "https://api.mzizi.dev/v1";
 
 /// A component, as the registry index lists it.
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
@@ -263,7 +294,7 @@ mod tests {
     fn install_command_follows_the_configured_base() {
         assert_eq!(
             install_command_for("button", DEFAULT_API_BASE),
-            "npx shadcn@latest add https://mzizi.dev/api/v1/ui/button"
+            "npx shadcn@latest add https://api.mzizi.dev/v1/ui/button"
         );
         assert_eq!(
             install_command_for("button", "https://preview.example/v1/"),
@@ -381,11 +412,11 @@ mod tests {
         // what lets the UI say "this route is retired" rather than "error".
         let err = ApiError::Status {
             status: 410,
-            url: "https://mzizi.dev/api/v1/architecture/frontend/axes".into(),
+            url: "https://api.mzizi.dev/v1/architecture/frontend/axes".into(),
         };
         assert_eq!(
             err.to_string(),
-            "HTTP 410 from https://mzizi.dev/api/v1/architecture/frontend/axes"
+            "HTTP 410 from https://api.mzizi.dev/v1/architecture/frontend/axes"
         );
     }
 }

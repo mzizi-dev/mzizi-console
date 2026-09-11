@@ -19,9 +19,11 @@ As of today:
 - **No user data.** The console collects nothing, stores nothing, and sets no
   cookies. There is no analytics script and no third-party embed.
 - **No writes.** Every request it makes is a `GET` against the public registry
-  API at `https://mzizi.dev/api/v1` — the same data any reader can `curl`.
-- **Not deployed.** `app.mzizi.dev` does not resolve yet. There is no production
-  instance to test against.
+  API at `https://api.mzizi.dev/v1` — the same data any reader can `curl`. The
+  gateway itself advertises only `GET, OPTIONS`, so there is no write verb to
+  reach through it.
+- **Deployed** at `https://app.mzizi.dev`, as a Worker with static assets and no
+  code of its own.
 
 The realistic risk from this repository is **supply-chain and integrity**, not
 confidentiality: something that changes what bytes a visitor's browser executes,
@@ -53,14 +55,18 @@ Report these:
 
 ## Out of scope
 
-- **The registry API itself** (`mzizi.dev/api/v1`) — report to
+- **The registry API itself** (the Next.js origin the gateway proxies to,
+  currently `mzizi.dev/api/v1`) — report to
   [`mzizi-dev/mzizi`](https://github.com/mzizi-dev/mzizi) under its own
   `SECURITY.md`. The console is a consumer.
-- **The API gateway** (`api.mzizi.dev`, once it exists) —
+- **The API gateway** (`api.mzizi.dev`) —
   [`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway).
-- **Missing security headers, CSP, SRI** on a surface that is not deployed. These
-  are worth having and are welcome as issues or pull requests; they are not
-  vulnerabilities today because there is no origin serving the page.
+  This is the console's only upstream: `api::DEFAULT_API_BASE` reads through it.
+- **Missing security headers, CSP, SRI.** These are worth having and are welcome
+  as issues or pull requests. (This exclusion previously rested on the console
+  not being deployed; `app.mzizi.dev` is live now, so the reasoning no longer
+  holds and the item is kept only as a routing note — send them as issues, not
+  as private security reports.)
 - **Denial of service against Cloudflare's edge.** Cloudflare owns that.
 - **Findings that require a compromised maintainer account** as a precondition.
 - **Social engineering or physical attacks** against maintainers.

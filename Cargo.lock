@@ -1822,7 +1822,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mzizi-dashboard"
+name = "mzizi-console"
 version = "0.1.0"
 dependencies = [
  "dioxus",
