@@ -87,13 +87,13 @@ same information. PGP is not required.
 
 ## Response
 
-| Stage                                     | Target                          |
-| ----------------------------------------- | ------------------------------- |
-| Acknowledgement                           | Within 5 business days          |
-| Triage and reproduction                   | Within 10 business days         |
-| Fix merged to `main` (critical / high)    | Within 14 days of triage        |
-| Fix merged to `main` (medium / low)       | Best effort                     |
-| Public disclosure                         | After the fix ships, coordinated with the reporter |
+| Stage                                  | Target                                             |
+| -------------------------------------- | -------------------------------------------------- |
+| Acknowledgement                        | Within 5 business days                             |
+| Triage and reproduction                | Within 10 business days                            |
+| Fix merged to `main` (critical / high) | Within 14 days of triage                           |
+| Fix merged to `main` (medium / low)    | Best effort                                        |
+| Public disclosure                      | After the fix ships, coordinated with the reporter |
 
 These are the targets for a small, pre-deployment project maintained alongside
 others. They are deliberately less aggressive than
@@ -117,7 +117,7 @@ things already planned for it will invalidate most of it:
   a session, a token with real authority, and a CSRF surface — none of which
   exist today.
 
-When either lands, this file must be rewritten *in the same pull request*, not
+When either lands, this file must be rewritten _in the same pull request_, not
 afterwards. A policy that says "no auth, no secrets, no writes" while the code
 has all three is worse than no policy at all, and the gap between them will not
 be noticed by anyone reading only the code.

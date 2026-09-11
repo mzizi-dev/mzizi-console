@@ -24,11 +24,11 @@ builds the other, and `pnpm build` composes them:
 
 `scripts/build-island.sh` runs three steps into `public/island/`:
 
-| step           | does                                            |
-| -------------- | ----------------------------------------------- |
-| `cargo build`  | compiles the crate to `wasm32-unknown-unknown`  |
-| `wasm-bindgen` | emits the JS module and the glue                |
-| `wasm-opt -Oz` | shrinks the `.wasm` — see §2                     |
+| step           | does                                           |
+| -------------- | ---------------------------------------------- |
+| `cargo build`  | compiles the crate to `wasm32-unknown-unknown` |
+| `wasm-bindgen` | emits the JS module and the glue               |
+| `wasm-opt -Oz` | shrinks the `.wasm` — see §2                   |
 
 Then `astro build` renders the pages and copies `public/` — including the island
 bundle that has just appeared there — verbatim into `dist/`.
@@ -102,14 +102,14 @@ convert the warning into a silent skip.
 The island bundle's filename is **derived from the crate name**, and nothing
 reconciles the places that spell it out. They must agree:
 
-| # | file                      | what it says                             | form         |
-| - | ------------------------- | ---------------------------------------- | ------------ |
-| 1 | `Cargo.toml`              | `name = "mzizi-console"`                 | hyphenated   |
-| 2 | `scripts/build-island.sh` | `CRATE=mzizi-console`                    | hyphenated   |
-| 3 | `src/layouts/Island.astro`| `import("/island/mzizi-console.js")`     | hyphenated   |
-| 4 | `src/main.rs`, `tests/live_shapes.rs` | `use mzizi_console::…`       | **underscored** |
+| #   | file                                  | what it says                         | form            |
+| --- | ------------------------------------- | ------------------------------------ | --------------- |
+| 1   | `Cargo.toml`                          | `name = "mzizi-console"`             | hyphenated      |
+| 2   | `scripts/build-island.sh`             | `CRATE=mzizi-console`                | hyphenated      |
+| 3   | `src/layouts/Island.astro`            | `import("/island/mzizi-console.js")` | hyphenated      |
+| 4   | `src/main.rs`, `tests/live_shapes.rs` | `use mzizi_console::…`               | **underscored** |
 
-(4) is the one that surprises people: a crate's *library* name is its package
+(4) is the one that surprises people: a crate's _library_ name is its package
 name with hyphens turned into underscores, so renaming the package renames the
 `use` path too.
 
@@ -128,7 +128,7 @@ Be careful here, because the in-repo comments overstate it. The comment in
 that updates the build script and not the import". **It does not, and it cannot:**
 
 - `Island.astro`'s `<script>` is `is:inline`, which is precisely the directive
-  that tells Astro *not* to resolve or bundle the import. That is deliberate and
+  that tells Astro _not_ to resolve or bundle the import. That is deliberate and
   correct — the file it names is an output of the other toolchain and does not
   exist when the JS build runs — but it also means Astro never checks the name.
 - The `web` CI job runs `pnpm exec astro build`, not `pnpm build`, so
@@ -335,7 +335,7 @@ gh pr merge <n> --merge --delete-branch
 
 This project's commit messages carry the measurement behind a change — which
 host answered, which status a route returns, which limit a bundle is up against.
-`52218dc` is a worked example: it is the record of *why* two CI jobs failed and
+`52218dc` is a worked example: it is the record of _why_ two CI jobs failed and
 what the underlying cause was, and a squash would have folded it into a feature
 commit and thrown that away.
 
@@ -364,7 +364,7 @@ checks and tests, not publishing. Do not add a `wrangler deploy` step to
 Do not change `wrangler.jsonc`'s route without reading the comment above it
 first. A custom domain takes a **bare hostname**; the wildcard form the console
 arrived with is rejected by the API, which is why `dashboard.mzizi.dev` never
-existed. Worker Builds previews upload a version *without* applying routes, so a
+existed. Worker Builds previews upload a version _without_ applying routes, so a
 broken route config reads green on a PR and fails only on the production deploy.
 
 ---

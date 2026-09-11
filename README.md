@@ -206,12 +206,12 @@ now the rule is written down here and nowhere else.
 
 The island bundle, after `wasm-opt -Oz`:
 
-| file                      | size        |
-| ------------------------- | ----------- |
+| file                    | size        |
+| ----------------------- | ----------- |
 | `mzizi-console_bg.wasm` | 921 KiB     |
 | `mzizi-console.js`      | 74 KiB      |
-| `snippets/` (7 files)     | 25 KiB      |
-| **total**                 | **1.0 MiB** |
+| `snippets/` (7 files)   | 25 KiB      |
+| **total**               | **1.0 MiB** |
 
 **Optimisation here is a deployability requirement, not a nicety.** Cloudflare's
 individual static-asset limit is **25 MiB** on every plan, and an unoptimised
@@ -257,7 +257,7 @@ the absence of a record beforehand was a symptom of never having deployed rather
 than a missing step. This is worth keeping in mind for `mzizi.dev` itself — see
 the cutover runbook in
 [`mzizi-dev/mzizi-site`](https://github.com/mzizi-dev/mzizi-site), where the apex
-is *already* serving from Vercel and a custom domain would therefore **take** it
+is _already_ serving from Vercel and a custom domain would therefore **take** it
 rather than create it.
 
 Two things about this route are worth not re-learning:
@@ -269,7 +269,7 @@ Two things about this route are worth not re-learning:
   with `custom_domain: true` and therefore could never deploy — which is why
   `dashboard.mzizi.dev` never existed.
 - **A broken route reads green on a pull request.** Workers Builds previews
-  upload a version *without* applying routes, so the config is only validated on
+  upload a version _without_ applying routes, so the config is only validated on
   the production deploy. `mzizi-mcp` carried the identical defect and failed the
   same silent way (`mzizi-dev/agent-tools#102`).
 
