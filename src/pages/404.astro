@@ -1,0 +1,30 @@
+---
+import Console from "../layouts/Console.astro";
+
+/**
+ * An honest 404.
+ *
+ * Before this page existed the Worker served `not_found_handling:
+ * "single-page-application"`, which answers every unmatched path with
+ * `index.html` and a 200. `/fundi`, `/logs`, `/chaos`, `/issues`, `/reports`
+ * and `/brand` were therefore byte-identical copies of the overview, served
+ * as if they were real pages. A soft 404 is worse than a 404: a reader cannot
+ * tell a missing page from an empty one, and a crawler indexes six duplicates
+ * of the homepage under six URLs that were never meant to exist.
+ *
+ * `gated={false}`: a missing page is missing whether or not you are signed in,
+ * and putting the 404 behind the gate would answer "does this page exist?"
+ * with "sign in to find out".
+ */
+---
+
+<Console
+  title="Not found"
+  lede="There is no page at this address."
+  gated={false}
+>
+  <p class="state">
+    The console has four pages: the overview, components, tokens and
+    architecture. The navigation above lists all of them.
+  </p>
+</Console>

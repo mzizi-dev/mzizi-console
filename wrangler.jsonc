@@ -19,12 +19,23 @@
   // the routing either of them needs.
   "assets": {
     "directory": "./dist",
-    // The app routes on the location HASH, so every URL it serves is
-    // `/index.html` with a different fragment. `single-page-application` is
-    // still correct — it is what makes a hard refresh of a deep link work
-    // rather than 404 — but the hash routing means a missing rewrite rule
-    // cannot silently break deep links, which is why it was chosen.
-    "not_found_handling": "single-page-application",
+    // `404-page`, not `single-page-application`.
+    //
+    // The comment this replaces said the app routes on the location hash, so
+    // every URL is `/index.html` with a different fragment. That stopped being
+    // true when the console became four real Astro pages emitted as
+    // `/tokens.html`, `/components.html` and so on. What `single-page-
+    // application` did instead was answer EVERY unmatched path with
+    // `index.html` and HTTP 200: `/fundi`, `/logs`, `/chaos`, `/issues`,
+    // `/reports` and `/brand` were all byte-identical copies of the overview,
+    // indistinguishable from real pages to a reader, a crawler or a monitor.
+    //
+    // `404-page` serves `dist/404.html` — which `src/pages/404.astro` emits,
+    // because `build.format: "file"` puts it at the root — with a real 404
+    // status. Existing paths are unaffected: this setting only decides what
+    // happens when no asset matches, and `/tokens` → `/tokens.html` is
+    // `html_handling`, which is untouched.
+    "not_found_handling": "404-page",
   },
 
   "observability": { "enabled": true, "head_sampling_rate": 1 },

@@ -38,7 +38,8 @@ const { name, fallback } = Astro.props;
   // No argument: wasm-bindgen's init resolves the `.wasm` relative to its own
   // module URL, so the path lives in exactly one place. Passing it positionally
   // also trips a deprecation warning in wasm-bindgen 0.2.127.
-  import("/island/mzizi-console.js")
+  const start = () =>
+    import("/island/mzizi-console.js")
     .then((m) => {
       // Clear the placeholder BEFORE mounting. Dioxus mounts INTO this element
       // and appends to it rather than replacing its children, so leaving the
@@ -68,4 +69,30 @@ const { name, fallback } = Astro.props;
         host.appendChild(p);
       }
     });
+
+  // The island does not start until the AuthKit gate in `Console.astro` says
+  // there is a user. This is the part of the gate that has teeth: the page's
+  // content is not in the HTML, it is fetched from the API by this bundle, so
+  // not starting it means a signed-out browser never requests it — rather
+  // than requesting it and hiding the answer with CSS.
+  //
+  // Checked first and subscribed second, in the same synchronous block, so
+  // there is no window in which the state settles unobserved: `settle()` runs
+  // from an async continuation, which cannot interleave with this.
+  let started = false;
+  const startOnce = () => {
+    if (started) return;
+    started = true;
+    start();
+  };
+  if (document.documentElement.dataset.auth === "in") {
+    startOnce();
+  } else {
+    // Not `{ once: true }`: the gate can settle "out" first (a signed-out
+    // reader who then signs in without a reload), and a one-shot listener
+    // would have been spent on that.
+    document.addEventListener("mzizi:auth", (event) => {
+      if (event.detail && event.detail.state === "in") startOnce();
+    });
+  }
 </script>
