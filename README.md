@@ -1,16 +1,29 @@
-# mzizi-console
+# Mzizi console
 
-`app.mzizi.dev` — the Mzizi console. **Astro in front, Rust behind.**
+> `app.mzizi.dev` — the browser for the Mzizi registry: components, design tokens and the DNA-helix architecture, read live from the API. **Astro in front, Rust behind.**
+
+[![CI](https://github.com/mzizi-dev/mzizi-console/actions/workflows/ci.yml/badge.svg)](https://github.com/mzizi-dev/mzizi-console/actions/workflows/ci.yml)
+[![Lint](https://github.com/mzizi-dev/mzizi-console/actions/workflows/lint.yml/badge.svg)](https://github.com/mzizi-dev/mzizi-console/actions/workflows/lint.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+![Rust](https://img.shields.io/badge/Rust-Dioxus_0.7-000000?style=flat-square&logo=rust&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-shell-BC52EE?style=flat-square&logo=astro&logoColor=white)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white)
+
+**Version:** 0.1.0 | **Live:** [app.mzizi.dev](https://app.mzizi.dev) | **Reads:** [api.mzizi.dev/v1](https://api.mzizi.dev/v1/ui) | **Docs:** [docs.bundu.org](https://docs.bundu.org)
+
+---
 
 ## Status
 
-**Live** at <https://app.mzizi.dev>.
+**Live.** `https://app.mzizi.dev` returns 200 and serves
+`<title>Mzizi · Mzizi console</title>`. All four routes — `/`, `/components`,
+`/tokens`, `/architecture` — answer.
 
-The console reads the registry API at **`https://api.mzizi.dev/v1`** — the
-gateway, not the apex. That is a change: it read `https://mzizi.dev/api/v1` for
-as long as `api.mzizi.dev` was NXDOMAIN. See
-[The API address](#the-api-address) for why it moved and why it must not move
-back.
+The console reads the registry API at **`https://api.mzizi.dev/v1`**. Measured
+2026-09-12, `/v1/ui`, `/v1/brand` and `/v1/architecture` all return 200 on that
+host. See [The API address](#the-api-address), which is the section of this
+README with the most history behind it and the most reason to be read before
+anything is "simplified".
 
 ## The split
 
@@ -33,35 +46,55 @@ a consumer would install right now.
 
 `@nyuchi/mzizi-console-app`, a Svelte 5 mini-app the Nyuchi Console mounted under
 `/apps/mzizi/*`. It becomes a standalone surface at its own domain, and it
-becomes Rust: the framework doctrine (`nyuchi/mzizi#269`) is that the UI is Astro
-and underneath is Rust first, TypeScript second, with no third UI framework.
-`mzizi-tools#82` records the decision.
+becomes Rust: the framework doctrine is that the UI is Astro and underneath is
+Rust first, TypeScript second, with no third UI framework.
+`mzizi-dev/agent-tools#82` records the decision.
 
-This separates the two owners cleanly — the **Mzizi framework** (Bundu
-Foundation) serves `mzizi.dev` and, via
-[`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway),
-`api.mzizi.dev`; the **console** (Nyuchi) serves `app.mzizi.dev`. All three
-hostnames now resolve.
+Mzizi is an open-architecture project of the **Bundu Foundation**, operated and
+developed by **Nyuchi**. This console is one of its surfaces;
+[`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
+is another.
 
 ## Ported by contract, not translated
 
-The rule #82 sets: _a faithful port of a broken component still compiles_. Two of
-the five routes could not have been translated even in principle.
+The rule `#82` sets: _a faithful port of a broken component still compiles_. Two
+of the five routes could not have been translated even in principle.
 
 **Architecture** called `/architecture/frontend/axes` and
-`/architecture/frontend/layers`. Both answer **410 Gone** in production — checked,
-not assumed — and have since the axis model was retired:
+`/architecture/frontend/layers`. Both answered **410 Gone** in production —
+checked, not assumed — and had since the axis model was retired:
 
 > The axis model is retired. Mzizi serves the DNA double helix — nodes on an
 > engineering and a meaning backbone, held by cross-cutting rungs.
 
-So it is rewritten against nodes, rungs and strands. Rungs are listed separately
-rather than as nodes with an empty backbone: belonging to neither backbone is the
-fact the model turns on.
+So it is rewritten against nodes, rungs and strands: **8 nodes, 4 rungs, 6
+strands**, read live from `/v1/architecture`. Rungs are listed separately rather
+than as nodes with an empty backbone, because belonging to neither backbone is
+the fact the model turns on. "Axis", "axes" and "layer" are retired vocabulary
+and should not come back in prose here, whatever the legacy route names say.
 
 **Tokens** was described in the Svelte manifest as the _"Five African Minerals
-palette"_. There are **seven**. `nyuchi/mzizi#265` removed that naming from the
-framework repo and added a guard; the guard does not reach this repo.
+palette"_. That was wrong, and the correction this repository shipped — "there
+are seven" — is also not the whole truth.
+
+**The palette is 21 colour families**, in three groups of seven:
+
+| Group        | Count |                                                         Families |
+| ------------ | ----: | ---------------------------------------------------------------: |
+| Minerals     |     7 | cobalt, tanzanite, malachite, gold, terracotta, sodalite, copper |
+| Heritage     |     7 |       indigo, savanna, baobab, sunset, river, hematite, kalahari |
+| Experimental |     7 |                 ember, acacia, fern, lagoon, storm, dusk, protea |
+
+Verified against `GET https://api.mzizi.dev/api/v1/brand`, which returns three
+arrays of seven.
+
+**Known gap, stated rather than hidden:** `api::Brand` deserialises only
+`minerals`, and the Tokens island renders `"{brand.minerals.len()} minerals"`.
+So the console shows **7 of the 21 families**, and `src/pages/tokens.astro`
+still leads with "Seven African minerals". That is an accurate count of one
+group presented as if it were the palette. Fixing it means adding `heritage` and
+`experimental` to the struct and the view — a code change, not a README one, and
+not in this commit.
 
 |                  | Svelte app             | here                     |
 | ---------------- | ---------------------- | ------------------------ |
@@ -83,7 +116,7 @@ were false: there was no API Worker, and the host did not exist.
 
 **2. Corrected** to `https://mzizi.dev/api/v1`, because measurement said:
 
-```
+```text
 api.mzizi.dev      ->  NXDOMAIN, no DNS record at all
 mzizi.dev/api/v1   ->  200
 ```
@@ -92,29 +125,41 @@ The console had been pointed at a host that did not resolve, and would have
 rendered every view empty against a perfectly healthy API. That correction
 carried a condition: switch back the day `api.mzizi.dev` answers, and not before.
 
-**3. Switched back**, because that day arrived.
-[`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
-shipped and holds `api.mzizi.dev` as a custom domain. Re-measured before the
-change, every endpoint this client reads is byte-identical through both hosts:
+**3. Switched back**, because that day arrived. `api.mzizi.dev` resolves and
+serves the registry API.
 
-| endpoint        | `api.mzizi.dev/v1`  | `mzizi.dev/api/v1`  |
-| --------------- | ------------------- | ------------------- |
-| `/ui`           | 200, sha `d50a1a43` | 200, sha `d50a1a43` |
-| `/brand`        | 200, sha `d6b4d94c` | 200, sha `d6b4d94c` |
-| `/architecture` | 200, sha `fb2878ac` | 200, sha `fb2878ac` |
-| `/ui/{name}`    | 200, sha `e1653f3c` | 200, sha `e1653f3c` |
+**And the condition attached to step 2 has now been vindicated in full.**
+This README used to say that `mzizi.dev` was "due to stop serving the API" and
+that "anything still addressing `mzizi.dev/api/v1` begins returning 404" on that
+day. Measured 2026-09-12:
 
-They match because the gateway currently **proxies to the apex** —
-`GET api.mzizi.dev/v1/health` reports `"origin": "https://mzizi.dev/api"`. So the
-switch did not move the console onto a different server. It moved the console
-onto a different **name**, one the gateway owns and can repoint.
+| Address                       | Then  | Now                                         |
+| ----------------------------- | ----- | ------------------------------------------- |
+| `https://api.mzizi.dev/v1/ui` | `200` | `200`                                       |
+| `https://mzizi.dev/api/v1/ui` | `200` | **`404`** — the apex is now the static site |
 
-That indirection is the whole point, and it is why this must not be "simplified"
-back. `mzizi.dev` is due to stop serving the API: the apex is to become the
-static site in
-[`mzizi-dev/mzizi-site`](https://github.com/mzizi-dev/mzizi-site), and on that
-day anything still addressing `mzizi.dev/api/v1` begins returning 404. Of the two
-addresses, the apex is the one with the shorter remaining life.
+The apex is served by
+[`mzizi-dev/mzizi-site`](https://github.com/mzizi-dev/mzizi-site), a three-page
+Astro Worker. A console still pointed at `mzizi.dev/api/v1` would today render
+every view empty. **That indirection is the whole point, and it is why this must
+not be "simplified" back.**
+
+**One thing this README asserted that is no longer true.** It said the gateway
+"currently proxies to the apex — `GET api.mzizi.dev/v1/health` reports
+`"origin": "https://mzizi.dev/api"`". It does not. That response now carries no
+`origin` field at all, and every response from `api.mzizi.dev` arrives with
+`x-opennext: 1` and Next.js `vary` headers — the signature of the registry's own
+Next.js app on Cloudflare, not of the Rust Worker in `mzizi-api-gateway`. What
+holds `api.mzizi.dev` today is not what this README last recorded. The address
+is stable; the thing behind it moved, which is exactly what owning the name was
+for.
+
+**A note on `/v1` versus `/api/v1`.** Both prefixes serve every resource this
+client reads. The bare discovery document is the one asymmetry:
+`https://api.mzizi.dev/api/v1` returns the JSON index, while
+`https://api.mzizi.dev/v1` returns a 404 HTML page. Nothing here requests it.
+**Never write the old `mzizi.dev/api/v1` form** — that host no longer serves the
+API at all.
 
 ## The API has three envelope conventions
 
@@ -129,9 +174,15 @@ Measured against production, not assumed:
 Assuming one would decode two of the three to nothing — and nothing renders as an
 empty page rather than an error.
 
+There is **no database** behind any of it. The registry is disk: `registry.json`
+and `content/doctrine/**` in
+[`mzizi-dev/mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry).
+Anything describing Supabase as the source of truth for components, brand or
+tokens is wrong.
+
 ## Toolchain
 
-Two languages, two tools, one set of script names. `mzizi-tools#82` settles the
+Two languages, two tools, one set of script names. `agent-tools#82` settles the
 tension: _the interface stays uniform; the tool fits the language._
 
 |        | front (Astro)            | behind (Rust)              |
@@ -147,11 +198,17 @@ wasm-bindgen and no WebAssembly target. That is not a gap to work around; it is
 what `vp run` exists for. Vite+ drives the Astro half and the package scripts,
 Cargo drives the Rust half, and `pnpm run build` composes them.
 
-```bash
-pnpm run build     # build:wasm, then astro build
-pnpm run check     # both halves
-pnpm test          # cargo test
-```
+## Commands
+
+| Command                                       | What it does                     |
+| --------------------------------------------- | -------------------------------- |
+| `pnpm run build`                              | `build:wasm`, then `astro build` |
+| `pnpm run check`                              | Both halves                      |
+| `pnpm test`                                   | `cargo test`                     |
+| `cargo clippy --all-targets -- -D warnings`   | Rust lints                       |
+| `cargo fmt --all -- --check`                  | Rust formatting                  |
+| `cargo check --target wasm32-unknown-unknown` | The real target                  |
+| `pnpm exec astro check`                       | Astro typecheck                  |
 
 Both halves must be installed for `pnpm run build` to produce a working site — a
 machine with only Node completes `astro build` happily and ships a page whose
@@ -175,14 +232,6 @@ full `pnpm build` after any rename. See
 [CONTRIBUTING.md §3](CONTRIBUTING.md#3-the-crate-name-is-load-bearing-in-four-places).
 
 ## Verifying
-
-```bash
-cargo test                                  # unit + live-shape decoding
-cargo clippy --all-targets -- -D warnings
-cargo fmt --all -- --check
-cargo check --target wasm32-unknown-unknown
-pnpm exec astro check
-```
 
 `tests/live_shapes.rs` decodes **captured live responses** with the production
 types. That is a different claim from the unit tests, which decode fixtures this
@@ -254,11 +303,15 @@ its own, just static assets. See [SECURITY.md](SECURITY.md).
 **provisions its own DNS record**: the first successful production deploy is what
 made `app.mzizi.dev` start resolving. There was nothing to add by hand first, and
 the absence of a record beforehand was a symptom of never having deployed rather
-than a missing step. This is worth keeping in mind for `mzizi.dev` itself — see
-the cutover runbook in
-[`mzizi-dev/mzizi-site`](https://github.com/mzizi-dev/mzizi-site), where the apex
-is _already_ serving from Vercel and a custom domain would therefore **take** it
-rather than create it.
+than a missing step.
+
+**The apex behaved differently, and the difference has since been demonstrated
+the hard way.** `mzizi.dev` already had a record, so a custom domain there does
+not create one — it **takes** it. That is what happened: the apex now serves
+`mzizi-site`, the registry's developer portal has no live address, and neither
+the cutover runbook (`mzizi-site#3`) nor the pull request porting the displaced
+pages (`mzizi-site#5`) had been merged first. See
+[`mzizi-site/README.md`](https://github.com/mzizi-dev/mzizi-site#readme).
 
 Two things about this route are worth not re-learning:
 
@@ -273,16 +326,40 @@ Two things about this route are worth not re-learning:
   the production deploy. `mzizi-mcp` carried the identical defect and failed the
   same silent way (`mzizi-dev/agent-tools#102`).
 
+## Ecosystem
+
+| Repository                                                            | What it is                                     | Address                                       |
+| --------------------------------------------------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| [`mzizi`](https://github.com/mzizi-dev/mzizi)                         | The language — Rust compiler research, Phase 0 | —                                             |
+| [`mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry)       | The component registry, brand and architecture | Portal currently unrouted                     |
+| [`mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway) | The registry API as a pure-Rust Worker         | [api.mzizi.dev](https://api.mzizi.dev/api/v1) |
+| [`mzizi-site`](https://github.com/mzizi-dev/mzizi-site)               | The ecosystem front door                       | [mzizi.dev](https://mzizi.dev)                |
+| `mzizi-console`                                                       | This repository                                | [app.mzizi.dev](https://app.mzizi.dev)        |
+
 ## Contributing
 
 [CONTRIBUTING.md](CONTRIBUTING.md) — the two-toolchain build, the crate-name
-trap, what CI enforces, and why this repository is **merge-only** (squash and
-rebase are disabled).
+trap, and what CI enforces.
 
 - [SECURITY.md](SECURITY.md) — a read-only browser of a public registry, with no
   auth and no secrets; what that does and does not mean.
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Contributor Covenant 2.1.
 
+**This repository is rebase-only.** Read off the API on 2026-09-12,
+`allow_rebase_merge` is `true` and `allow_merge_commit` and
+`allow_squash_merge` are both `false` on all nine repos in `mzizi-dev` — and on
+all 75 in the enterprise. Auto-merge is enabled. CONTRIBUTING.md still describes
+the merge-only convention that preceded this; the API is the authority.
+
+```sh
+gh pr merge <n> --rebase --auto
+```
+
+Never `--admin`.
+
 ## Licence
 
-[Apache-2.0](LICENSE).
+Licensed under the [Apache License 2.0](LICENSE).
+
+Mzizi is an open-architecture project of the **Bundu Foundation**, operated and
+developed by **Nyuchi**.
