@@ -41,9 +41,10 @@ Report these:
   here even though the content originates in
   [`mzizi-dev/mzizi`](https://github.com/mzizi-dev/mzizi).
 - **A bad install command.** `api::install_command_for` builds the
-  `npx shadcn@latest add …` string a user is invited to copy and run. Any way to
-  make that string point somewhere unintended is the highest-severity class this
-  repository has — it is a copy button that runs code on a developer's machine.
+  `npx shadcn@latest add …` string the Components island displays for a reader to
+  copy and run. Any way to make that string point somewhere unintended is the
+  highest-severity class this repository has — the end of that path is code
+  executing on a developer's machine, on their say-so but on our text.
 - **GitHub Actions issues** in `.github/workflows/ci.yml` — malicious-input,
   token exfiltration, privilege escalation. Every job declares
   `permissions: contents: read`.
