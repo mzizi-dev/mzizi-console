@@ -181,11 +181,25 @@ Two consequences worth knowing before you write a component:
 
 ### The API base is measured, not preferred
 
-`api::DEFAULT_API_BASE` is `https://mzizi.dev/api/v1`. Do not "correct" it to
-`api.mzizi.dev/v1` — that host has **no DNS record**, and pointing the console at
-it is how the imported version would have rendered every view empty against a
-perfectly healthy API. `mzizi-dev/mzizi-api-gateway` is being built to make
-`api.mzizi.dev` real; switch the constant the day it answers, and not before.
+`api::DEFAULT_API_BASE` is `https://api.mzizi.dev/v1` — the **gateway**, not the
+apex.
+
+It read `https://mzizi.dev/api/v1` for as long as `api.mzizi.dev` was NXDOMAIN,
+and that earlier value was correct: the imported version pointed at a host with
+no DNS record and would have rendered every view empty against a perfectly
+healthy API. The correction carried a condition — switch the day the host
+answers. `mzizi-dev/mzizi-api-gateway` shipped, `api.mzizi.dev` answers, and all
+four endpoints this client reads are byte-identical through both hosts, so the
+condition is met.
+
+Do not "simplify" it back to the apex. The two are identical today only because
+the gateway proxies to the apex; `mzizi.dev` is due to stop serving `/api/v1`
+when the apex becomes `mzizi-dev/mzizi-site`, and the gateway is the name that
+survives that. Measure before you change it either way:
+
+```bash
+curl -s https://api.mzizi.dev/v1/health     # names the gateway's current origin
+```
 
 ### The API has three envelope conventions
 
@@ -240,9 +254,14 @@ The captures are refreshed by hand:
 
 ```bash
 for e in ui brand architecture; do
-  curl -s "https://mzizi.dev/api/v1/$e" -o "tests/live/$e.json"
+  curl -s "https://api.mzizi.dev/v1/$e" -o "tests/live/$e.json"
 done
 ```
+
+Capture through the **same base the console reads**. Capturing from the apex
+while the client reads the gateway would mean the live-shape tests stop testing
+the path that is actually in use — which is the exact failure mode `tests/live/`
+exists to catch.
 
 **Do not prettify, sort, or trim them.** Reformatting turns them into fixtures
 this repo wrote rather than bytes the API sent, and that distinction is the only
@@ -333,10 +352,10 @@ Practical consequences:
 
 ## 9. Deploying
 
-You almost certainly are not deploying. **This repository has never been
-deployed** — `app.mzizi.dev` does not resolve yet, and the repo has no
-deployments recorded. See [README.md § Deploying](README.md#deploying) for the
-full picture, including what the first production deploy will do to DNS.
+You almost certainly are not deploying. The console **is** live at
+`app.mzizi.dev`, published through the Cloudflare GitHub app rather than from
+this repo. See [README.md § Deploying](README.md#deploying) for the full
+picture, including what the first production deploy did to DNS.
 
 There is no deploy workflow here and there should not be one: CI does build
 checks and tests, not publishing. Do not add a `wrangler deploy` step to
