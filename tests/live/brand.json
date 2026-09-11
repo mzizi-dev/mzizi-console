@@ -1,1 +1,1021 @@
-{"$schema":"https://mzizi.dev/schema/brand.json","@context":"https://schema.org","@type":"Brand","version":"4.0.31","name":"The Bundu Brand System","lastUpdated":"2026-07-13","homepage":"https://mzizi.dev/brand","minerals":[{"name":"cobalt","hex":"#0047AB","lightHex":"#0047AB","darkHex":"#00B0FF","containerLight":"#E3F2FD","containerDark":"#001F3F","cssVar":"--color-cobalt","origin":"Katanga (DRC) and Zambian Copperbelt","symbolism":"Digital future, trust, knowledge","usage":"Primary blue, links, CTAs"},{"name":"tanzanite","hex":"#B388FF","lightHex":"#4B0082","darkHex":"#B388FF","containerLight":"#F3E5F5","containerDark":"#1A0033","cssVar":"--color-tanzanite","origin":"Merelani Hills, Tanzania","symbolism":"Premium, creativity, connection","usage":"Purple accent, brand/logo, social features"},{"name":"malachite","hex":"#64FFDA","lightHex":"#004D40","darkHex":"#64FFDA","containerLight":"#E0F2F1","containerDark":"#00251A","cssVar":"--color-malachite","origin":"Congo Copper Belt","symbolism":"Growth, nature, success","usage":"Success states, positive actions"},{"name":"gold","hex":"#FFD740","lightHex":"#5D4037","darkHex":"#FFD740","containerLight":"#FFF8E1","containerDark":"#332200","cssVar":"--color-gold","origin":"Ghana, South Africa, Mali","symbolism":"Honey, rewards, warmth","usage":"Achievements, rewards, highlights"},{"name":"terracotta","hex":"#A0522D","lightHex":"#A0522D","darkHex":"#E1B07E","containerLight":"#F5E6D3","containerDark":"#3E2817","cssVar":"--color-terracotta","origin":"Pan-African Sahel","symbolism":"Earth, community, grounding","usage":"Community features, warmth"},{"name":"sodalite","hex":"#283593","lightHex":"#283593","darkHex":"#3D5AFE","containerLight":"#E8EAF6","containerDark":"#0D1442","cssVar":"--color-sodalite","origin":"Kunene River, Namibia & South Africa","symbolism":"Intelligence, depth, reasoning","usage":"AI/Shamwari surfaces, deep-reasoning states"},{"name":"copper","hex":"#BF5A36","lightHex":"#BF5A36","darkHex":"#FF8A65","containerLight":"#FBE4DA","containerDark":"#3A1A0E","cssVar":"--color-copper","origin":"Central African Copperbelt, Zambia & DRC","symbolism":"Connection, foundation, stewardship","usage":"Bundu ecosystem identity, the commons"}],"ecosystem":[{"name":"bundu","meaning":"Wilderness","language":"Shona","role":"The ecosystem","description":"The complete ecosystem built by Nyuchi Africa. Three pillars — mukoko (consumer super app), nyuchi (enterprise layer), and sister brands (specialist verticals) — all connected through one identity, one design system, and one open data commons.","voice":"Visionary, grounded, inclusive","mineral":"copper","url":"https://www.bundu.org"},{"name":"nyuchi","meaning":"Bee","language":"Shona","role":"Infrastructure & enterprise","description":"Seven enterprise products, each with its own consumer interface and business-facing tools. API platform, web services, learning, medical, rentals, tools, and SEO manager. Every nyuchi product is a standalone product, a door into the mukoko platform, and a professional surface for the same ecosystem.","voice":"Technical, reliable, industrious","mineral":"gold","url":"https://nyuchi.com"},{"name":"mukoko","meaning":"Beehive","language":"Shona","role":"Africa's super app","description":"A growing net of mini-apps — founded seventeen, four substrate components, one unified identity — grown under the Bundu Order. The digital home where a billion Africans' social, creative, commercial, civic, and economic lives belong.","voice":"Welcoming, structured, protective","mineral":"tanzanite","url":"https://mukoko.com"},{"name":"shamwari","meaning":"Friend","language":"Shona","role":"Sovereign AI companion","description":"The Digital Twin's conversational interface. Three layers of intelligence — personal (your pod data), community (anonymised platform data), and platform (base mukoko knowledge). A friend that serves; a friend that does not control.","voice":"Helpful, warm, intelligent","mineral":"sodalite","url":"https://shamwari.ai"},{"name":"nhimbe","meaning":"Gathering","language":"Shona","role":"Events & gatherings","description":"Community events and cultural gatherings. Standalone brand calling the same platform API. Edge-first check-in via geographic Durable Objects for sub-10ms ticket validation at venue doors.","voice":"Celebratory, communal, vibrant","mineral":"malachite","url":"https://nhimbe.com"},{"name":"bushtrade","meaning":"Bush trade","language":"English/Shona","role":"Marketplace","description":"Rentals-first marketplace for Zimbabwe and beyond. Business verification through the platform's unified submissions pipeline. Escrow-backed payments via mukoko wallet. Seller conversations flow through Campfire.","voice":"Practical, trustworthy, local","mineral":"gold","url":"https://bushtrade.co.zw"},{"name":"lingo","meaning":"Language","language":"English","role":"Language learning","description":"African language learning. Shona and Ndebele as primaries, English, French, Portuguese, and travel phrases. The product expression of mukoko's commitment to treating African languages as first-class citizens.","voice":"Encouraging, cultural, playful","mineral":"cobalt","url":"https://lingo.mukoko.com"},{"name":"campfire","meaning":"Campfire","language":"English","role":"Platform messaging anchor","description":"All messaging and cross-app communications. The architectural anchor of the ecosystem.","voice":"Direct, warm, always present","mineral":"malachite","url":"https://campfire.mukoko.com"},{"name":"bytes","meaning":"Bytes","language":"English","role":"Short-form creator video","description":"African creator video platform competing with TikTok.","voice":"Energetic, creative, youthful","mineral":"tanzanite","url":"https://bytes.mukoko.com"},{"name":"novels","meaning":"Novels","language":"English","role":"Publishing platform","description":"Long-form publishing with 10 work types, co-authorship, and revenue splitting.","voice":"Literary, thoughtful, immersive","mineral":"malachite","url":"https://novels.mukoko.com"},{"name":"places","meaning":"Places","language":"English","role":"Geographic knowledge graph","description":"Africa's rival to Google Business Profile + Maps for formal and informal economies.","voice":"Authoritative, helpful, discoverable","mineral":"gold","url":"https://places.mukoko.com"},{"name":"transport","meaning":"Transport","language":"English","role":"Public transit and booking","description":"Public transit routing, vehicle booking, commute planning for African cities.","voice":"Efficient, reliable, practical","mineral":"gold","url":"https://transport.mukoko.com"},{"name":"planner","meaning":"Planner","language":"English","role":"Productivity hub","description":"Calendar, tasks, notes, bookings — single source of truth for scheduling.","voice":"Organised, clear, supportive","mineral":"cobalt","url":"https://planner.mukoko.com"},{"name":"wallet","meaning":"Wallet","language":"English","role":"Payments and tokens","description":"MUKOKO tokens, mobile money, bank transfers. No bank account required.","voice":"Trustworthy, precise, secure","mineral":"gold","url":"https://wallet.mukoko.com"},{"name":"pulse","meaning":"Pulse","language":"English","role":"Feed and Mukoko Home","description":"Personalised content feed and agentic dashboard.","voice":"Personal, adaptive, ambient","mineral":"tanzanite","url":"https://pulse.mukoko.com"},{"name":"health","meaning":"Health","language":"English","role":"Wellness and telemedicine","description":"Health info, telemedicine booking, medication reminders. Connected to Nyuchi Medical.","voice":"Caring, accurate, private","mineral":"malachite","url":"https://health.mukoko.com"},{"name":"circles","meaning":"Circles","language":"English","role":"Community messaging","description":"Community channels — WhatsApp groups, Discord servers for Africa.","voice":"Inclusive, moderated, community-driven","mineral":"terracotta","url":"https://circles.mukoko.com"}],"typography":{"fonts":{"sans":{"family":"Noto Sans","usage":"All body text, UI labels","reason":"Broad language support including African languages and diacritics"},"serif":{"family":"Noto Serif","usage":"Page titles, hero text, display headings","reason":"Elegant display type with matching language coverage"},"mono":{"family":"JetBrains Mono","usage":"Code blocks, terminal output, technical content","reason":"Purpose-built for developer readability"}},"scale":[{"name":"Display","sizePx":72,"sizeRem":"4.5rem","lineHeight":"1.1","weight":700,"font":"serif","usage":"Hero headlines, landing pages"},{"name":"Display Small","sizePx":60,"sizeRem":"3.75rem","lineHeight":"1.1","weight":700,"font":"serif","usage":"Secondary hero headlines, landing page sub-hero sections"},{"name":"H1","sizePx":48,"sizeRem":"3rem","lineHeight":"1.15","weight":700,"font":"serif","usage":"Page titles"},{"name":"H2","sizePx":36,"sizeRem":"2.25rem","lineHeight":"1.2","weight":600,"font":"serif","usage":"Section headings"},{"name":"H3","sizePx":30,"sizeRem":"1.875rem","lineHeight":"1.25","weight":600,"font":"serif","usage":"Sub-section headings"},{"name":"H4","sizePx":24,"sizeRem":"1.5rem","lineHeight":"1.3","weight":600,"font":"sans","usage":"Card titles, group headings"},{"name":"H5","sizePx":20,"sizeRem":"1.25rem","lineHeight":"1.4","weight":600,"font":"sans","usage":"Small headings"},{"name":"H6","sizePx":16,"sizeRem":"1rem","lineHeight":"1.4","weight":600,"font":"sans","usage":"Nested headings in long-form content, legal pages, deep documentation"},{"name":"Body Large","sizePx":18,"sizeRem":"1.125rem","lineHeight":"1.6","weight":400,"font":"sans","usage":"Lead paragraphs"},{"name":"Body","sizePx":16,"sizeRem":"1rem","lineHeight":"1.6","weight":400,"font":"sans","usage":"Default body text"},{"name":"Body Small","sizePx":14,"sizeRem":"0.875rem","lineHeight":"1.5","weight":400,"font":"sans","usage":"Secondary text, descriptions"},{"name":"Caption","sizePx":12,"sizeRem":"0.75rem","lineHeight":"1.5","weight":400,"font":"sans","usage":"Labels, metadata, timestamps"},{"name":"Code","sizePx":14,"sizeRem":"0.875rem","lineHeight":"1.6","weight":400,"font":"mono","usage":"Code blocks, terminal output"}]},"spacing":[{"name":"xxs","px":2,"rem":"0.125rem","usage":"Hairline gaps — chip-in-chip, icon-to-badge, inline meta separators"},{"name":"xs","px":4,"rem":"0.25rem","usage":"Tight gaps, icon padding"},{"name":"xs-plus","px":6,"rem":"0.375rem","usage":"Icon-to-text offset, tight inline spacing"},{"name":"sm","px":8,"rem":"0.5rem","usage":"Compact spacing, inline gaps"},{"name":"sm-plus","px":10,"rem":"0.625rem","usage":"Dense tag padding, compact button icons"},{"name":"md","px":12,"rem":"0.75rem","usage":"Compact component padding — dense layouts, secondary surfaces"},{"name":"base","px":16,"rem":"1rem","usage":"Default component padding — cards, inputs, comfortable density"},{"name":"base-plus","px":20,"rem":"1.25rem","usage":"Comfortable component padding — the modern SaaS default (Linear, Vercel, Stripe)"},{"name":"lg","px":24,"rem":"1.5rem","usage":"Section padding, card gaps"},{"name":"xl","px":32,"rem":"2rem","usage":"Page margins, large gaps"},{"name":"xl-plus","px":40,"rem":"2.5rem","usage":"Section-header-to-content gap, large card spacing"},{"name":"2xl","px":48,"rem":"3rem","usage":"Section margins"},{"name":"2xl-plus","px":56,"rem":"3.5rem","usage":"Between major content blocks"},{"name":"3xl","px":64,"rem":"4rem","usage":"Page section spacing"},{"name":"4xl","px":80,"rem":"5rem","usage":"Page section spacing on desktop — hero breathing room"},{"name":"5xl","px":96,"rem":"6rem","usage":"Hero section spacing — prominent landing blocks"},{"name":"6xl","px":128,"rem":"8rem","usage":"Page hero spacing — full-viewport feature sections"}],"radii":{"lg":"14px","md":"12px","sm":"7px","xl":"17px","2xl":"17px","base":"14px","full":"9999px","system":"Ecosystem numbers: 7, 12, 14, 17. Buttons are always pill (rounded-full)."},"semanticColors":[{"name":"accent","light":"#E3F2FD","dark":"#001F3F","usage":"Hover fills, selected rows, soft highlights. Cobalt container."},{"name":"border","light":"#E7E5E0","dark":"#2A2927","usage":"Canonical border color — cards, inputs, dividers, tables. Warm stone, not cool gray."},{"name":"brand-accent","light":"#4B0082","dark":"#B388FF","usage":"Per-app/per-context saturated brand mineral for accent fills and CTAs. Defaults to tanzanite — the Mukoko/Nyuchi brand mineral. Swappable per app or per-event/category (nhimbe). Distinct from the semantic --accent (a pale container for hover/selected states)."},{"name":"destructive-container","light":"#FDEDED","dark":"#3E1818","usage":"Soft background behind destructive content. Follows mineral container pattern."},{"name":"error","light":"#B3261E","dark":"#F2B8B5","usage":"Error states, destructive actions"},{"name":"info","light":"#0047AB","dark":"#00B0FF","usage":"Informational states"},{"name":"input","light":"#FFFFFF","dark":"#100F0E","usage":"Form input background — same as surface. Pill-shape provides visual distinction."},{"name":"neutral","light":"#55514B","dark":"#A09C93","usage":"Neutral / inactive status, secondary data series"},{"name":"offline","light":"#674C32","dark":"#BA9570","usage":"Offline / disconnected state"},{"name":"primary","light":"#4B0082","dark":"#B388FF","usage":"Primary brand action color — tanzanite (the Mukoko/Nyuchi brand mineral). Maps to --color-tanzanite. Cobalt is the exceptional mineral for links/info only (see the info token) — do not use it as --primary."},{"name":"ring","light":"#0047AB","dark":"#00B0FF","usage":"Focus ring color — cobalt. 2px width, 2px offset (see brand_meta.accessibility)."},{"name":"success","light":"#004D40","dark":"#64FFDA","usage":"Success states, positive actions"},{"name":"syncing","light":"#1C5962","dark":"#36ABBA","usage":"In-progress sync / pending state"},{"name":"warning","light":"#7A5C00","dark":"#FFD866","usage":"Warning states, caution"}],"backgrounds":[{"name":"base","light":"#F3F3F1","dark":"#0E0D0C","usage":"Page background — ambient base surface (prime step P5)"},{"name":"container","light":"#E5E4E1","dark":"#1E1D1A","usage":"Neutral containers, grouped content (prime step P11)"},{"name":"muted","light":"#FAF9F5","dark":"#050504","usage":"Deepest fill — inset sections, metadata rows, maximum text contrast"},{"name":"overlay","light":"#E0DFDC","dark":"#23221F","usage":"Overlays and dialogs (prime step P13)"},{"name":"pitch","light":"#FAFAFA","dark":"#050505","usage":"Deepest surface — media wells, splash (prime step P2)"},{"name":"raised","light":"#D6D5D1","dark":"#2E2C29","usage":"Raised elements above overlay — menus, toasts (prime step P17)"},{"name":"scrim","light":"rgba(0,0,0,0.40)","dark":"rgba(0,0,0,0.60)","usage":"Semi-transparent backdrop behind overlays"},{"name":"surface","light":"#EEEEEC","dark":"#131211","usage":"Card / panel surface (prime step P7)"},{"name":"void","light":"#F8F8F7","dark":"#080807","usage":"App shell behind base (prime step P3)"},{"name":"wash","light":"color-mix(in oklab, var(--surface) 93%, var(--brand-accent))","dark":"color-mix(in oklab, var(--surface) 88%, var(--brand-accent))","usage":"Cover-colour page wash — surface tinted with the active brand accent (~7% light / ~12% dark)"}],"heritage":[{"name":"indigo","hex":"#7986CB","lightHex":"#4527A0","darkHex":"#7986CB","cssVar":"--color-indigo","origin":"Indigofera, West Africa textile tradition","symbolism":"Dusk, depth, the dyer's craft","usage":"Twilight surfaces, deep atmosphere, mini-app moods"},{"name":"savanna","hex":"#E5C158","lightHex":"#8D6E1A","darkHex":"#E5C158","cssVar":"--color-savanna","origin":"Sub-Saharan grasslands","symbolism":"Sun-dried grass, open land, the dry season","usage":"Warm grassland surfaces, daylight atmosphere"},{"name":"baobab","hex":"#A1887F","lightHex":"#4E342E","darkHex":"#A1887F","cssVar":"--color-baobab","origin":"Adansonia, across the African continent","symbolism":"The tree of life, age, shelter","usage":"Earthy surfaces, grounded atmosphere, bark tones"},{"name":"sunset","hex":"#FF7043","lightHex":"#D84315","darkHex":"#FF7043","cssVar":"--color-sunset","origin":"The African horizon at dusk","symbolism":"Day's end, warmth, the gathering hour","usage":"Warm accent surfaces, golden-hour atmosphere"},{"name":"river","hex":"#4DD0E1","lightHex":"#006064","darkHex":"#4DD0E1","cssVar":"--color-river","origin":"The great African rivers — Zambezi, Nile, Congo","symbolism":"Flow, life, the journey","usage":"Cool surfaces, flowing atmosphere, water tones"},{"name":"hematite","hex":"#90A4AE","lightHex":"#546E7A","darkHex":"#90A4AE","cssVar":"--color-hematite","origin":"Sishen & Thabazimbi, South Africa","symbolism":"Foundation, endurance, the substrate","usage":"Neutral anchor, mini-app surfaces, atmosphere"},{"name":"kalahari","hex":"#E8D9B5","lightHex":"#C9B589","darkHex":"#E8D9B5","cssVar":"--color-kalahari","origin":"Kalahari & Namib, Southern Africa","symbolism":"Openness, space, the light pole","usage":"Light anchor, warm backgrounds, mini-app surfaces"}],"experimental":[{"name":"ember","hex":"#DA8766","lightHex":"#843D20","darkHex":"#DA8766","containerLight":"#EBDFDB","containerDark":"#352721","onContainerLight":"#7A3115","onContainerDark":"#EBA68A","uiLight":"#CD5F33","uiDark":"#BB562D","cssVar":"--color-ember","heptagonIndex":0},{"name":"acacia","hex":"#93A528","lightHex":"#4D5615","darkHex":"#93A528","containerLight":"#E9EBDB","containerDark":"#333521","onContainerLight":"#48510E","onContainerDark":"#B6CE23","uiLight":"#7E8C22","uiDark":"#768420","cssVar":"--color-acacia","heptagonIndex":1},{"name":"fern","hex":"#2CB42B","lightHex":"#175E17","darkHex":"#2CB42B","containerLight":"#DBEBDB","containerDark":"#213521","onContainerLight":"#0F570F","onContainerDark":"#28DB28","uiLight":"#259725","uiDark":"#228D22","cssVar":"--color-fern","heptagonIndex":2},{"name":"lagoon","hex":"#2AAE9B","lightHex":"#165B51","darkHex":"#2AAE9B","containerLight":"#DBEBE9","containerDark":"#213532","onContainerLight":"#0E554B","onContainerDark":"#24D6BC","uiLight":"#249383","uiDark":"#218A7A","cssVar":"--color-lagoon","heptagonIndex":3},{"name":"storm","hex":"#7E9BE0","lightHex":"#284CA6","darkHex":"#7E9BE0","containerLight":"#DBE0EB","containerDark":"#212735","onContainerLight":"#1A409B","onContainerDark":"#99B2EE","uiLight":"#577BD6","uiDark":"#426CD1","cssVar":"--color-storm","heptagonIndex":4},{"name":"dusk","hex":"#BA87E2","lightHex":"#742AAD","darkHex":"#BA87E2","containerLight":"#E4DBEB","containerDark":"#2D2135","onContainerLight":"#661B9E","onContainerDark":"#CC9FEF","uiLight":"#A35DD8","uiDark":"#9749D3","cssVar":"--color-dusk","heptagonIndex":5},{"name":"protea","hex":"#DF7BB4","lightHex":"#932464","darkHex":"#DF7BB4","containerLight":"#EBDBE4","containerDark":"#35212D","onContainerLight":"#841656","onContainerDark":"#ED98C9","uiLight":"#D34998","uiDark":"#CA3188","cssVar":"--color-protea","heptagonIndex":6}],"componentSpecs":[{"name":"button","note":"Buttons are ALWAYS pill-shaped (rounded-full). Brand identity decision.","heights":{"lg":56,"sm":48,"icon":48,"default":56},"padding":"px-4 (sm), px-5 (default), px-6 (lg)","variants":["default","destructive","outline","secondary","ghost","link"],"borderRadius":9999,"minTouchTarget":48},{"name":"input","note":"Inputs are pill-shaped to match buttons.","heights":{"sm":48,"default":56},"padding":"px-4","variants":["default","error"],"borderRadius":9999,"minTouchTarget":48},{"name":"avatar","heights":{"lg":48,"sm":32,"xl":64,"xs":24,"default":40},"padding":"none","variants":["image","fallback"],"borderRadius":9999,"minTouchTarget":48},{"name":"badge","heights":{"default":22},"padding":"px-2.5 py-0.5","variants":["default","secondary","destructive","outline"],"borderRadius":9999,"minTouchTarget":48},{"name":"card","note":"Cards use --radius-lg (14px) with a full 1px border and compact 14px padding (4.2.0 density refresh).","heights":{"auto":0},"padding":"p-3.5","variants":["default","accented","clickable"],"borderRadius":14,"minTouchTarget":48},{"name":"dialog","note":"Dialogs use --radius-xl (17px).","heights":{"auto":0},"padding":"p-5","variants":["default"],"borderRadius":17,"minTouchTarget":48},{"name":"toggle","heights":{"default":24},"padding":"none","variants":["on","off"],"borderRadius":9999,"minTouchTarget":48},{"name":"checkbox","note":"Checkboxes use --radius-sm (7px).","heights":{"default":20},"padding":"none","variants":["checked","unchecked","indeterminate"],"borderRadius":7,"minTouchTarget":48},{"name":"tabs","note":"Tab triggers use --radius-xl (17px).","heights":{"default":48},"padding":"px-4","variants":["default","underline"],"borderRadius":17,"minTouchTarget":48}],"accessibility":{"standard":"APCA 3.0 AAA","screenReaders":"Semantic HTML with ARIA attributes where needed","focusIndicator":"2px ring with ring-offset-2, using --ring token","minTouchTarget":48,"defaultTouchTarget":56,"keyboardNavigation":"Full keyboard support via Radix UI primitives","contrastDescription":"Advanced Perceptual Contrast Algorithm for superior readability across all mineral colors"},"voiceAndTone":{"doList":["Use lowercase for all brand wordmarks (mukoko, nyuchi, shamwari, bundu, nhimbe)","Reference African origins and meanings when contextually appropriate","Write in a way that welcomes both technical and non-technical readers","Use inclusive language that reflects Ubuntu philosophy"],"dontList":["Don't capitalize brand wordmarks (not Mukoko, not NYUCHI)","Don't use overly formal or corporate language","Don't assume Western-centric cultural references","Don't use jargon without explanation"],"principles":["Speak like a knowledgeable friend, not a corporation","Use simple, clear language — avoid jargon","Be warm and encouraging, never condescending","Respect African cultural context and diversity","Prefer active voice and direct address"]},"philosophy":{"name":"Ubuntu","shona":"Ndiri nekuti tiri","meaning":"I am because we are","triMode":[{"name":"Musha","meaning":"Home","description":"The foreground experience — the app you open and dwell in."},{"name":"Basa","meaning":"Work","description":"The background service — data and capabilities other apps consume."},{"name":"Nhaka","meaning":"Heritage","description":"The open data contribution — anonymised data flowing into the continental knowledge commons."}],"covenants":["We will never sell your personal data.","We will never design for addiction.","We will never let advertisers control what you see.","We will never abandon African creators.","We will never choose proprietary when open source is adequate.","We will never treat African languages as an afterthought.","We will never abandon our values when growth demands it."],"description":"Every decision we make, every feature we build, every line of code we write runs through a single filter: does this strengthen the community, or does it extract from it?","ubuntuPillars":[{"name":"family","shona":"Mhuri","title":"Family"},{"name":"community","shona":"Nharaunda","title":"Community"},{"name":"society","shona":"Vanhu","title":"Society"},{"name":"environment","shona":"Zvakatipoteredza","title":"Environment"},{"name":"spirituality","shona":"Unhu","title":"Spirituality"}],"ubuntuQuestions":["Does this strengthen community?","Does this respect human dignity?","Does this serve the collective good?","Would we explain this proudly to our elders?","Does this align with 'I am because we are'?"],"ubuntuPrinciples":[{"name":"survival","shona":"Kurarama","title":"Survival"},{"name":"solidarity","shona":"Kubatana","title":"Solidarity"},{"name":"compassion","shona":"Tsitsi","title":"Compassion"},{"name":"respect","shona":"Ruremekedzo","title":"Respect"},{"name":"dignity","shona":"Chiremerera","title":"Dignity"}],"architecturalPillars":[{"name":"Local-First","description":"The device is the primary processing surface. Works in a village with 2G."},{"name":"Mobile-First","description":"Built for the reality of the African smartphone market, not San Francisco."},{"name":"Open Source","description":"Every critical dependency is sovereign. Speed is rented, truth is owned."},{"name":"Open Data","description":"Platform data belongs to Africa. Personal data stays sovereign in your pod."}]}}
+{
+  "$schema": "https://mzizi.dev/schema/brand.json",
+  "@context": "https://schema.org",
+  "@type": "Brand",
+  "version": "4.0.31",
+  "name": "The Bundu Brand System",
+  "lastUpdated": "2026-07-13",
+  "homepage": "https://mzizi.dev/brand",
+  "minerals": [
+    {
+      "name": "cobalt",
+      "hex": "#0047AB",
+      "lightHex": "#0047AB",
+      "darkHex": "#00B0FF",
+      "containerLight": "#E3F2FD",
+      "containerDark": "#001F3F",
+      "cssVar": "--color-cobalt",
+      "origin": "Katanga (DRC) and Zambian Copperbelt",
+      "symbolism": "Digital future, trust, knowledge",
+      "usage": "Primary blue, links, CTAs"
+    },
+    {
+      "name": "tanzanite",
+      "hex": "#B388FF",
+      "lightHex": "#4B0082",
+      "darkHex": "#B388FF",
+      "containerLight": "#F3E5F5",
+      "containerDark": "#1A0033",
+      "cssVar": "--color-tanzanite",
+      "origin": "Merelani Hills, Tanzania",
+      "symbolism": "Premium, creativity, connection",
+      "usage": "Purple accent, brand/logo, social features"
+    },
+    {
+      "name": "malachite",
+      "hex": "#64FFDA",
+      "lightHex": "#004D40",
+      "darkHex": "#64FFDA",
+      "containerLight": "#E0F2F1",
+      "containerDark": "#00251A",
+      "cssVar": "--color-malachite",
+      "origin": "Congo Copper Belt",
+      "symbolism": "Growth, nature, success",
+      "usage": "Success states, positive actions"
+    },
+    {
+      "name": "gold",
+      "hex": "#FFD740",
+      "lightHex": "#5D4037",
+      "darkHex": "#FFD740",
+      "containerLight": "#FFF8E1",
+      "containerDark": "#332200",
+      "cssVar": "--color-gold",
+      "origin": "Ghana, South Africa, Mali",
+      "symbolism": "Honey, rewards, warmth",
+      "usage": "Achievements, rewards, highlights"
+    },
+    {
+      "name": "terracotta",
+      "hex": "#A0522D",
+      "lightHex": "#A0522D",
+      "darkHex": "#E1B07E",
+      "containerLight": "#F5E6D3",
+      "containerDark": "#3E2817",
+      "cssVar": "--color-terracotta",
+      "origin": "Pan-African Sahel",
+      "symbolism": "Earth, community, grounding",
+      "usage": "Community features, warmth"
+    },
+    {
+      "name": "sodalite",
+      "hex": "#283593",
+      "lightHex": "#283593",
+      "darkHex": "#3D5AFE",
+      "containerLight": "#E8EAF6",
+      "containerDark": "#0D1442",
+      "cssVar": "--color-sodalite",
+      "origin": "Kunene River, Namibia & South Africa",
+      "symbolism": "Intelligence, depth, reasoning",
+      "usage": "AI/Shamwari surfaces, deep-reasoning states"
+    },
+    {
+      "name": "copper",
+      "hex": "#BF5A36",
+      "lightHex": "#BF5A36",
+      "darkHex": "#FF8A65",
+      "containerLight": "#FBE4DA",
+      "containerDark": "#3A1A0E",
+      "cssVar": "--color-copper",
+      "origin": "Central African Copperbelt, Zambia & DRC",
+      "symbolism": "Connection, foundation, stewardship",
+      "usage": "Bundu ecosystem identity, the commons"
+    }
+  ],
+  "ecosystem": [
+    {
+      "name": "bundu",
+      "meaning": "Wilderness",
+      "language": "Shona",
+      "role": "The ecosystem",
+      "description": "The complete ecosystem built by Nyuchi Africa. Three pillars — mukoko (consumer super app), nyuchi (enterprise layer), and sister brands (specialist verticals) — all connected through one identity, one design system, and one open data commons.",
+      "voice": "Visionary, grounded, inclusive",
+      "mineral": "copper",
+      "url": "https://www.bundu.org"
+    },
+    {
+      "name": "nyuchi",
+      "meaning": "Bee",
+      "language": "Shona",
+      "role": "Infrastructure & enterprise",
+      "description": "Seven enterprise products, each with its own consumer interface and business-facing tools. API platform, web services, learning, medical, rentals, tools, and SEO manager. Every nyuchi product is a standalone product, a door into the mukoko platform, and a professional surface for the same ecosystem.",
+      "voice": "Technical, reliable, industrious",
+      "mineral": "gold",
+      "url": "https://nyuchi.com"
+    },
+    {
+      "name": "mukoko",
+      "meaning": "Beehive",
+      "language": "Shona",
+      "role": "Africa's super app",
+      "description": "A growing net of mini-apps — founded seventeen, four substrate components, one unified identity — grown under the Bundu Order. The digital home where a billion Africans' social, creative, commercial, civic, and economic lives belong.",
+      "voice": "Welcoming, structured, protective",
+      "mineral": "tanzanite",
+      "url": "https://mukoko.com"
+    },
+    {
+      "name": "shamwari",
+      "meaning": "Friend",
+      "language": "Shona",
+      "role": "Sovereign AI companion",
+      "description": "The Digital Twin's conversational interface. Three layers of intelligence — personal (your pod data), community (anonymised platform data), and platform (base mukoko knowledge). A friend that serves; a friend that does not control.",
+      "voice": "Helpful, warm, intelligent",
+      "mineral": "sodalite",
+      "url": "https://shamwari.ai"
+    },
+    {
+      "name": "nhimbe",
+      "meaning": "Gathering",
+      "language": "Shona",
+      "role": "Events & gatherings",
+      "description": "Community events and cultural gatherings. Standalone brand calling the same platform API. Edge-first check-in via geographic Durable Objects for sub-10ms ticket validation at venue doors.",
+      "voice": "Celebratory, communal, vibrant",
+      "mineral": "malachite",
+      "url": "https://nhimbe.com"
+    },
+    {
+      "name": "bushtrade",
+      "meaning": "Bush trade",
+      "language": "English/Shona",
+      "role": "Marketplace",
+      "description": "Rentals-first marketplace for Zimbabwe and beyond. Business verification through the platform's unified submissions pipeline. Escrow-backed payments via mukoko wallet. Seller conversations flow through Campfire.",
+      "voice": "Practical, trustworthy, local",
+      "mineral": "gold",
+      "url": "https://bushtrade.co.zw"
+    },
+    {
+      "name": "lingo",
+      "meaning": "Language",
+      "language": "English",
+      "role": "Language learning",
+      "description": "African language learning. Shona and Ndebele as primaries, English, French, Portuguese, and travel phrases. The product expression of mukoko's commitment to treating African languages as first-class citizens.",
+      "voice": "Encouraging, cultural, playful",
+      "mineral": "cobalt",
+      "url": "https://lingo.mukoko.com"
+    },
+    {
+      "name": "campfire",
+      "meaning": "Campfire",
+      "language": "English",
+      "role": "Platform messaging anchor",
+      "description": "All messaging and cross-app communications. The architectural anchor of the ecosystem.",
+      "voice": "Direct, warm, always present",
+      "mineral": "malachite",
+      "url": "https://campfire.mukoko.com"
+    },
+    {
+      "name": "bytes",
+      "meaning": "Bytes",
+      "language": "English",
+      "role": "Short-form creator video",
+      "description": "African creator video platform competing with TikTok.",
+      "voice": "Energetic, creative, youthful",
+      "mineral": "tanzanite",
+      "url": "https://bytes.mukoko.com"
+    },
+    {
+      "name": "novels",
+      "meaning": "Novels",
+      "language": "English",
+      "role": "Publishing platform",
+      "description": "Long-form publishing with 10 work types, co-authorship, and revenue splitting.",
+      "voice": "Literary, thoughtful, immersive",
+      "mineral": "malachite",
+      "url": "https://novels.mukoko.com"
+    },
+    {
+      "name": "places",
+      "meaning": "Places",
+      "language": "English",
+      "role": "Geographic knowledge graph",
+      "description": "Africa's rival to Google Business Profile + Maps for formal and informal economies.",
+      "voice": "Authoritative, helpful, discoverable",
+      "mineral": "gold",
+      "url": "https://places.mukoko.com"
+    },
+    {
+      "name": "transport",
+      "meaning": "Transport",
+      "language": "English",
+      "role": "Public transit and booking",
+      "description": "Public transit routing, vehicle booking, commute planning for African cities.",
+      "voice": "Efficient, reliable, practical",
+      "mineral": "gold",
+      "url": "https://transport.mukoko.com"
+    },
+    {
+      "name": "planner",
+      "meaning": "Planner",
+      "language": "English",
+      "role": "Productivity hub",
+      "description": "Calendar, tasks, notes, bookings — single source of truth for scheduling.",
+      "voice": "Organised, clear, supportive",
+      "mineral": "cobalt",
+      "url": "https://planner.mukoko.com"
+    },
+    {
+      "name": "wallet",
+      "meaning": "Wallet",
+      "language": "English",
+      "role": "Payments and tokens",
+      "description": "MUKOKO tokens, mobile money, bank transfers. No bank account required.",
+      "voice": "Trustworthy, precise, secure",
+      "mineral": "gold",
+      "url": "https://wallet.mukoko.com"
+    },
+    {
+      "name": "pulse",
+      "meaning": "Pulse",
+      "language": "English",
+      "role": "Feed and Mukoko Home",
+      "description": "Personalised content feed and agentic dashboard.",
+      "voice": "Personal, adaptive, ambient",
+      "mineral": "tanzanite",
+      "url": "https://pulse.mukoko.com"
+    },
+    {
+      "name": "health",
+      "meaning": "Health",
+      "language": "English",
+      "role": "Wellness and telemedicine",
+      "description": "Health info, telemedicine booking, medication reminders. Connected to Nyuchi Medical.",
+      "voice": "Caring, accurate, private",
+      "mineral": "malachite",
+      "url": "https://health.mukoko.com"
+    },
+    {
+      "name": "circles",
+      "meaning": "Circles",
+      "language": "English",
+      "role": "Community messaging",
+      "description": "Community channels — WhatsApp groups, Discord servers for Africa.",
+      "voice": "Inclusive, moderated, community-driven",
+      "mineral": "terracotta",
+      "url": "https://circles.mukoko.com"
+    }
+  ],
+  "typography": {
+    "fonts": {
+      "sans": {
+        "family": "Noto Sans",
+        "usage": "All body text, UI labels",
+        "reason": "Broad language support including African languages and diacritics"
+      },
+      "serif": {
+        "family": "Noto Serif",
+        "usage": "Page titles, hero text, display headings",
+        "reason": "Elegant display type with matching language coverage"
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "usage": "Code blocks, terminal output, technical content",
+        "reason": "Purpose-built for developer readability"
+      }
+    },
+    "scale": [
+      {
+        "name": "Display",
+        "sizePx": 72,
+        "sizeRem": "4.5rem",
+        "lineHeight": "1.1",
+        "weight": 700,
+        "font": "serif",
+        "usage": "Hero headlines, landing pages"
+      },
+      {
+        "name": "Display Small",
+        "sizePx": 60,
+        "sizeRem": "3.75rem",
+        "lineHeight": "1.1",
+        "weight": 700,
+        "font": "serif",
+        "usage": "Secondary hero headlines, landing page sub-hero sections"
+      },
+      {
+        "name": "H1",
+        "sizePx": 48,
+        "sizeRem": "3rem",
+        "lineHeight": "1.15",
+        "weight": 700,
+        "font": "serif",
+        "usage": "Page titles"
+      },
+      {
+        "name": "H2",
+        "sizePx": 36,
+        "sizeRem": "2.25rem",
+        "lineHeight": "1.2",
+        "weight": 600,
+        "font": "serif",
+        "usage": "Section headings"
+      },
+      {
+        "name": "H3",
+        "sizePx": 30,
+        "sizeRem": "1.875rem",
+        "lineHeight": "1.25",
+        "weight": 600,
+        "font": "serif",
+        "usage": "Sub-section headings"
+      },
+      {
+        "name": "H4",
+        "sizePx": 24,
+        "sizeRem": "1.5rem",
+        "lineHeight": "1.3",
+        "weight": 600,
+        "font": "sans",
+        "usage": "Card titles, group headings"
+      },
+      {
+        "name": "H5",
+        "sizePx": 20,
+        "sizeRem": "1.25rem",
+        "lineHeight": "1.4",
+        "weight": 600,
+        "font": "sans",
+        "usage": "Small headings"
+      },
+      {
+        "name": "H6",
+        "sizePx": 16,
+        "sizeRem": "1rem",
+        "lineHeight": "1.4",
+        "weight": 600,
+        "font": "sans",
+        "usage": "Nested headings in long-form content, legal pages, deep documentation"
+      },
+      {
+        "name": "Body Large",
+        "sizePx": 18,
+        "sizeRem": "1.125rem",
+        "lineHeight": "1.6",
+        "weight": 400,
+        "font": "sans",
+        "usage": "Lead paragraphs"
+      },
+      {
+        "name": "Body",
+        "sizePx": 16,
+        "sizeRem": "1rem",
+        "lineHeight": "1.6",
+        "weight": 400,
+        "font": "sans",
+        "usage": "Default body text"
+      },
+      {
+        "name": "Body Small",
+        "sizePx": 14,
+        "sizeRem": "0.875rem",
+        "lineHeight": "1.5",
+        "weight": 400,
+        "font": "sans",
+        "usage": "Secondary text, descriptions"
+      },
+      {
+        "name": "Caption",
+        "sizePx": 12,
+        "sizeRem": "0.75rem",
+        "lineHeight": "1.5",
+        "weight": 400,
+        "font": "sans",
+        "usage": "Labels, metadata, timestamps"
+      },
+      {
+        "name": "Code",
+        "sizePx": 14,
+        "sizeRem": "0.875rem",
+        "lineHeight": "1.6",
+        "weight": 400,
+        "font": "mono",
+        "usage": "Code blocks, terminal output"
+      }
+    ]
+  },
+  "spacing": [
+    {
+      "name": "xxs",
+      "px": 2,
+      "rem": "0.125rem",
+      "usage": "Hairline gaps — chip-in-chip, icon-to-badge, inline meta separators"
+    },
+    {
+      "name": "xs",
+      "px": 4,
+      "rem": "0.25rem",
+      "usage": "Tight gaps, icon padding"
+    },
+    {
+      "name": "xs-plus",
+      "px": 6,
+      "rem": "0.375rem",
+      "usage": "Icon-to-text offset, tight inline spacing"
+    },
+    {
+      "name": "sm",
+      "px": 8,
+      "rem": "0.5rem",
+      "usage": "Compact spacing, inline gaps"
+    },
+    {
+      "name": "sm-plus",
+      "px": 10,
+      "rem": "0.625rem",
+      "usage": "Dense tag padding, compact button icons"
+    },
+    {
+      "name": "md",
+      "px": 12,
+      "rem": "0.75rem",
+      "usage": "Compact component padding — dense layouts, secondary surfaces"
+    },
+    {
+      "name": "base",
+      "px": 16,
+      "rem": "1rem",
+      "usage": "Default component padding — cards, inputs, comfortable density"
+    },
+    {
+      "name": "base-plus",
+      "px": 20,
+      "rem": "1.25rem",
+      "usage": "Comfortable component padding — the modern SaaS default (Linear, Vercel, Stripe)"
+    },
+    {
+      "name": "lg",
+      "px": 24,
+      "rem": "1.5rem",
+      "usage": "Section padding, card gaps"
+    },
+    {
+      "name": "xl",
+      "px": 32,
+      "rem": "2rem",
+      "usage": "Page margins, large gaps"
+    },
+    {
+      "name": "xl-plus",
+      "px": 40,
+      "rem": "2.5rem",
+      "usage": "Section-header-to-content gap, large card spacing"
+    },
+    { "name": "2xl", "px": 48, "rem": "3rem", "usage": "Section margins" },
+    {
+      "name": "2xl-plus",
+      "px": 56,
+      "rem": "3.5rem",
+      "usage": "Between major content blocks"
+    },
+    { "name": "3xl", "px": 64, "rem": "4rem", "usage": "Page section spacing" },
+    {
+      "name": "4xl",
+      "px": 80,
+      "rem": "5rem",
+      "usage": "Page section spacing on desktop — hero breathing room"
+    },
+    {
+      "name": "5xl",
+      "px": 96,
+      "rem": "6rem",
+      "usage": "Hero section spacing — prominent landing blocks"
+    },
+    {
+      "name": "6xl",
+      "px": 128,
+      "rem": "8rem",
+      "usage": "Page hero spacing — full-viewport feature sections"
+    }
+  ],
+  "radii": {
+    "lg": "14px",
+    "md": "12px",
+    "sm": "7px",
+    "xl": "17px",
+    "2xl": "17px",
+    "base": "14px",
+    "full": "9999px",
+    "system": "Ecosystem numbers: 7, 12, 14, 17. Buttons are always pill (rounded-full)."
+  },
+  "semanticColors": [
+    {
+      "name": "accent",
+      "light": "#E3F2FD",
+      "dark": "#001F3F",
+      "usage": "Hover fills, selected rows, soft highlights. Cobalt container."
+    },
+    {
+      "name": "border",
+      "light": "#E7E5E0",
+      "dark": "#2A2927",
+      "usage": "Canonical border color — cards, inputs, dividers, tables. Warm stone, not cool gray."
+    },
+    {
+      "name": "brand-accent",
+      "light": "#4B0082",
+      "dark": "#B388FF",
+      "usage": "Per-app/per-context saturated brand mineral for accent fills and CTAs. Defaults to tanzanite — the Mukoko/Nyuchi brand mineral. Swappable per app or per-event/category (nhimbe). Distinct from the semantic --accent (a pale container for hover/selected states)."
+    },
+    {
+      "name": "destructive-container",
+      "light": "#FDEDED",
+      "dark": "#3E1818",
+      "usage": "Soft background behind destructive content. Follows mineral container pattern."
+    },
+    {
+      "name": "error",
+      "light": "#B3261E",
+      "dark": "#F2B8B5",
+      "usage": "Error states, destructive actions"
+    },
+    {
+      "name": "info",
+      "light": "#0047AB",
+      "dark": "#00B0FF",
+      "usage": "Informational states"
+    },
+    {
+      "name": "input",
+      "light": "#FFFFFF",
+      "dark": "#100F0E",
+      "usage": "Form input background — same as surface. Pill-shape provides visual distinction."
+    },
+    {
+      "name": "neutral",
+      "light": "#55514B",
+      "dark": "#A09C93",
+      "usage": "Neutral / inactive status, secondary data series"
+    },
+    {
+      "name": "offline",
+      "light": "#674C32",
+      "dark": "#BA9570",
+      "usage": "Offline / disconnected state"
+    },
+    {
+      "name": "primary",
+      "light": "#4B0082",
+      "dark": "#B388FF",
+      "usage": "Primary brand action color — tanzanite (the Mukoko/Nyuchi brand mineral). Maps to --color-tanzanite. Cobalt is the exceptional mineral for links/info only (see the info token) — do not use it as --primary."
+    },
+    {
+      "name": "ring",
+      "light": "#0047AB",
+      "dark": "#00B0FF",
+      "usage": "Focus ring color — cobalt. 2px width, 2px offset (see brand_meta.accessibility)."
+    },
+    {
+      "name": "success",
+      "light": "#004D40",
+      "dark": "#64FFDA",
+      "usage": "Success states, positive actions"
+    },
+    {
+      "name": "syncing",
+      "light": "#1C5962",
+      "dark": "#36ABBA",
+      "usage": "In-progress sync / pending state"
+    },
+    {
+      "name": "warning",
+      "light": "#7A5C00",
+      "dark": "#FFD866",
+      "usage": "Warning states, caution"
+    }
+  ],
+  "backgrounds": [
+    {
+      "name": "base",
+      "light": "#F3F3F1",
+      "dark": "#0E0D0C",
+      "usage": "Page background — ambient base surface (prime step P5)"
+    },
+    {
+      "name": "container",
+      "light": "#E5E4E1",
+      "dark": "#1E1D1A",
+      "usage": "Neutral containers, grouped content (prime step P11)"
+    },
+    {
+      "name": "muted",
+      "light": "#FAF9F5",
+      "dark": "#050504",
+      "usage": "Deepest fill — inset sections, metadata rows, maximum text contrast"
+    },
+    {
+      "name": "overlay",
+      "light": "#E0DFDC",
+      "dark": "#23221F",
+      "usage": "Overlays and dialogs (prime step P13)"
+    },
+    {
+      "name": "pitch",
+      "light": "#FAFAFA",
+      "dark": "#050505",
+      "usage": "Deepest surface — media wells, splash (prime step P2)"
+    },
+    {
+      "name": "raised",
+      "light": "#D6D5D1",
+      "dark": "#2E2C29",
+      "usage": "Raised elements above overlay — menus, toasts (prime step P17)"
+    },
+    {
+      "name": "scrim",
+      "light": "rgba(0,0,0,0.40)",
+      "dark": "rgba(0,0,0,0.60)",
+      "usage": "Semi-transparent backdrop behind overlays"
+    },
+    {
+      "name": "surface",
+      "light": "#EEEEEC",
+      "dark": "#131211",
+      "usage": "Card / panel surface (prime step P7)"
+    },
+    {
+      "name": "void",
+      "light": "#F8F8F7",
+      "dark": "#080807",
+      "usage": "App shell behind base (prime step P3)"
+    },
+    {
+      "name": "wash",
+      "light": "color-mix(in oklab, var(--surface) 93%, var(--brand-accent))",
+      "dark": "color-mix(in oklab, var(--surface) 88%, var(--brand-accent))",
+      "usage": "Cover-colour page wash — surface tinted with the active brand accent (~7% light / ~12% dark)"
+    }
+  ],
+  "heritage": [
+    {
+      "name": "indigo",
+      "hex": "#7986CB",
+      "lightHex": "#4527A0",
+      "darkHex": "#7986CB",
+      "cssVar": "--color-indigo",
+      "origin": "Indigofera, West Africa textile tradition",
+      "symbolism": "Dusk, depth, the dyer's craft",
+      "usage": "Twilight surfaces, deep atmosphere, mini-app moods"
+    },
+    {
+      "name": "savanna",
+      "hex": "#E5C158",
+      "lightHex": "#8D6E1A",
+      "darkHex": "#E5C158",
+      "cssVar": "--color-savanna",
+      "origin": "Sub-Saharan grasslands",
+      "symbolism": "Sun-dried grass, open land, the dry season",
+      "usage": "Warm grassland surfaces, daylight atmosphere"
+    },
+    {
+      "name": "baobab",
+      "hex": "#A1887F",
+      "lightHex": "#4E342E",
+      "darkHex": "#A1887F",
+      "cssVar": "--color-baobab",
+      "origin": "Adansonia, across the African continent",
+      "symbolism": "The tree of life, age, shelter",
+      "usage": "Earthy surfaces, grounded atmosphere, bark tones"
+    },
+    {
+      "name": "sunset",
+      "hex": "#FF7043",
+      "lightHex": "#D84315",
+      "darkHex": "#FF7043",
+      "cssVar": "--color-sunset",
+      "origin": "The African horizon at dusk",
+      "symbolism": "Day's end, warmth, the gathering hour",
+      "usage": "Warm accent surfaces, golden-hour atmosphere"
+    },
+    {
+      "name": "river",
+      "hex": "#4DD0E1",
+      "lightHex": "#006064",
+      "darkHex": "#4DD0E1",
+      "cssVar": "--color-river",
+      "origin": "The great African rivers — Zambezi, Nile, Congo",
+      "symbolism": "Flow, life, the journey",
+      "usage": "Cool surfaces, flowing atmosphere, water tones"
+    },
+    {
+      "name": "hematite",
+      "hex": "#90A4AE",
+      "lightHex": "#546E7A",
+      "darkHex": "#90A4AE",
+      "cssVar": "--color-hematite",
+      "origin": "Sishen & Thabazimbi, South Africa",
+      "symbolism": "Foundation, endurance, the substrate",
+      "usage": "Neutral anchor, mini-app surfaces, atmosphere"
+    },
+    {
+      "name": "kalahari",
+      "hex": "#E8D9B5",
+      "lightHex": "#C9B589",
+      "darkHex": "#E8D9B5",
+      "cssVar": "--color-kalahari",
+      "origin": "Kalahari & Namib, Southern Africa",
+      "symbolism": "Openness, space, the light pole",
+      "usage": "Light anchor, warm backgrounds, mini-app surfaces"
+    }
+  ],
+  "experimental": [
+    {
+      "name": "ember",
+      "hex": "#DA8766",
+      "lightHex": "#843D20",
+      "darkHex": "#DA8766",
+      "containerLight": "#EBDFDB",
+      "containerDark": "#352721",
+      "onContainerLight": "#7A3115",
+      "onContainerDark": "#EBA68A",
+      "uiLight": "#CD5F33",
+      "uiDark": "#BB562D",
+      "cssVar": "--color-ember",
+      "heptagonIndex": 0
+    },
+    {
+      "name": "acacia",
+      "hex": "#93A528",
+      "lightHex": "#4D5615",
+      "darkHex": "#93A528",
+      "containerLight": "#E9EBDB",
+      "containerDark": "#333521",
+      "onContainerLight": "#48510E",
+      "onContainerDark": "#B6CE23",
+      "uiLight": "#7E8C22",
+      "uiDark": "#768420",
+      "cssVar": "--color-acacia",
+      "heptagonIndex": 1
+    },
+    {
+      "name": "fern",
+      "hex": "#2CB42B",
+      "lightHex": "#175E17",
+      "darkHex": "#2CB42B",
+      "containerLight": "#DBEBDB",
+      "containerDark": "#213521",
+      "onContainerLight": "#0F570F",
+      "onContainerDark": "#28DB28",
+      "uiLight": "#259725",
+      "uiDark": "#228D22",
+      "cssVar": "--color-fern",
+      "heptagonIndex": 2
+    },
+    {
+      "name": "lagoon",
+      "hex": "#2AAE9B",
+      "lightHex": "#165B51",
+      "darkHex": "#2AAE9B",
+      "containerLight": "#DBEBE9",
+      "containerDark": "#213532",
+      "onContainerLight": "#0E554B",
+      "onContainerDark": "#24D6BC",
+      "uiLight": "#249383",
+      "uiDark": "#218A7A",
+      "cssVar": "--color-lagoon",
+      "heptagonIndex": 3
+    },
+    {
+      "name": "storm",
+      "hex": "#7E9BE0",
+      "lightHex": "#284CA6",
+      "darkHex": "#7E9BE0",
+      "containerLight": "#DBE0EB",
+      "containerDark": "#212735",
+      "onContainerLight": "#1A409B",
+      "onContainerDark": "#99B2EE",
+      "uiLight": "#577BD6",
+      "uiDark": "#426CD1",
+      "cssVar": "--color-storm",
+      "heptagonIndex": 4
+    },
+    {
+      "name": "dusk",
+      "hex": "#BA87E2",
+      "lightHex": "#742AAD",
+      "darkHex": "#BA87E2",
+      "containerLight": "#E4DBEB",
+      "containerDark": "#2D2135",
+      "onContainerLight": "#661B9E",
+      "onContainerDark": "#CC9FEF",
+      "uiLight": "#A35DD8",
+      "uiDark": "#9749D3",
+      "cssVar": "--color-dusk",
+      "heptagonIndex": 5
+    },
+    {
+      "name": "protea",
+      "hex": "#DF7BB4",
+      "lightHex": "#932464",
+      "darkHex": "#DF7BB4",
+      "containerLight": "#EBDBE4",
+      "containerDark": "#35212D",
+      "onContainerLight": "#841656",
+      "onContainerDark": "#ED98C9",
+      "uiLight": "#D34998",
+      "uiDark": "#CA3188",
+      "cssVar": "--color-protea",
+      "heptagonIndex": 6
+    }
+  ],
+  "componentSpecs": [
+    {
+      "name": "button",
+      "note": "Buttons are ALWAYS pill-shaped (rounded-full). Brand identity decision.",
+      "heights": { "lg": 56, "sm": 48, "icon": 48, "default": 56 },
+      "padding": "px-4 (sm), px-5 (default), px-6 (lg)",
+      "variants": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ],
+      "borderRadius": 9999,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "input",
+      "note": "Inputs are pill-shaped to match buttons.",
+      "heights": { "sm": 48, "default": 56 },
+      "padding": "px-4",
+      "variants": ["default", "error"],
+      "borderRadius": 9999,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "avatar",
+      "heights": { "lg": 48, "sm": 32, "xl": 64, "xs": 24, "default": 40 },
+      "padding": "none",
+      "variants": ["image", "fallback"],
+      "borderRadius": 9999,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "badge",
+      "heights": { "default": 22 },
+      "padding": "px-2.5 py-0.5",
+      "variants": ["default", "secondary", "destructive", "outline"],
+      "borderRadius": 9999,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "card",
+      "note": "Cards use --radius-lg (14px) with a full 1px border and compact 14px padding (4.2.0 density refresh).",
+      "heights": { "auto": 0 },
+      "padding": "p-3.5",
+      "variants": ["default", "accented", "clickable"],
+      "borderRadius": 14,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "dialog",
+      "note": "Dialogs use --radius-xl (17px).",
+      "heights": { "auto": 0 },
+      "padding": "p-5",
+      "variants": ["default"],
+      "borderRadius": 17,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "toggle",
+      "heights": { "default": 24 },
+      "padding": "none",
+      "variants": ["on", "off"],
+      "borderRadius": 9999,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "checkbox",
+      "note": "Checkboxes use --radius-sm (7px).",
+      "heights": { "default": 20 },
+      "padding": "none",
+      "variants": ["checked", "unchecked", "indeterminate"],
+      "borderRadius": 7,
+      "minTouchTarget": 48
+    },
+    {
+      "name": "tabs",
+      "note": "Tab triggers use --radius-xl (17px).",
+      "heights": { "default": 48 },
+      "padding": "px-4",
+      "variants": ["default", "underline"],
+      "borderRadius": 17,
+      "minTouchTarget": 48
+    }
+  ],
+  "accessibility": {
+    "standard": "APCA 3.0 AAA",
+    "screenReaders": "Semantic HTML with ARIA attributes where needed",
+    "focusIndicator": "2px ring with ring-offset-2, using --ring token",
+    "minTouchTarget": 48,
+    "defaultTouchTarget": 56,
+    "keyboardNavigation": "Full keyboard support via Radix UI primitives",
+    "contrastDescription": "Advanced Perceptual Contrast Algorithm for superior readability across all mineral colors"
+  },
+  "voiceAndTone": {
+    "doList": [
+      "Use lowercase for all brand wordmarks (mukoko, nyuchi, shamwari, bundu, nhimbe)",
+      "Reference African origins and meanings when contextually appropriate",
+      "Write in a way that welcomes both technical and non-technical readers",
+      "Use inclusive language that reflects Ubuntu philosophy"
+    ],
+    "dontList": [
+      "Don't capitalize brand wordmarks (not Mukoko, not NYUCHI)",
+      "Don't use overly formal or corporate language",
+      "Don't assume Western-centric cultural references",
+      "Don't use jargon without explanation"
+    ],
+    "principles": [
+      "Speak like a knowledgeable friend, not a corporation",
+      "Use simple, clear language — avoid jargon",
+      "Be warm and encouraging, never condescending",
+      "Respect African cultural context and diversity",
+      "Prefer active voice and direct address"
+    ]
+  },
+  "philosophy": {
+    "name": "Ubuntu",
+    "shona": "Ndiri nekuti tiri",
+    "meaning": "I am because we are",
+    "triMode": [
+      {
+        "name": "Musha",
+        "meaning": "Home",
+        "description": "The foreground experience — the app you open and dwell in."
+      },
+      {
+        "name": "Basa",
+        "meaning": "Work",
+        "description": "The background service — data and capabilities other apps consume."
+      },
+      {
+        "name": "Nhaka",
+        "meaning": "Heritage",
+        "description": "The open data contribution — anonymised data flowing into the continental knowledge commons."
+      }
+    ],
+    "covenants": [
+      "We will never sell your personal data.",
+      "We will never design for addiction.",
+      "We will never let advertisers control what you see.",
+      "We will never abandon African creators.",
+      "We will never choose proprietary when open source is adequate.",
+      "We will never treat African languages as an afterthought.",
+      "We will never abandon our values when growth demands it."
+    ],
+    "description": "Every decision we make, every feature we build, every line of code we write runs through a single filter: does this strengthen the community, or does it extract from it?",
+    "ubuntuPillars": [
+      { "name": "family", "shona": "Mhuri", "title": "Family" },
+      { "name": "community", "shona": "Nharaunda", "title": "Community" },
+      { "name": "society", "shona": "Vanhu", "title": "Society" },
+      {
+        "name": "environment",
+        "shona": "Zvakatipoteredza",
+        "title": "Environment"
+      },
+      { "name": "spirituality", "shona": "Unhu", "title": "Spirituality" }
+    ],
+    "ubuntuQuestions": [
+      "Does this strengthen community?",
+      "Does this respect human dignity?",
+      "Does this serve the collective good?",
+      "Would we explain this proudly to our elders?",
+      "Does this align with 'I am because we are'?"
+    ],
+    "ubuntuPrinciples": [
+      { "name": "survival", "shona": "Kurarama", "title": "Survival" },
+      { "name": "solidarity", "shona": "Kubatana", "title": "Solidarity" },
+      { "name": "compassion", "shona": "Tsitsi", "title": "Compassion" },
+      { "name": "respect", "shona": "Ruremekedzo", "title": "Respect" },
+      { "name": "dignity", "shona": "Chiremerera", "title": "Dignity" }
+    ],
+    "architecturalPillars": [
+      {
+        "name": "Local-First",
+        "description": "The device is the primary processing surface. Works in a village with 2G."
+      },
+      {
+        "name": "Mobile-First",
+        "description": "Built for the reality of the African smartphone market, not San Francisco."
+      },
+      {
+        "name": "Open Source",
+        "description": "Every critical dependency is sovereign. Speed is rented, truth is owned."
+      },
+      {
+        "name": "Open Data",
+        "description": "Platform data belongs to Africa. Personal data stays sovereign in your pod."
+      }
+    ]
+  }
+}
