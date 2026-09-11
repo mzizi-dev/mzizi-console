@@ -39,7 +39,22 @@ const { name, fallback } = Astro.props;
   // module URL, so the path lives in exactly one place. Passing it positionally
   // also trips a deprecation warning in wasm-bindgen 0.2.127.
   import("/island/mzizi-console.js")
-    .then((m) => m.default())
+    .then((m) => {
+      // Clear the placeholder BEFORE mounting. Dioxus mounts INTO this element
+      // and appends to it rather than replacing its children, so leaving the
+      // static `Loading…` in place leaves it stranded above the real content
+      // for the life of the page — the island looks permanently half-loaded
+      // even though it has fully rendered.
+      //
+      // Cleared here, in `then`, rather than before the import starts: at this
+      // point the bundle has downloaded and mounting is the next statement, so
+      // there is no window in which the panel is blank. If the import REJECTS
+      // instead, this never runs and `catch` replaces the placeholder with the
+      // reason.
+      const host = document.getElementById("island");
+      if (host) host.replaceChildren();
+      return m.default();
+    })
     .catch((error) => {
       const host = document.getElementById("island");
       if (host) {
