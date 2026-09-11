@@ -1,18 +1,32 @@
 ---
 /**
- * The console shell.
+ * The console shell, and the gate.
  *
  * Everything here is static HTML — nav, headings, prose. No island, no WASM,
- * no JavaScript at all beyond what a page explicitly mounts. A console's
- * chrome has no reason to cost a 1.9 MB download before it can show a
- * heading.
+ * no JavaScript at all beyond what a page explicitly mounts and the AuthKit
+ * gate below. A console's chrome has no reason to cost a 1.9 MB download
+ * before it can show a heading.
+ *
+ * The gate is client-side, and that is a consequence of `output: "static"`,
+ * not an oversight — see `src/lib/authkit.ts`. What it gates is real: the
+ * console's content is not in the HTML, it is fetched at runtime by the
+ * islands, and the island does not start until AuthKit says there is a user.
+ * What it is NOT is an authorization boundary. The boundary that matters is
+ * the API's, and this gate does not pretend to be it.
  */
+import { CLIENT_ID } from "../lib/authkit";
+
 interface Props {
   title: string;
   lede?: string;
+  /**
+   * Whether the page body is behind the gate. Default true: a console page
+   * that forgets to say so should end up gated, not open.
+   */
+  gated?: boolean;
 }
 
-const { title, lede } = Astro.props;
+const { title, lede, gated = true } = Astro.props;
 const nav = [
   { href: "/", label: "Overview" },
   { href: "/components", label: "Components" },
@@ -23,7 +37,7 @@ const here = Astro.url.pathname.replace(/\.html$/, "") || "/";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-auth="pending">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,6 +46,34 @@ const here = Astro.url.pathname.replace(/\.html$/, "") || "/";
       name="description"
       content="The Mzizi console — component registry, design tokens, and the DNA-helix architecture."
     />
+    <!--
+      A console behind a sign-in has no business being indexed, and a crawler
+      that fetches it sees only the "sign in" state anyway.
+    -->
+    <meta name="robots" content="noindex" />
+    <!--
+      The client ID is public by construction — it travels in the
+      authorization URL of every sign-in — and having it in the markup means
+      "was this build configured?" is answerable with `curl`, rather than only
+      from a browser console. Empty attribute means it was not.
+    -->
+    <meta name="mzizi:authkit-client" content={CLIENT_ID} />
+    <style>
+      /*
+        Gate visibility ONLY. No colour, no type, no spacing — appearance is
+        `console.css`'s job and the master stylesheet's after it.
+
+        Inline, and in <head>, so the rule is in force on the very first paint.
+        A gated panel that flashes before a script hides it has already been
+        shown. `display` rather than `visibility` so nothing gated occupies
+        layout either.
+      */
+      [data-auth="pending"] [data-gate],
+      [data-auth="out"] [data-gate="in"],
+      [data-auth="in"] [data-gate="out"] {
+        display: none !important;
+      }
+    </style>
     <link rel="stylesheet" href="/console.css" />
   </head>
   <body>
@@ -46,11 +88,172 @@ const here = Astro.url.pathname.replace(/\.html$/, "") || "/";
           </a>
         ))
       }
+      <span class="console-auth">
+        <span data-gate="in" id="auth-identity"></span>
+        <button data-gate="in" id="auth-signout" type="button">Sign out</button>
+        <button data-gate="out" id="auth-signin" type="button">Sign in</button>
+      </span>
     </nav>
     <main>
       <h1>{title}</h1>
       {lede && <p class="lede">{lede}</p>}
-      <slot />
+      {
+        gated ? (
+          <>
+            <div data-gate="in">
+              <slot />
+            </div>
+            <div data-gate="out">
+              <p class="state" id="auth-message">
+                Sign in to use the console.
+              </p>
+            </div>
+          </>
+        ) : (
+          <slot />
+        )
+      }
     </main>
+    <noscript>
+      <p class="state">
+        The console signs in through AuthKit in the browser, so it needs
+        JavaScript. Without it there is nothing to show and no way to sign in.
+      </p>
+    </noscript>
+    <script>
+      import {
+        authKit,
+        isConfigured,
+        safeReturnTo,
+        CALLBACK_PATH,
+        type Client,
+      } from "../lib/authkit";
+
+      /**
+       * Where to come back to after AuthKit redirects away and back.
+       *
+       * `sessionStorage` rather than the OAuth `state` parameter: `state`
+       * travels as plaintext in the URL and WorkOS does not integrity-protect
+       * it, so it is attacker-controlled input on the way back. This value
+       * never leaves the origin. It is still validated on the way out, because
+       * "we wrote it" is not the same claim as "it is safe to navigate to".
+       */
+      const RETURN_TO_KEY = "mzizi:auth:returnTo";
+
+      const root = document.documentElement;
+      const identity = document.getElementById("auth-identity");
+      const message = document.getElementById("auth-message");
+      const signIn = document.getElementById(
+        "auth-signin",
+      ) as HTMLButtonElement | null;
+      const signOut = document.getElementById(
+        "auth-signout",
+      ) as HTMLButtonElement | null;
+
+      /** Strip the extension and any trailing slash, so `/callback.html`,
+       * `/callback/` and `/callback` compare equal. */
+      function normalise(path: string): string {
+        const bare = path.replace(/\.html$/, "").replace(/\/+$/, "");
+        return bare === "" ? "/" : bare;
+      }
+
+      const onCallbackPage =
+        normalise(window.location.pathname) === normalise(CALLBACK_PATH);
+
+      /**
+       * Publish the resolved auth state.
+       *
+       * The attribute drives the CSS gate; the event is what the islands wait
+       * on, so that a signed-out reader's browser never even asks the API for
+       * console data.
+       */
+      function settle(state: "in" | "out", email: string | null): void {
+        if (identity && email) identity.textContent = email;
+        root.dataset.auth = state;
+        document.dispatchEvent(
+          new CustomEvent("mzizi:auth", { detail: { state, email } }),
+        );
+      }
+
+      /** Fail closed, and say why. A gate that cannot run must not open. */
+      function refuse(reason: string): void {
+        if (message) message.textContent = reason;
+        if (signIn) signIn.disabled = true;
+        settle("out", null);
+      }
+
+      async function boot(): Promise<void> {
+        if (!isConfigured()) {
+          refuse(
+            "Authentication is not configured in this build: PUBLIC_WORKOS_CLIENT_ID is unset. Sign-in is unavailable, so nothing here is reachable.",
+          );
+          return;
+        }
+
+        let client: Client;
+        try {
+          client = await authKit();
+        } catch (error) {
+          // Shown, not swallowed. The console has already shipped one failure
+          // where nothing rendered and nothing complained.
+          refuse(`Could not start authentication: ${String(error)}`);
+          return;
+        }
+
+        signIn?.addEventListener("click", () => {
+          try {
+            window.sessionStorage.setItem(
+              RETURN_TO_KEY,
+              window.location.pathname + window.location.search,
+            );
+          } catch {
+            // Private mode, or storage disabled. Sign-in still works; the
+            // reader just lands on the overview instead of back here.
+          }
+          void client.signIn().catch((error: unknown) => {
+            refuse(`Could not start sign-in: ${String(error)}`);
+          });
+        });
+
+        signOut?.addEventListener("click", () => {
+          try {
+            client.signOut({ returnTo: `${window.location.origin}/` });
+          } catch (error) {
+            // `signOut` throws NoSessionError when the session has already
+            // gone. There is nothing to end, so just return to a signed-out
+            // console rather than leaving a dead button.
+            console.warn(error);
+            window.location.assign("/");
+          }
+        });
+
+        const user = client.getUser();
+        settle(user ? "in" : "out", user ? user.email : null);
+
+        if (onCallbackPage) {
+          if (!user) {
+            refuse(
+              "Sign-in did not complete. Start again from the console, so the sign-in begins where it is meant to.",
+            );
+            return;
+          }
+          let target = "/";
+          try {
+            target = safeReturnTo(
+              window.sessionStorage.getItem(RETURN_TO_KEY),
+              "/",
+            );
+            window.sessionStorage.removeItem(RETURN_TO_KEY);
+          } catch {
+            // Storage unavailable — the overview is a fine landing.
+          }
+          // `replace`, so the callback URL does not sit in history where Back
+          // would re-run a spent authorization code.
+          window.location.replace(target);
+        }
+      }
+
+      void boot();
+    </script>
   </body>
 </html>

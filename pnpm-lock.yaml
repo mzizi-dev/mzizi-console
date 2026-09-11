@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@workos-inc/authkit-js':
+        specifier: ^0.20.2
+        version: 0.20.2
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.4
@@ -1169,6 +1173,9 @@ packages:
 
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
+
+  '@workos-inc/authkit-js@0.20.2':
+    resolution: {integrity: sha512-EEo8VitBko7ON5shVRS4AMmgezWhWfxKKtGV7QpJMgsejKBXi0DujCFf7blR7z46z3xr3Ge55yVEMSrOMtMOzg==}
 
   '@yuku-codegen/binding-android-arm64@0.9.5':
     resolution: {integrity: sha512-jrOY5WM+AaAqkv51fHP1x28ifto4WgcZVzodLUyMU1jMWn5Sq+VciRdk/n8E0Ey5w4p4cWWE+m5GfXWOYh7Kzw==}
@@ -3330,6 +3337,8 @@ snapshots:
       vscode-uri: 3.2.0
 
   '@vscode/l10n@0.0.18': {}
+
+  '@workos-inc/authkit-js@0.20.2': {}
 
   '@yuku-codegen/binding-android-arm64@0.9.5':
     optional: true
