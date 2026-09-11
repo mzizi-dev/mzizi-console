@@ -11,3 +11,10 @@ node_modules/
 
 # macOS
 .DS_Store
+
+# Local AuthKit configuration. Public values, but per-developer.
+.env
+.env.local
+
+# Wrangler local dev state.
+.wrangler/

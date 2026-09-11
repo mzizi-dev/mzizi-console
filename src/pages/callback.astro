@@ -1,0 +1,27 @@
+---
+import Console from "../layouts/Console.astro";
+
+/**
+ * The OAuth redirect target.
+ *
+ * There is no server here to receive the callback, so this is an ordinary
+ * static page and the exchange happens in the browser: `createClient` in
+ * `Console.astro`'s gate script sees `?code=` on a path matching the
+ * configured `redirectUri`, swaps it for a session with PKCE, strips the code
+ * from the URL, and the gate then sends the reader back where they started.
+ *
+ * `gated={false}` because this page IS the sign-in completing. Gating it would
+ * hide the only thing it has to say when the exchange fails.
+ *
+ * Its path must match the redirect URI registered in WorkOS, and
+ * `PUBLIC_WORKOS_CALLBACK_PATH` must name it. Both default to `/callback`.
+ */
+---
+
+<Console
+  title="Signing in"
+  lede="Completing sign-in with AuthKit."
+  gated={false}
+>
+  <p class="state" id="auth-message">Completing sign-in…</p>
+</Console>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "app.mzizi.dev \u2014 the Mzizi console. Astro in front, Rust/Dioxus islands behind.",
+  "description": "app.mzizi.dev — the Mzizi console. Astro in front, Rust/Dioxus islands behind.",
   "type": "module",
   "scripts": {
     "build": "pnpm run build:wasm && vp run astro:build",
@@ -23,5 +23,8 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
     "vite-plus": "^0.3.0"
+  },
+  "dependencies": {
+    "@workos-inc/authkit-js": "^0.20.2"
   }
 }
