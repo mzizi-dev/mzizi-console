@@ -7,6 +7,11 @@ import Console from "../layouts/Console.astro";
  */
 const surfaces = [
   { label: "Registry and site", href: "https://mzizi.dev", text: "mzizi.dev" },
+  // `api.mzizi.dev/v1`, deliberately — not the apex. This link was written
+  // when the host was NXDOMAIN, so it shipped dead and was merely correct by
+  // accident once mzizi-api-gateway took the hostname. It is now the address
+  // `api::DEFAULT_API_BASE` actually reads, and the one that survives the apex
+  // moving to the static site. Keep the two in step.
   { label: "API", href: "https://api.mzizi.dev/v1", text: "api.mzizi.dev/v1" },
   {
     label: "MCP",

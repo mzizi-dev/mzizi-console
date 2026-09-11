@@ -4,13 +4,13 @@
 
 ## Status
 
-**Not deployed.** `app.mzizi.dev` does not resolve, and this repository has never
-published a deployment — see [Deploying](#deploying) for what the first one will
-do. The code builds and CI is green; nothing is live.
+**Live** at <https://app.mzizi.dev>.
 
-The console reads the registry API at **`https://mzizi.dev/api/v1`**. Not
-`api.mzizi.dev` — that host has no DNS record at all. See
-[The API address](#the-api-address).
+The console reads the registry API at **`https://api.mzizi.dev/v1`** — the
+gateway, not the apex. That is a change: it read `https://mzizi.dev/api/v1` for
+as long as `api.mzizi.dev` was NXDOMAIN. See
+[The API address](#the-api-address) for why it moved and why it must not move
+back.
 
 ## The split
 
@@ -38,10 +38,10 @@ and underneath is Rust first, TypeScript second, with no third UI framework.
 `mzizi-tools#82` records the decision.
 
 This separates the two owners cleanly — the **Mzizi framework** (Bundu
-Foundation) serves `mzizi.dev`, and will serve `api.mzizi.dev` once
-[`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
-ships; the **console** (Nyuchi) serves `app.mzizi.dev`. Neither of those two
-hostnames exists yet — see [Status](#status).
+Foundation) serves `mzizi.dev` and, via
+[`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway),
+`api.mzizi.dev`; the **console** (Nyuchi) serves `app.mzizi.dev`. All three
+hostnames now resolve.
 
 ## Ported by contract, not translated
 
@@ -73,25 +73,48 @@ permanently broken route presented itself as "no data".
 
 ### The API address
 
-`api::DEFAULT_API_BASE` is **`https://mzizi.dev/api/v1`**, and that is a
-correction rather than a preference.
+`api::DEFAULT_API_BASE` is **`https://api.mzizi.dev/v1`**. The constant has held
+three values and the middle one was right at the time, so the order matters.
 
-The imported code read `https://api.mzizi.dev/v1`, justified in a comment as a
-move to the canonical address because "the old form still resolves — the API
-Worker accepts both". Measured, the reverse is true:
+**1. As imported**, it read `https://api.mzizi.dev/v1`, justified in a comment as
+a move to the canonical address because "the old form still resolves — the API
+Worker accepts both". Both halves were asserted rather than measured, and both
+were false: there was no API Worker, and the host did not exist.
+
+**2. Corrected** to `https://mzizi.dev/api/v1`, because measurement said:
 
 ```
 api.mzizi.dev      ->  NXDOMAIN, no DNS record at all
 mzizi.dev/api/v1   ->  200
 ```
 
-So the console was pointed at a host that does not exist, and would have rendered
-every view empty against a perfectly healthy API.
+The console had been pointed at a host that did not resolve, and would have
+rendered every view empty against a perfectly healthy API. That correction
+carried a condition: switch back the day `api.mzizi.dev` answers, and not before.
 
-`api.mzizi.dev` is the address the ecosystem writes down, and
+**3. Switched back**, because that day arrived.
 [`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
-is being built to make it real. Switch the constant the day that host answers —
-and not before.
+shipped and holds `api.mzizi.dev` as a custom domain. Re-measured before the
+change, every endpoint this client reads is byte-identical through both hosts:
+
+| endpoint        | `api.mzizi.dev/v1`  | `mzizi.dev/api/v1`  |
+| --------------- | ------------------- | ------------------- |
+| `/ui`           | 200, sha `d50a1a43` | 200, sha `d50a1a43` |
+| `/brand`        | 200, sha `d6b4d94c` | 200, sha `d6b4d94c` |
+| `/architecture` | 200, sha `fb2878ac` | 200, sha `fb2878ac` |
+| `/ui/{name}`    | 200, sha `e1653f3c` | 200, sha `e1653f3c` |
+
+They match because the gateway currently **proxies to the apex** —
+`GET api.mzizi.dev/v1/health` reports `"origin": "https://mzizi.dev/api"`. So the
+switch did not move the console onto a different server. It moved the console
+onto a different **name**, one the gateway owns and can repoint.
+
+That indirection is the whole point, and it is why this must not be "simplified"
+back. `mzizi.dev` is due to stop serving the API: the apex is to become the
+static site in
+[`mzizi-dev/mzizi-site`](https://github.com/mzizi-dev/mzizi-site), and on that
+day anything still addressing `mzizi.dev/api/v1` begins returning 404. Of the two
+addresses, the apex is the one with the shorter remaining life.
 
 ## The API has three envelope conventions
 
@@ -169,7 +192,7 @@ hand:
 
 ```bash
 for e in ui brand architecture; do
-  curl -s "https://mzizi.dev/api/v1/$e" -o "tests/live/$e.json"
+  curl -s "https://api.mzizi.dev/v1/$e" -o "tests/live/$e.json"
 done
 ```
 
@@ -199,9 +222,8 @@ bundle; it produces one that may not deploy at all.
 
 ## Deploying
 
-**This has never been deployed.** `app.mzizi.dev` does not resolve, the
-repository has no deployments recorded, and the Worker is not in the account.
-Everything below is the intended path, not a description of something running.
+**Deployed.** `app.mzizi.dev` resolves and serves this console. Everything below
+describes the path that produced it.
 
 Via the **Cloudflare GitHub app**, configured per Worker in the Cloudflare
 dashboard. There is no deploy workflow in this repo and there should not be one:
@@ -230,9 +252,13 @@ its own, just static assets. See [SECURITY.md](SECURITY.md).
 
 `mzizi.dev` is on Cloudflare, so a custom domain on a zone in the same account
 **provisions its own DNS record**: the first successful production deploy is what
-makes `app.mzizi.dev` start resolving. There is nothing to add by hand first, and
-the absence of a record today is a symptom of never having deployed rather than a
-missing step.
+made `app.mzizi.dev` start resolving. There was nothing to add by hand first, and
+the absence of a record beforehand was a symptom of never having deployed rather
+than a missing step. This is worth keeping in mind for `mzizi.dev` itself — see
+the cutover runbook in
+[`mzizi-dev/mzizi-site`](https://github.com/mzizi-dev/mzizi-site), where the apex
+is *already* serving from Vercel and a custom domain would therefore **take** it
+rather than create it.
 
 Two things about this route are worth not re-learning:
 
