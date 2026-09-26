@@ -39,6 +39,21 @@ web-sys = { version = "0.3", features = ["Window", "Location"] }
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt"] }
 
+# Size, not speed: this compiles to a browser download, not a server binary.
+# `opt-level = "z"` optimises for size over `"s"`'s lighter size/speed balance;
+# `lto = true` and `codegen-units = 1` let LLVM inline and dead-code-eliminate
+# across the whole dependency graph instead of per-codegen-unit, which matters
+# more for a WASM binary than the build-time cost does here; `panic = "abort"`
+# drops the unwinding tables `wasm-bindgen --target web` never uses anyway;
+# `strip = true` removes debug info before `wasm-bindgen`/`wasm-opt` even see
+# it. None of this touches `cargo test`, which runs under the dev profile.
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
 [lints.rust]
 unsafe_code = "forbid"
 missing_docs = "warn"

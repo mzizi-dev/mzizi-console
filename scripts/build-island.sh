@@ -36,6 +36,8 @@ rm -f "$OUT/${CRATE}.d.ts" "$OUT/${CRATE}_bg.wasm.d.ts"
 
 if command -v wasm-opt >/dev/null 2>&1; then
   wasm-opt -Oz --enable-bulk-memory --enable-reference-types \
+    --enable-nontrapping-float-to-int \
+    --strip-debug --strip-producers --strip-target-features \
     "$OUT/${CRATE}_bg.wasm" -o "$OUT/${CRATE}_bg.wasm"
 else
   # Loud, not silent. Skipping this does not produce a slightly larger bundle —
