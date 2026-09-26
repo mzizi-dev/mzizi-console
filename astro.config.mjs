@@ -30,12 +30,16 @@ import { defineConfig } from "astro/config";
 //
 // Both sources are checked by hand because Vite has not read `.env` at config
 // time and `vite` is not a direct dependency here. A build variable covers
-// CI and Workers Builds; the file covers local development.
-const ENV_FILE = new URL(".env", import.meta.url);
+// CI and Workers Builds; the files cover local development — `.env.local` is
+// checked too, since that's the file `.gitignore` documents as the per-
+// developer override and Vite itself loads it with higher precedence than
+// `.env`. Missing it here would warn on a build that is actually configured.
+const hasVar = (url) =>
+  existsSync(url) && /^\s*PUBLIC_WORKOS_CLIENT_ID\s*=\s*\S/m.test(readFileSync(url, "utf8"));
 const configured =
   Boolean(process.env.PUBLIC_WORKOS_CLIENT_ID) ||
-  (existsSync(ENV_FILE) &&
-    /^\s*PUBLIC_WORKOS_CLIENT_ID\s*=\s*\S/m.test(readFileSync(ENV_FILE, "utf8")));
+  hasVar(new URL(".env.local", import.meta.url)) ||
+  hasVar(new URL(".env", import.meta.url));
 if (!configured) {
   console.warn(
     "[mzizi-console] PUBLIC_WORKOS_CLIENT_ID is not set. The AuthKit gate will refuse every visitor and sign-in will be unavailable. See .env.example.",
