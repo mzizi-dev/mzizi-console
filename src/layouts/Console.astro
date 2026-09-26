@@ -120,6 +120,29 @@ const here = Astro.url.pathname.replace(/\.html$/, "") || "/";
         JavaScript. Without it there is nothing to show and no way to sign in.
       </p>
     </noscript>
+    <script is:inline>
+      // A last-resort net, not the primary path. If the module script below
+      // fails to even START — its own fetch 404s, a chunk it imports 404s, an
+      // extension blocks anything with "authkit" in the URL — nothing inside
+      // it ever runs, so `refuse()` is never called and `data-auth` stays
+      // "pending" forever. The CSS gate hides every `[data-gate]` element in
+      // that state, which is a blank page with no sign-in button and no
+      // error: exactly the "nothing rendered and nothing complained" failure
+      // this console has already shipped once. This does not need to detect
+      // WHY the module failed — only that it never finished — so a plain
+      // timeout covers every cause without a maintained list of them.
+      window.setTimeout(() => {
+        if (document.documentElement.dataset.auth !== "pending") return;
+        const message = document.getElementById("auth-message");
+        const signIn = document.getElementById("auth-signin");
+        if (message) {
+          message.textContent =
+            "Could not load authentication. Reload the page, or check whether an extension or network policy is blocking it.";
+        }
+        if (signIn instanceof HTMLButtonElement) signIn.disabled = true;
+        document.documentElement.dataset.auth = "out";
+      }, 8000);
+    </script>
     <script>
       import {
         authKit,

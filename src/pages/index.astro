@@ -4,6 +4,10 @@ import Console from "../layouts/Console.astro";
 /**
  * Overview. Entirely static — there is nothing on this page that needs the
  * registry, so it ships as HTML and loads no WASM at all.
+ *
+ * `gated={false}`: the same reasoning as `404.astro` and `callback.astro` —
+ * this page fetches nothing from the API and names only public URLs. Gating
+ * it hid content a signed-out visitor was free to read anyway.
  */
 const surfaces = [
   { label: "Registry and site", href: "https://mzizi.dev", text: "mzizi.dev" },
@@ -29,6 +33,7 @@ const surfaces = [
 <Console
   title="Mzizi"
   lede="The design system of the Mzizi research program — tokens, components, and the DNA double helix the frontend architecture is organised around."
+  gated={false}
 >
   <dl class="surfaces">
     {
