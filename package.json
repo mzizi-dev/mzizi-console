@@ -5,6 +5,7 @@
   "license": "Apache-2.0",
   "description": "app.mzizi.dev — the Mzizi console. Astro in front, Rust/Dioxus islands behind.",
   "type": "module",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "build": "pnpm run build:wasm && vp run astro:build",
     "build:wasm": "bash scripts/build-island.sh",
