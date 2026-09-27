@@ -206,7 +206,7 @@ places produces a blank console CI won't catch), how `tests/live_shapes.rs` is v
 against production, the WASM size budget, and — before you touch `wrangler.jsonc` or
 deploy — the route footgun this org has already hit twice.
 
-## Ecosystem
+## Related repositories
 
 | Repository                                                            | What it is                                     | Address                                       |
 | --------------------------------------------------------------------- | ---------------------------------------------- | --------------------------------------------- |
@@ -214,7 +214,7 @@ deploy — the route footgun this org has already hit twice.
 | [`mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry)       | The component registry, brand and architecture | Portal currently unrouted                     |
 | [`mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway) | The registry API as a pure-Rust Worker         | [api.mzizi.dev](https://api.mzizi.dev/api/v1) |
 | [`mzizi-site`](https://github.com/mzizi-dev/mzizi-site)               | Mzizi's front door                             | [mzizi.dev](https://mzizi.dev)                |
-| `mzizi-console`                                                       | This repository                                | [app.mzizi.dev](https://app.mzizi.dev)        |
+| `mzizi-console`                                                       | This repository, run under Nyuchi              | [app.mzizi.dev](https://app.mzizi.dev)        |
 
 ## Contributing
 
