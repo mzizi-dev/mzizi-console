@@ -11,7 +11,7 @@
   "account_id": "125a2dfbc21f76a25c980609609e8218",
 
   // A site is a Worker with Static Assets — the shape the domain-and-docs
-  // routing convention sets for every Bundu surface, and the same shape
+  // routing convention sets for every surface in the estate, and the same shape
   // docs.nyuchi.com already runs.
   //
   // There is no `main`. This Worker has no code of its own: Astro emits the
