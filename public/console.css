@@ -18,7 +18,9 @@
   --ink: #1b1a17;
   --ink-soft: #4a463f;
   --rule: #e2dcd1;
-  --accent: #0047ab;
+  /* Copper, Bundu's mineral: Mzizi is Bundu Foundation work. #b4532f is
+   * bundu.org's light value; the palette's #BF5A36 is just under AA. */
+  --accent: #b4532f;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,7 +30,7 @@
     --ink: #f3f1ec;
     --ink-soft: #c2bcb0;
     --rule: #302e28;
-    --accent: #00b0ff;
+    --accent: #ff8a65;
   }
 }
 
