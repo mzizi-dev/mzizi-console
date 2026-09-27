@@ -20,6 +20,9 @@ CRATE=mzizi-console
 OUT=public/island
 WASM="target/wasm32-unknown-unknown/release/${CRATE}.wasm"
 
+# shellcheck source=scripts/bootstrap-toolchain.sh
+source "$(dirname "$0")/bootstrap-toolchain.sh"
+
 cargo build --release --target wasm32-unknown-unknown
 
 rm -rf "$OUT"
