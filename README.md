@@ -50,8 +50,8 @@ becomes Rust: the framework doctrine is that the UI is Astro and underneath is
 Rust first, TypeScript second, with no third UI framework.
 `mzizi-dev/agent-tools#82` records the decision.
 
-Mzizi is an open-architecture project of the **Bundu Foundation**, operated and
-developed by **Nyuchi**. This console is one of its surfaces;
+Mzizi is an independent open-architecture project, operated and developed by
+**Nyuchi**. This console is one of its surfaces, run under **Nyuchi**;
 [`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
 is another.
 
@@ -361,5 +361,5 @@ Never `--admin`.
 
 Licensed under the [Apache License 2.0](LICENSE).
 
-Mzizi is an open-architecture project of the **Bundu Foundation**, operated and
-developed by **Nyuchi**.
+Mzizi is an independent open-architecture project, operated and developed by
+**Nyuchi**. This console is run under **Nyuchi**.
