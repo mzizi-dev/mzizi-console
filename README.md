@@ -51,10 +51,10 @@ Rust first, TypeScript second, with no third UI framework.
 `mzizi-dev/agent-tools#82` records the decision.
 
 Mzizi is an independent open-architecture project that owns, operates and
-develops its framework, design system and registry. This console is one of its
-surfaces and is run under **Nyuchi**, like everything revenue-generating.
-[`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
-is another surface, and it is Mzizi's.
+develops its framework, design system, registry, docs and API gateway
+([`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)).
+This console is a **Nyuchi** surface built on Mzizi: it is run under Nyuchi, like
+everything revenue-generating.
 
 ## Ported by contract, not translated
 
@@ -213,7 +213,7 @@ deploy — the route footgun this org has already hit twice.
 | [`mzizi`](https://github.com/mzizi-dev/mzizi)                         | The language — Rust compiler research, Phase 0 | —                                             |
 | [`mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry)       | The component registry, brand and architecture | Portal currently unrouted                     |
 | [`mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway) | The registry API as a pure-Rust Worker         | [api.mzizi.dev](https://api.mzizi.dev/api/v1) |
-| [`mzizi-site`](https://github.com/mzizi-dev/mzizi-site)               | The ecosystem front door                       | [mzizi.dev](https://mzizi.dev)                |
+| [`mzizi-site`](https://github.com/mzizi-dev/mzizi-site)               | Mzizi's front door                             | [mzizi.dev](https://mzizi.dev)                |
 | `mzizi-console`                                                       | This repository                                | [app.mzizi.dev](https://app.mzizi.dev)        |
 
 ## Contributing
@@ -231,5 +231,5 @@ form, plus the merge convention and deploy mechanics.
 Licensed under the [Apache License 2.0](LICENSE).
 
 Mzizi is an independent open-architecture project that owns, operates and
-develops its framework, design system and registry. This console is run
-under **Nyuchi**.
+develops its framework, design system, registry, docs and API gateway. This
+console is run under **Nyuchi**.
