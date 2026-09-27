@@ -9,7 +9,7 @@
 ![Astro](https://img.shields.io/badge/Astro-shell-BC52EE?style=flat-square&logo=astro&logoColor=white)
 ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white)
 
-**Version:** 0.1.0 | **Live:** [app.mzizi.dev](https://app.mzizi.dev) | **Reads:** [api.mzizi.dev/v1](https://api.mzizi.dev/v1/ui) | **Docs:** [docs.bundu.org](https://docs.bundu.org)
+**Version:** 0.1.0 | **Live:** [app.mzizi.dev](https://app.mzizi.dev) | **Reads:** [api.mzizi.dev/v1](https://api.mzizi.dev/v1/ui) | **Docs:** [docs.mzizi.dev](https://docs.mzizi.dev)
 
 ---
 
