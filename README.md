@@ -52,9 +52,9 @@ Rust first, TypeScript second, with no third UI framework.
 
 Mzizi is an independent open-architecture project that owns, operates and
 develops its framework, design system and registry. This console is one of its
-surfaces, run under **Nyuchi**;
+surfaces and is run under **Nyuchi**, like everything revenue-generating.
 [`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)
-is another.
+is another surface, and it is Mzizi's.
 
 ## Ported by contract, not translated
 
