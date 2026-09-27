@@ -73,6 +73,13 @@ jobs:
       # blank page in production.
       - run: pnpm exec astro check
 
+      # `vp lint` (Vite+/oxlint) was already a `package.json` script
+      # (`pnpm run lint`, and folded into `pnpm run check:web`) but nothing in
+      # CI ever called it — this job ran `astro check`/`astro build` directly
+      # instead of `pnpm run check:web`, so the lint half of that script never
+      # ran anywhere.
+      - run: pnpm run lint
+
       - run: pnpm exec astro build
 
   secrets:
