@@ -34,8 +34,10 @@ import { defineConfig } from "astro/config";
 // checked too, since that's the file `.gitignore` documents as the per-
 // developer override and Vite itself loads it with higher precedence than
 // `.env`. Missing it here would warn on a build that is actually configured.
+/** @param {URL} url */
 const hasVar = (url) =>
-  existsSync(url) && /^\s*PUBLIC_WORKOS_CLIENT_ID\s*=\s*\S/m.test(readFileSync(url, "utf8"));
+  existsSync(url) &&
+  /^\s*PUBLIC_WORKOS_CLIENT_ID\s*=\s*\S/m.test(readFileSync(url, "utf8"));
 const configured =
   Boolean(process.env.PUBLIC_WORKOS_CLIENT_ID) ||
   hasVar(new URL(".env.local", import.meta.url)) ||

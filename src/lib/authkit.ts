@@ -18,7 +18,10 @@
  * reason it is safe to ship in a static bundle. If a change to this file ever
  * needs one, the change is wrong — move the flow to a server instead.
  */
-import { createClient, type Client, type User } from "@workos-inc/authkit-js";
+import { createClient, type User } from "@workos-inc/authkit-js";
+
+// authkit-js declares its Client class but does not export the type.
+type Client = Awaited<ReturnType<typeof createClient>>;
 
 /** The AuthKit client ID for the environment this bundle was built against. */
 export const CLIENT_ID: string = import.meta.env.PUBLIC_WORKOS_CLIENT_ID ?? "";

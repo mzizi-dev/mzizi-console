@@ -12,18 +12,22 @@
     "astro:build": "astro build",
     "dev": "astro dev",
     "check": "pnpm run check:web && pnpm run check:rust",
-    "check:web": "astro check && vp lint",
+    "check:web": "astro check && vp check",
     "check:rust": "cargo fmt --all -- --check && cargo clippy --all-targets -- -D warnings && cargo check --target wasm32-unknown-unknown --all-targets",
     "test": "cargo test",
     "lint": "vp lint",
-    "fmt": "vp fmt"
+    "fmt": "vp fmt",
+    "ci:prepare": "astro sync",
+    "ci:test": "vp test --passWithNoTests",
+    "ci:build": "vp run astro:build"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@types/node": "^24.19.1",
     "astro": "^7.2.9",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
-    "vite-plus": "^0.3.0"
+    "vite-plus": "^1.0.0"
   },
   "dependencies": {
     "@workos-inc/authkit-js": "^0.20.2"
