@@ -140,3 +140,20 @@ API is the authority. Land changes with `gh pr merge <n> --rebase --auto`. Never
   shouldn't.
 - **The palette is 21 colour families**, not "seven" or "five" — see README's "Ported by
   contract" section for the known gap where the console itself only surfaces 7 of 21.
+
+## Track big work in GitHub issues
+
+Any substantial build, migration, investigation or multi-step task gets a GitHub
+issue in the repo that owns it — before or as work starts — so another session,
+agent or person can pick it up.
+
+- The issue holds the goal, the owner's decisions (verbatim where given), the
+  plan, acceptance criteria, owner-only steps and links.
+- Every PR references its issue (`Refs #n`; `Fixes #n` only when the merge
+  completes it).
+- Post progress, decisions and a hand-off note (what's done, what's left, branch
+  names) as issue comments — at each merge and before a session or agent
+  finishes.
+- Work spanning repos gets a tracking issue that links the per-repo issues.
+- Never put secrets, credential status or exploitable detail in issues on public
+  repos.
