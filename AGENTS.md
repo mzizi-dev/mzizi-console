@@ -141,6 +141,16 @@ API is the authority. Land changes with `gh pr merge <n> --rebase --auto`. Never
 - **The palette is 21 colour families**, not "seven" or "five" — see README's "Ported by
   contract" section for the known gap where the console itself only surfaces 7 of 21.
 
+## The published design system
+
+The Mzizi design system is published on claude.ai as the Design System artifact,
+<https://claude.ai/artifact/G8CCtAbZ8w717uQ3R5itCc>: voice and content fundamentals, visual
+foundations (surfaces, ink and accent, status colours), the marks, and component previews.
+Its source of truth is the `design-system/` folder in `mzizi-registry` (arriving with
+mzizi-registry#418), which the artifact is built from file for file. Edit the folder, never
+the artifact page; the artifact is republished from registry `main` after a merge that
+touches it.
+
 ## Track big work in GitHub issues
 
 Any substantial build, migration, investigation or multi-step task gets a GitHub
