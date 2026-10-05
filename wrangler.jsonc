@@ -39,6 +39,12 @@
   },
 
   "observability": { "enabled": true, "head_sampling_rate": 1 },
+  // Production is app.mzizi.dev only, never workers.dev. Preview URLs are on
+  // so Workers Builds' non-production branch builds give the beta a URL: a
+  // push to `staging` uploads a version (never deployed) aliased
+  // https://staging-mzizi-console.nyuchi.workers.dev (nyuchi/.github#84).
+  "workers_dev": false,
+  "preview_urls": true,
 
   // mzizi.dev DNS is on Cloudflare now (see mzizi-mcp/wrangler.toml for the
   // same convention on that Worker).
