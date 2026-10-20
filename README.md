@@ -44,7 +44,7 @@ a consumer would install right now.
 
 ## What it replaces
 
-`@nyuchi/mzizi-console-app`, a Svelte 5 mini-app the Nyuchi Console mounted under
+`@nyuchi/mzizi-console-app`, an earlier mini-app the Nyuchi Console mounted under
 `/apps/mzizi/*`. It becomes a standalone surface at its own domain, and it
 becomes Rust: the framework doctrine is that the UI is Astro and underneath is
 Rust first, TypeScript second, with no third UI framework.
@@ -74,7 +74,7 @@ than as nodes with an empty backbone, because belonging to neither backbone is
 the fact the model turns on. "Axis", "axes" and "layer" are retired vocabulary
 and should not come back in prose here, whatever the legacy route names say.
 
-**Tokens** was described in the Svelte manifest as the _"Five African Minerals
+**Tokens** was described in the earlier manifest as the _"Five African Minerals
 palette"_. That was wrong, and the correction this repository shipped — "there
 are seven" — is also not the whole truth.
 
@@ -97,7 +97,7 @@ group presented as if it were the palette. Fixing it means adding `heritage` and
 `experimental` to the struct and the view — a code change, not a README one, and
 not in this commit.
 
-|                  | Svelte app             | here                     |
+|                  | Earlier app            | here                     |
 | ---------------- | ---------------------- | ------------------------ |
 | `GET /ui`        | typed as an array      | a registry doc (`items`) |
 | a failed request | rendered an empty list | shows the status and URL |

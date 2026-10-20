@@ -245,7 +245,7 @@ cargo test
 Two kinds, and the difference is the point:
 
 - **Unit tests in `src/api.rs`** decode fixtures this repo wrote. They prove the
-  types are self-consistent and nothing more. The Svelte client this replaces had
+  types are self-consistent and nothing more. The earlier client this replaces had
   types that were self-consistent and wrong.
 - **`tests/live_shapes.rs`** decodes **captured live responses** under
   `tests/live/` with the production types. That is a different and stronger claim.

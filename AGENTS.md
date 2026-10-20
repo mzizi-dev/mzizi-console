@@ -61,7 +61,7 @@ after any rename, and see
 
 `tests/live_shapes.rs` decodes **captured live responses** with the production types — a
 different claim from the unit tests, which decode fixtures this repo wrote and prove only
-internal self-consistency (the Svelte client this replaced had types that were
+internal self-consistency (the earlier client this replaced had types that were
 self-consistent and wrong). Refresh the captures by hand:
 
 ```bash
