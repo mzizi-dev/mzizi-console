@@ -23,25 +23,25 @@ Measured against this repository at `origin/main` 9ff0c80. The only commit visib
 
 ### 1.1 Routes and pages
 
-| Route | Source | Gated | Data | Needs browser behaviour |
-| --- | --- | --- | --- | --- |
-| `/` | `src/pages/index.astro` | no | none (four static links) | no |
-| `/components` | `src/pages/components.astro` + island `components` | yes | `GET /v1/ui` (registry index) | data only, rendered in the island |
-| `/tokens` | `src/pages/tokens.astro` + island `tokens` | yes | `GET /v1/brand` | data only, rendered in the island |
-| `/architecture` | `src/pages/architecture.astro` + island `architecture` | yes | `GET /v1/architecture` (helix envelope) | data only, rendered in the island |
-| `/callback` | `src/pages/callback.astro` | no | AuthKit code exchange in the browser | yes (auth) |
-| `/404` | `src/pages/404.astro` | no | none | no |
+| Route           | Source                                                 | Gated | Data                                    | Needs browser behaviour           |
+| --------------- | ------------------------------------------------------ | ----- | --------------------------------------- | --------------------------------- |
+| `/`             | `src/pages/index.astro`                                | no    | none (four static links)                | no                                |
+| `/components`   | `src/pages/components.astro` + island `components`     | yes   | `GET /v1/ui` (registry index)           | data only, rendered in the island |
+| `/tokens`       | `src/pages/tokens.astro` + island `tokens`             | yes   | `GET /v1/brand`                         | data only, rendered in the island |
+| `/architecture` | `src/pages/architecture.astro` + island `architecture` | yes   | `GET /v1/architecture` (helix envelope) | data only, rendered in the island |
+| `/callback`     | `src/pages/callback.astro`                             | no    | AuthKit code exchange in the browser    | yes (auth)                        |
+| `/404`          | `src/pages/404.astro`                                  | no    | none                                    | no                                |
 
 Every page shares `src/layouts/Console.astro` (nav, headings, the AuthKit gate script). `Island.astro` mounts the bundle into `<div id="island" data-island="…">`, with a `<noscript>` fallback that names the page on the public site.
 
 ### 1.2 Islands and what each does
 
-| Island | What it renders | Data | Browser behaviour it needs |
-| --- | --- | --- | --- |
-| `ComponentsIsland` | Count, components grouped by helix node (N-number, or "No node"), name, description, and a `shadcn add` command built from the API base | `/v1/ui` | none beyond display |
-| `TokensIsland` | Count, seven minerals, two colour swatches per mineral painted from `lightHex`/`darkHex`, CSS variable, symbolism, origin | `/v1/brand` | none beyond display |
-| `ArchitectureIsland` | Counts; strands sorted by `sort_order`; nodes; rungs (listed apart, because they belong to neither backbone) | `/v1/architecture` (`data` envelope) | none beyond display |
-| `Root` | Reads `data-island` and picks one of the three; unknown name renders an error | none | none |
+| Island               | What it renders                                                                                                                         | Data                                 | Browser behaviour it needs |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------- |
+| `ComponentsIsland`   | Count, components grouped by helix node (N-number, or "No node"), name, description, and a `shadcn add` command built from the API base | `/v1/ui`                             | none beyond display        |
+| `TokensIsland`       | Count, seven minerals, two colour swatches per mineral painted from `lightHex`/`darkHex`, CSS variable, symbolism, origin               | `/v1/brand`                          | none beyond display        |
+| `ArchitectureIsland` | Counts; strands sorted by `sort_order`; nodes; rungs (listed apart, because they belong to neither backbone)                            | `/v1/architecture` (`data` envelope) | none beyond display        |
+| `Root`               | Reads `data-island` and picks one of the three; unknown name renders an error                                                           | none                                 | none                       |
 
 The only interaction in the whole console is sign-in, sign-out and the copy of an install command (the command is rendered as text; no copy button exists in the source). **Nothing in the console needs client-side reactivity.** The three islands are `use_resource` fetches with a loading/error/ready match, which is what `resolved!` in `island.rs` does.
 
