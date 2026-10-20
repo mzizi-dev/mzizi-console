@@ -278,8 +278,10 @@ with no capture.
 
 ## 7. What CI enforces
 
-CI runs three jobs: `rust`, `web` and `secret scan`. Run them locally with `pnpm run check`
-(both halves) plus `pnpm test`. All three must be green before you merge (the merge gate),
+CI runs three jobs: `rust`, `web` and `secret scan`. Locally, `pnpm run check` (both halves)
+plus `pnpm test` cover most of `rust` and `web`; also run `pnpm exec astro build` and
+`gitleaks detect`, which those scripts don't. All three jobs must be green before you merge
+(the merge gate),
 but the rulesets themselves require only the org checks: `lint / actionlint`,
 `lint / markdownlint`, `lint / yamllint` and `vite-plus / fmt`, `check`, `test` and `build`.
 A red `rust` job does not stop GitHub's merge button; it stops the gate.
@@ -313,7 +315,7 @@ and should acquire none (see [SECURITY.md](SECURITY.md)); the scan is there so
 that stays true.
 
 CI runs on pushes to `main` and `staging`, and on pull requests targeting `main`, `staging`
-or any `claude/**` branch. The second one is not decoration: stacked pull requests target the
+or any `claude/**` branch. The `claude/**` filter is not decoration: stacked pull requests target the
 branch below them, and a `[main]`-only filter gives every layer but the bottom
 zero checks — a PR with nothing run looks identical to a passing one.
 
@@ -335,7 +337,7 @@ gh pr merge <n> --rebase
 
 Squash a PR whose branch carries merge commits, including one updated with "Update branch"
 (required checks are strict, so a PR behind its base must be updated first). Squash keeps
-every commit message in the squash commit's body. Branches are deleted on merge by the repo
+every commit message, as text in the one squash commit's body. Branches are deleted on merge by the repo
 setting, so `--delete-branch` adds nothing.
 
 Before merging anything:
