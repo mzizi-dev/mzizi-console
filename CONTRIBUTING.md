@@ -278,8 +278,13 @@ with no capture.
 
 ## 7. What CI enforces
 
-Three jobs, all required. Run them locally with `pnpm run check` (both halves)
-plus `pnpm test`.
+CI runs three jobs: `rust`, `web` and `secret scan`. Locally, `pnpm run check` (both halves)
+plus `pnpm test` cover most of `rust` and `web`; also run `pnpm exec astro build` and
+`gitleaks detect`, which those scripts don't. All three jobs must be green before you merge
+(the merge gate),
+but the rulesets themselves require only the org checks: `lint / actionlint`,
+`lint / markdownlint`, `lint / yamllint` and `vite-plus / fmt`, `check`, `test` and `build`.
+A red `rust` job does not stop GitHub's merge button; it stops the gate.
 
 **`rust`**
 
@@ -309,35 +314,48 @@ Note what this does **not** cover — see §3.
 and should acquire none (see [SECURITY.md](SECURITY.md)); the scan is there so
 that stays true.
 
-CI runs on pushes to `main` and on pull requests targeting `main` or any
-`claude/**` branch. The second one is not decoration: stacked pull requests target the
+CI runs on pushes to `main` and `staging`, and on pull requests targeting `main`, `staging`
+or any `claude/**` branch. The `claude/**` filter is not decoration: stacked pull requests target the
 branch below them, and a `[main]`-only filter gives every layer but the bottom
 zero checks — a PR with nothing run looks identical to a passing one.
 
 ---
 
-## 8. Merging: merge commits only
+## 8. Merging: rebase, or squash; never a merge commit
 
-**Squash and rebase merging are disabled on this repository**, org-wide policy,
-and the setting is enforced by GitHub rather than by convention
-(`squashMergeAllowed: false`, `rebaseMergeAllowed: false`).
+Merge commits are off: the repo flag is `allow_merge_commit: false`, and the org and
+enterprise rulesets allow only squash and rebase and require linear history on `main` and
+`staging`. Org admins can bypass those rulesets; nobody else can, and nobody uses `--admin`.
+The earlier merge-commit-only policy from `mzizi/MIGRATION.md` §1.1 no longer matches; the
+live API and rulesets are the authority. `AGENTS.md` "Merge convention" has the full rules.
 
-From `mzizi/MIGRATION.md` §1.1, which sets the repository spec for the org:
-
-> | Allow merge commits | **yes** | The ecosystem convention is merge-only; history stays truthful |
-> | Allow squash merging | **no** | Squash discards the per-commit reasoning this project depends on |
-
-Merge with:
+Rebase a PR whose branch is linear:
 
 ```bash
-gh pr merge <n> --merge --delete-branch
+gh pr merge <n> --rebase
 ```
+
+Squash a PR whose branch carries merge commits, including one updated with "Update branch"
+(required checks are strict, so a PR behind its base must be updated first). Squash keeps
+every commit message, as text in the one squash commit's body. Branches are deleted on merge by the repo
+setting, so `--delete-branch` adds nothing.
+
+Before merging anything:
+
+- **The merge gate.** The work is complete, CI is green, it is verified at runtime, and code
+  review has run with its findings resolved.
+- **No auto-merge.** Never pass `--auto`: it merges on green CI, before the gate.
+- **Releases are the owner's.** A merge into `main` deploys `app.mzizi.dev`. Only the owner,
+  or someone the owner authorised, releases `staging` to `main`: a `release/` branch made of
+  `main` plus `staging`'s exact tree, squashed, then synced back into `staging` (a branch off
+  `staging` with `main` merged in, squashed) so the trees match again.
 
 This project's commit messages carry the measurement behind a change — which
 host answered, which status a route returns, which limit a bundle is up against.
 `52218dc` is a worked example: it is the record of _why_ two CI jobs failed and
-what the underlying cause was, and a squash would have folded it into a feature
-commit and thrown that away.
+what the underlying cause was. A rebase merge keeps it as its own commit (with a new SHA,
+so cite commits by their SHA on `staging` or `main`, not on a branch); a squash keeps it only
+as a line in one larger commit's body. That is why rebase is the default.
 
 Practical consequences:
 
