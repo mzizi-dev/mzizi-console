@@ -44,8 +44,7 @@ cargo test --lib api::tests                       # unit tests in src/api.rs
 Notes:
 
 - `pnpm run check:web` uses `vp check` (lint + format + type-aware check), while CI's
-  `web` job runs `astro check`, `pnpm run lint` and `astro build` separately. AGENTS.md's
-  table describing `check` as `astro check && vp lint` predates this.
+  `web` job runs `astro check`, `pnpm run lint` and `astro build` separately.
 - After editing any `src/*.rs`, re-run `pnpm run build:wasm` before looking at
   `pnpm dev`; Astro serves `public/` as-is.
 - Clippy denies `unwrap_used`, `expect_used` and `todo` crate-wide (including tests),
@@ -96,5 +95,6 @@ Notes:
   `https://staging-mzizi-console.nyuchi.workers.dev` (`preview_urls: true`,
   `workers_dev: false` in `wrangler.jsonc`). Production (`app.mzizi.dev`) deploys via
   the Cloudflare GitHub app; there is no deploy workflow here and none should be added.
-- Merge with `gh pr merge <n> --rebase --auto` (rebase-only; CONTRIBUTING.md's
-  merge-commit section is stale).
+- Merging follows AGENTS.md "Merge convention": rebase a linear branch, squash one that
+  carries merge commits, never auto-merge (`--auto`), never `--admin`, and only after the
+  merge gate. A merge into `main` is a release, which is the owner's.
