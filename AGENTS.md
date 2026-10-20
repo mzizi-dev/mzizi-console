@@ -12,12 +12,12 @@ API at runtime. Two languages, two toolchains, one set of script names.
 
 ## Toolchain
 
-|        | front (Astro)            | behind (Rust)              |
-| ------ | ------------------------ | -------------------------- |
-| build  | `astro build`            | `cargo` + `wasm-bindgen`   |
-| check  | `astro check`, `vp lint` | `cargo clippy`, `--wasm32` |
-| format | `vp fmt`                 | `cargo fmt`                |
-| test   | —                        | `cargo test`               |
+|        | front (Astro)             | behind (Rust)              |
+| ------ | ------------------------- | -------------------------- |
+| build  | `astro build`             | `cargo` + `wasm-bindgen`   |
+| check  | `astro check`, `vp check` | `cargo clippy`, `--wasm32` |
+| format | `vp fmt`                  | `cargo fmt`                |
+| test   | —                         | `cargo test`               |
 
 **Vite+ cannot build the Rust half.** It's JS/TS tooling (Vite, Vitest, Oxlint, Oxfmt,
 Rolldown) — no cargo, no wasm-bindgen, no WebAssembly target. `vp run` drives the Astro half
@@ -25,15 +25,15 @@ and the package scripts; Cargo drives the Rust half; `pnpm run build` composes b
 
 ## Commands
 
-| Command                                       | What it does                                                |
-| --------------------------------------------- | ----------------------------------------------------------- |
-| `pnpm run build`                              | `build:wasm`, then `astro build`                            |
-| `pnpm run check`                              | Both halves (`astro check && vp lint`, then the Rust gates) |
-| `pnpm test`                                   | `cargo test`                                                |
-| `cargo clippy --all-targets -- -D warnings`   | Rust lints                                                  |
-| `cargo fmt --all -- --check`                  | Rust formatting                                             |
-| `cargo check --target wasm32-unknown-unknown` | The real target                                             |
-| `pnpm exec astro check`                       | Astro typecheck                                             |
+| Command                                       | What it does                                                 |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| `pnpm run build`                              | `build:wasm`, then `astro build`                             |
+| `pnpm run check`                              | Both halves (`astro check && vp check`, then the Rust gates) |
+| `pnpm test`                                   | `cargo test`                                                 |
+| `cargo clippy --all-targets -- -D warnings`   | Rust lints                                                   |
+| `cargo fmt --all -- --check`                  | Rust formatting                                              |
+| `cargo check --target wasm32-unknown-unknown` | The real target                                              |
+| `pnpm exec astro check`                       | Astro typecheck                                              |
 
 Both toolchains must be installed for `pnpm run build` to produce a working site — a
 machine with only Node completes `astro build` happily and ships a page whose island never
