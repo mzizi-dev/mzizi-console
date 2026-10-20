@@ -125,13 +125,27 @@ this route class of config are worth keeping straight:
 
 ## Merge convention
 
-Merge commits are off: `allow_rebase_merge` and `allow_squash_merge` are `true`,
-`allow_merge_commit` is `false` (read off the GitHub API 2026-10-20). Rebase a PR whose
-branch is linear; squash one that carries merge commits, and squash a `release/` PR into
-`main`. The live API is the authority if this drifts. Merge only once the merge gate below
-is met, so never turn on auto-merge (`--auto`) when you open a PR, and never use `--admin`.
-A merge into `main` deploys `app.mzizi.dev`, so only the owner releases `staging` to `main`,
-or an agent the owner has authorised for that release.
+Read off the GitHub API and the rulesets on 2026-10-20; they are the authority if this drifts.
+
+- **Merge methods.** Rebase and squash are allowed; merge commits are not (repo flag
+  `allow_merge_commit: false`, and the org and enterprise rulesets allow only `squash` and
+  `rebase` and require linear history on `main` and `staging`). Org admins can bypass those
+  rulesets; agents never do, and never use `--admin`.
+- **Which one.** Rebase a PR whose branch is linear. Squash a PR whose branch carries merge
+  commits, including one brought up to date with GitHub's "Update branch" (required status
+  checks are strict, so a PR behind its base must be updated before it can merge). Squash
+  keeps every commit message in the squash commit's body (`COMMIT_MESSAGES`).
+- **No auto-merge, ever.** `allow_auto_merge` is on for the repo, but never pass `--auto` or
+  enable auto-merge on any PR: it merges on green CI, before the merge gate's runtime check
+  and code review (see "Dev skills, progress reports and the merge gate" below).
+- **Releases.** A merge into `main` deploys `app.mzizi.dev`, so only the owner releases
+  `staging` to `main`, or an agent the owner has authorised for that release. A release is a
+  `release/` branch made of `main` plus `staging`'s exact tree, squashed into `main`.
+- **Sync back after a release.** The squash commit on `main` is never in `staging`'s history,
+  and `staging` cannot be reset (non-fast-forward pushes are blocked). After each release,
+  open a sync PR into `staging` from a branch off `staging` with `origin/main` merged in, and
+  squash it, so the two trees match again before more work lands. Expect `main...staging`
+  to keep showing old commits as ahead and behind; compare trees, not counts.
 
 ## Honesty rules
 
