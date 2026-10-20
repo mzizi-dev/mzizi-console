@@ -27,7 +27,7 @@
     "astro": "^7.2.9",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
-    "vite-plus": "^1.0.0"
+    "vite-plus": "^1.1.0"
   },
   "dependencies": {
     "@workos-inc/authkit-js": "^0.20.2"
