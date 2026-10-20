@@ -10,6 +10,23 @@
 HTML at build time; a Rust/Dioxus island renders the data, fetched live from the registry
 API at runtime. Two languages, two toolchains, one set of script names.
 
+## Standalone, and where it is going
+
+The console is a standalone surface at its own domain, not a page inside the Nyuchi Console.
+Its scope is the registry, components, tokens, architecture and developer tooling.
+
+Decided, not built ([`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-console/issues/34);
+RFC in [PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35), not yet on `staging`): one
+Rust Worker serves Astro's output; sign-in moves to the server (WorkOS, session cookie); the
+data store is Cloudflare D1, not Supabase; the console depends on the published Mzizi Roots
+crates, with no Dioxus in new work. Until that lands, the Dioxus islands and client-side
+AuthKit below are what runs. Do not describe the decided shape as built.
+
+## Branches
+
+Branch from `origin/staging` and open pull requests against `staging`. CI runs on pushes to
+`main` and `staging` and on pull requests into `main`, `staging` and `claude/**`.
+
 ## Toolchain
 
 |        | front (Astro)             | behind (Rust)              |
@@ -153,7 +170,8 @@ drifts.
 
 - **No database behind the registry.** It's disk: `registry.json` and
   `content/doctrine/**` in `mzizi-registry`. Anything describing Supabase as the source of
-  truth for components, brand, or tokens is wrong.
+  truth for components, brand, or tokens is wrong. The rebuild's store is decided as
+  Cloudflare D1, not Supabase, and is not built.
 - **"Axis", "axes" and "layer" are retired vocabulary** — the model is nodes, rungs, and
   strands (8 nodes, 4 rungs, 6 strands). Legacy route names may still say otherwise; prose
   shouldn't.

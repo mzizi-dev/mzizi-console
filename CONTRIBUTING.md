@@ -179,6 +179,18 @@ Two consequences worth knowing before you write a component:
 - **No router, no layout, no nav in Rust.** Astro owns all three. `src/main.rs`
   is an entry point, not an app shell.
 
+### Where the split is going (decided, not built)
+
+The rebuild is decided in
+[`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-console/issues/34): one Rust Worker
+serves Astro's output, sign-in moves to the server (WorkOS, session cookie), the data store is
+Cloudflare D1 rather than Supabase, and the console depends on the published Mzizi Roots
+crates with no Dioxus in new work. The RFC is open as
+[PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35) and is not yet on `staging`, so
+this document does not repeat it. Until the rebuild lands, the islands, the client-side AuthKit
+gate and the Dioxus dependency in `Cargo.toml` is the running code, and the sections
+above describe them.
+
 ### The API base is measured, not preferred
 
 `api::DEFAULT_API_BASE` is `https://api.mzizi.dev/v1` — the **gateway**, not the
@@ -188,7 +200,7 @@ It read `https://mzizi.dev/api/v1` for as long as `api.mzizi.dev` was NXDOMAIN,
 and that earlier value was correct: the imported version pointed at a host with
 no DNS record and would have rendered every view empty against a perfectly
 healthy API. The correction carried a condition — switch the day the host
-answers. `mzizi-dev/mzizi-api-gateway` shipped, `api.mzizi.dev` answers, and all
+answers. `mzizi-dev/mzizi-api` (formerly `mzizi-api-gateway`) shipped, `api.mzizi.dev` answers, and all
 four endpoints this client reads are byte-identical through both hosts, so the
 condition is met.
 
