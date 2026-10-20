@@ -12,12 +12,12 @@ API at runtime. Two languages, two toolchains, one set of script names.
 
 ## Toolchain
 
-|        | front (Astro)            | behind (Rust)              |
-| ------ | ------------------------ | -------------------------- |
-| build  | `astro build`            | `cargo` + `wasm-bindgen`   |
-| check  | `astro check`, `vp lint` | `cargo clippy`, `--wasm32` |
-| format | `vp fmt`                 | `cargo fmt`                |
-| test   | —                        | `cargo test`               |
+|        | front (Astro)             | behind (Rust)              |
+| ------ | ------------------------- | -------------------------- |
+| build  | `astro build`             | `cargo` + `wasm-bindgen`   |
+| check  | `astro check`, `vp check` | `cargo clippy`, `--wasm32` |
+| format | `vp fmt`                  | `cargo fmt`                |
+| test   | —                         | `cargo test`               |
 
 **Vite+ cannot build the Rust half.** It's JS/TS tooling (Vite, Vitest, Oxlint, Oxfmt,
 Rolldown) — no cargo, no wasm-bindgen, no WebAssembly target. `vp run` drives the Astro half
@@ -25,15 +25,15 @@ and the package scripts; Cargo drives the Rust half; `pnpm run build` composes b
 
 ## Commands
 
-| Command                                       | What it does                                                |
-| --------------------------------------------- | ----------------------------------------------------------- |
-| `pnpm run build`                              | `build:wasm`, then `astro build`                            |
-| `pnpm run check`                              | Both halves (`astro check && vp lint`, then the Rust gates) |
-| `pnpm test`                                   | `cargo test`                                                |
-| `cargo clippy --all-targets -- -D warnings`   | Rust lints                                                  |
-| `cargo fmt --all -- --check`                  | Rust formatting                                             |
-| `cargo check --target wasm32-unknown-unknown` | The real target                                             |
-| `pnpm exec astro check`                       | Astro typecheck                                             |
+| Command                                       | What it does                                                 |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| `pnpm run build`                              | `build:wasm`, then `astro build`                             |
+| `pnpm run check`                              | Both halves (`astro check && vp check`, then the Rust gates) |
+| `pnpm test`                                   | `cargo test`                                                 |
+| `cargo clippy --all-targets -- -D warnings`   | Rust lints                                                   |
+| `cargo fmt --all -- --check`                  | Rust formatting                                              |
+| `cargo check --target wasm32-unknown-unknown` | The real target                                              |
+| `pnpm exec astro check`                       | Astro typecheck                                              |
 
 Both toolchains must be installed for `pnpm run build` to produce a working site — a
 machine with only Node completes `astro build` happily and ships a page whose island never
@@ -125,10 +125,27 @@ this route class of config are worth keeping straight:
 
 ## Merge convention
 
-This repository is rebase-only: `allow_rebase_merge` is `true`, `allow_merge_commit` and
-`allow_squash_merge` are both `false` (read off the GitHub API 2026-09-12, org-wide).
-`CONTRIBUTING.md` still describes the merge-commit convention that preceded this — the live
-API is the authority. Land changes with `gh pr merge <n> --rebase --auto`. Never `--admin`.
+Read off the GitHub API and the rulesets on 2026-10-20; they are the authority if this drifts.
+
+- **Merge methods.** Rebase and squash are allowed; merge commits are not (repo flag
+  `allow_merge_commit: false`, and the org and enterprise rulesets allow only `squash` and
+  `rebase` and require linear history on `main` and `staging`). Org admins can bypass those
+  rulesets; agents never do, and never use `--admin`.
+- **Which one.** Rebase a PR whose branch is linear. Squash a PR whose branch carries merge
+  commits, including one brought up to date with GitHub's "Update branch" (required status
+  checks are strict, so a PR behind its base must be updated before it can merge). Squash
+  keeps every commit message in the squash commit's body (`COMMIT_MESSAGES`).
+- **No auto-merge, ever.** `allow_auto_merge` is on for the repo, but never pass `--auto` or
+  enable auto-merge on any PR: it merges on green CI, before the merge gate's runtime check
+  and code review (see "Dev skills, progress reports and the merge gate" below).
+- **Releases.** A merge into `main` deploys `app.mzizi.dev`, so only the owner releases
+  `staging` to `main`, or an agent the owner has authorised for that release. A release is a
+  `release/` branch made of `main` plus `staging`'s exact tree, squashed into `main`.
+- **Sync back after a release.** The squash commit on `main` is never in `staging`'s history,
+  and `staging` cannot be reset (non-fast-forward pushes are blocked). After each release,
+  open a sync PR into `staging` from a branch off `staging` with `origin/main` merged in, and
+  squash it, so the two trees match again before more work lands. Expect `main...staging`
+  to keep showing old commits as ahead and behind; compare trees, not counts.
 
 ## Honesty rules
 
@@ -167,3 +184,22 @@ agent or person can pick it up.
 - Work spanning repos gets a tracking issue that links the per-repo issues.
 - Never put secrets, credential status or exploitable detail in issues on public
   repos.
+
+## Dev skills, progress reports and the merge gate
+
+Load the Mzizi **dev skills** before starting work:
+`mzizi_get_skills category=dev` on the Mzizi MCP (`mcp.mzizi.dev`), or
+`@nyuchi/mzizi-skills` from npm. They are `digital-hygiene` and
+`progress-report`.
+
+- **Digital hygiene.** Check free disk before starting, clone only under
+  `${TMPDIR:-/tmp}`, share build caches, and audit, then delete, your clones once the
+  work merges (`digital-hygiene` skill).
+- **Clone isolation.** Clone only into a directory unique to you; never touch
+  another agent's.
+- **Progress reports.** All dev work runs on a 10-minute progress-report loop
+  (`progress-report` skill): measured bars, what changed, and a final "Needs
+  you:" line. Report ticks never publish, release, merge or deploy without the
+  owner's approval.
+- **Merge gate.** Merge only when the work is complete, CI is green, it's
+  verified at runtime, and `/code-review` has run with findings resolved.
