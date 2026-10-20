@@ -125,10 +125,13 @@ this route class of config are worth keeping straight:
 
 ## Merge convention
 
-This repository is rebase-only: `allow_rebase_merge` is `true`, `allow_merge_commit` and
-`allow_squash_merge` are both `false` (read off the GitHub API 2026-09-12, org-wide).
-`CONTRIBUTING.md` still describes the merge-commit convention that preceded this — the live
-API is the authority. Land changes with `gh pr merge <n> --rebase --auto`. Never `--admin`.
+Merge commits are off: `allow_rebase_merge` and `allow_squash_merge` are `true`,
+`allow_merge_commit` is `false` (read off the GitHub API 2026-10-20). Rebase a PR whose
+branch is linear; squash one that carries merge commits, and squash a `release/` PR into
+`main`. The live API is the authority if this drifts. Merge only once the merge gate below
+is met, so never turn on auto-merge (`--auto`) when you open a PR, and never use `--admin`.
+A merge into `main` deploys `app.mzizi.dev`, so only the owner releases `staging` to `main`,
+or an agent the owner has authorised for that release.
 
 ## Honesty rules
 
@@ -176,7 +179,7 @@ Load the Mzizi **dev skills** before starting work:
 `progress-report`.
 
 - **Digital hygiene.** Check free disk before starting, clone only under
-  `$TMPDIR`, share build caches, and audit, then delete, your clones once the
+  `${TMPDIR:-/tmp}`, share build caches, and audit, then delete, your clones once the
   work merges (`digital-hygiene` skill).
 - **Clone isolation.** Clone only into a directory unique to you; never touch
   another agent's.

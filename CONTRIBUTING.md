@@ -316,28 +316,28 @@ zero checks — a PR with nothing run looks identical to a passing one.
 
 ---
 
-## 8. Merging: merge commits only
+## 8. Merging: rebase, or squash; never a merge commit
 
-**Squash and rebase merging are disabled on this repository**, org-wide policy,
-and the setting is enforced by GitHub rather than by convention
-(`squashMergeAllowed: false`, `rebaseMergeAllowed: false`).
+**Merge commits are disabled on this repository**, and GitHub enforces it
+(`allow_merge_commit: false`; `allow_rebase_merge` and `allow_squash_merge` are
+`true`, read off the API 2026-10-20). The earlier merge-commit-only policy from
+`mzizi/MIGRATION.md` §1.1 no longer matches the setting; the live API is the
+authority. See `AGENTS.md` "Merge convention" and the merge gate.
 
-From `mzizi/MIGRATION.md` §1.1, which sets the repository spec for the org:
-
-> | Allow merge commits | **yes** | The ecosystem convention is merge-only; history stays truthful |
-> | Allow squash merging | **no** | Squash discards the per-commit reasoning this project depends on |
-
-Merge with:
+Rebase a PR whose branch is linear, so each commit lands as written:
 
 ```bash
-gh pr merge <n> --merge --delete-branch
+gh pr merge <n> --rebase --delete-branch
 ```
+
+Squash only a PR whose branch carries merge commits, or a `release/` PR into
+`main`.
 
 This project's commit messages carry the measurement behind a change — which
 host answered, which status a route returns, which limit a bundle is up against.
 `52218dc` is a worked example: it is the record of _why_ two CI jobs failed and
 what the underlying cause was, and a squash would have folded it into a feature
-commit and thrown that away.
+commit and thrown that away. That is why rebase is the default.
 
 Practical consequences:
 
