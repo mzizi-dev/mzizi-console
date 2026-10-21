@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — `vite-plus` 1.3.0, and every dependency is a minimum (2026-10-21)
+
+- `vite-plus` moves from 1.0.0 to 1.3.0 (oxfmt 0.73, oxlint 1.88, Vitest 5.0.5). Only that tree moves in
+  `pnpm-lock.yaml`; the console's own dependencies resolve as before.
+- Every entry in `dependencies` and `devDependencies` is now `>=x.y.z` with no maximum, at the version the
+  lockfile already resolved (owner, 2026-10-21: "mark packages with minimum acceptable, latest shouldn't be a
+  blocker on too old of a version").
+
 ### Added — Dependabot version updates target `staging` (2026-10-21)
 
 - `.github/dependabot.yml` is new: weekly version updates for GitHub Actions and this repository's package manifests, every entry with `target-branch: staging` (owner rule, 2026-10-21: "all dependabot should target staging not main.") and a seven-day cooldown before a new release is proposed.
