@@ -125,19 +125,21 @@ this route class of config are worth keeping straight:
 
 ## Merge convention
 
-Read off the GitHub API and the rulesets on 2026-10-20; they are the authority if this drifts.
+Read off the repo settings and the rulesets on 2026-10-21; they are the authority if this
+drifts.
 
-- **Merge methods.** Rebase and squash are allowed; merge commits are not (repo flag
-  `allow_merge_commit: false`, and the org and enterprise rulesets allow only `squash` and
-  `rebase` and require linear history on `main` and `staging`). Org admins can bypass those
-  rulesets; agents never do, and never use `--admin`.
-- **Which one.** Rebase a PR whose branch is linear. Squash a PR whose branch carries merge
-  commits, including one brought up to date with GitHub's "Update branch" (required status
-  checks are strict, so a PR behind its base must be updated before it can merge). Squash
-  keeps every commit message in the squash commit's body (`COMMIT_MESSAGES`).
-- **No auto-merge, ever.** `allow_auto_merge` is on for the repo, but never pass `--auto` or
-  enable auto-merge on any PR: it merges on green CI, before the merge gate's runtime check
-  and code review (see "Dev skills, progress reports and the merge gate" below).
+- **Merge method.** Squash merges through the merge queue: `gh pr merge <n> --squash --auto`.
+  Never `--admin`. The squash commit keeps every commit message in its body
+  (`COMMIT_MESSAGES`), so the per-commit reasoning is preserved. Rebase and merge commits are
+  disabled (repo settings and rulesets, 2026-10-21). Org admins can bypass those rulesets;
+  agents never do.
+- **Branches.** Updating a branch with the base (GitHub's "Update branch") is fine; the
+  squash makes `main` linear. The merge queue tests each PR against the latest base. Merged
+  branches are deleted.
+- **`--auto` enqueues; enqueue only past the merge gate.** `--auto` adds the PR to the merge
+  queue, and is how PRs land. The merge gate must be met before you enqueue: the work is
+  complete, CI is green, it's verified at runtime, and `/code-review` has run with findings
+  resolved (see "Dev skills, progress reports and the merge gate" below).
 - **Releases.** A merge into `main` deploys `app.mzizi.dev`, so only the owner releases
   `staging` to `main`, or an agent the owner has authorised for that release. A release is a
   `release/` branch made of `main` plus `staging`'s exact tree, squashed into `main`.
