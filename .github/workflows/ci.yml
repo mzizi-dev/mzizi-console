@@ -46,7 +46,7 @@ jobs:
       # Covers the API client's decoding, including `tests/live_shapes.rs`,
       # which decodes CAPTURED LIVE responses with the production types. That is
       # a different claim from the unit tests: those decode fixtures this repo
-      # wrote, and the Svelte client this replaces had types that were
+      # wrote, and the earlier client this replaces had types that were
       # self-consistent and wrong.
       - run: cargo test
 
