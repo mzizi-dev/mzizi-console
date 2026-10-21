@@ -95,6 +95,6 @@ Notes:
   `https://staging-mzizi-console.nyuchi.workers.dev` (`preview_urls: true`,
   `workers_dev: false` in `wrangler.jsonc`). Production (`app.mzizi.dev`) deploys via
   the Cloudflare GitHub app; there is no deploy workflow here and none should be added.
-- Merging follows AGENTS.md "Merge convention": rebase a linear branch, squash one that
-  carries merge commits, never auto-merge (`--auto`), never `--admin`, and only after the
-  merge gate. A merge into `main` is a release, which is the owner's.
+- Merging follows AGENTS.md "Merge convention": squash through the merge queue with
+  `gh pr merge <n> --squash --auto`, enqueued only after the merge gate, never `--admin`.
+  A merge into `main` is a release, which is the owner's.
