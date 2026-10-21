@@ -115,7 +115,7 @@ pub fn IslandRoot(island: Island, base: String) -> Element {
 ///
 /// Factored out because the three islands differ only in what they render on
 /// success, and because the error branch is the one worth having in exactly one
-/// place: the Svelte console this replaces rendered an empty list on failure, so
+/// place: the earlier console app this replaces rendered an empty list on failure, so
 /// a 410 and an empty registry were indistinguishable.
 macro_rules! resolved {
     ($resource:expr, $data:ident => $body:expr) => {

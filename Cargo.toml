@@ -1,6 +1,6 @@
 # app.mzizi.dev — the Mzizi console, as a Rust/Dioxus WASM app.
 #
-# This replaces `@nyuchi/mzizi-console-app`, a Svelte mini-app the Nyuchi
+# This replaces `@nyuchi/mzizi-console-app`, a mini-app the Nyuchi
 # Console mounted under `/apps/mzizi/*`. Two things change at once and both are
 # deliberate:
 #
@@ -8,7 +8,7 @@
 #     package another app mounts.
 #   * It becomes Rust. The framework doctrine (nyuchi/mzizi#269) is that the UI
 #     is Astro and underneath is Rust first, TypeScript second, with no third UI
-#     framework — not Svelte, not React, not Vue. `mzizi-tools#82` records the
+#     framework — not React, not Vue. `mzizi-tools#82` records the
 #     decision to make this one a full Rust UI rather than an Astro shell,
 #     because it administers a Rust stack.
 #

@@ -1,7 +1,7 @@
 //! The mzizi.dev API client.
 //!
 //! Types are modelled on what the API serves TODAY, which is not what the
-//! Svelte console app modelled. That app's `getAxes()` and `getLayers()` called
+//! earlier console app modelled. That app's `getAxes()` and `getLayers()` called
 //! `/architecture/frontend/axes` and `/architecture/frontend/layers`; both
 //! answer **410 Gone** in production, and have since the axis model was
 //! retired. Its Architecture route could not have worked.
@@ -97,7 +97,7 @@ pub struct ComponentSummary {
 /// `GET /ui` — a shadcn registry document, not a bare list.
 ///
 /// The components are under `items`, and `meta.total` is the registry size. The
-/// Svelte client typed this endpoint as `ComponentSummary[]` and would have
+/// earlier client typed this endpoint as `ComponentSummary[]` and would have
 /// failed to decode every time.
 #[derive(Debug, Clone, Default, Deserialize)]
 pub struct RegistryIndex {
@@ -191,7 +191,7 @@ pub struct Mineral {
 
 /// The brand payload.
 ///
-/// There are **seven** minerals and seven heritage tones, not five. The Svelte
+/// There are **seven** minerals and seven heritage tones, not five. The earlier
 /// manifest this replaces described the Tokens route as the "Five African
 /// Minerals palette" — retired naming that nyuchi/mzizi#265 removed from the
 /// framework repo and added a repo-wide guard against. That guard does not
@@ -254,7 +254,7 @@ impl std::error::Error for ApiError {}
 
 /// Join a base and a path without producing a double slash or losing a segment.
 ///
-/// Split out and tested because the Svelte original did this inline with a
+/// Split out and tested because the earlier original did this inline with a
 /// trailing-slash strip on the base only, which is correct exactly as long as
 /// every caller remembers the leading slash on the path.
 #[must_use]
@@ -304,7 +304,7 @@ mod tests {
 
     /// `GET /ui`, trimmed from the live response. The point of the fixture is
     /// the SHAPE — a registry document with `items`, camelCase keys — because
-    /// that shape is what the Svelte client got wrong.
+    /// that shape is what the earlier client got wrong.
     const UI_FIXTURE: &str = r#"{
       "$schema": "https://ui.shadcn.com/schema/registry.json",
       "name": "mzizi",
@@ -407,7 +407,7 @@ mod tests {
 
     #[test]
     fn a_retired_route_reports_its_status_and_url() {
-        // `/architecture/frontend/axes` answers 410. The Svelte client turned
+        // `/architecture/frontend/axes` answers 410. The earlier client turned
         // every non-2xx into a bare string; keeping the status and the URL is
         // what lets the UI say "this route is retired" rather than "error".
         let err = ApiError::Status {
