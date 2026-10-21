@@ -42,6 +42,24 @@ the moment a component shipped — and a stale copy that still looks authoritati
 is the defect class this ecosystem keeps removing. What the console shows is what
 a consumer would install right now.
 
+## Where it is going (decided, not built)
+
+The rebuild is decided in [`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-console/issues/34):
+rebuild the console on Astro with a Rust backend and Mzizi Roots. The RFC is open as
+[PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35) and is not yet on `staging`.
+Decided, not built:
+
+- One Rust Worker serves Astro's output.
+- Sign-in moves to the server: WorkOS, with a session cookie. Today it is client-side AuthKit,
+  described under [Authentication](#authentication).
+- The data store is Cloudflare D1, not Supabase. Today there is no database, as described
+  under [The API has three envelope conventions](#the-api-has-three-envelope-conventions).
+- It depends on the published Mzizi Roots crates. No Dioxus in new work. Today the islands are
+  Dioxus, so the sections above describe the running console, not the decided one.
+
+The console is a standalone surface at its own domain. It is not mounted inside the Nyuchi
+Console. Its scope is the registry, components, tokens, architecture and developer tooling.
+
 ## What it replaces
 
 `@nyuchi/mzizi-console-app`, an earlier mini-app the Nyuchi Console mounted under
@@ -51,8 +69,8 @@ Rust first, TypeScript second, with no third UI framework.
 `mzizi-dev/agent-tools#82` records the decision.
 
 Mzizi is an independent open-architecture project that owns, operates and
-develops its framework, design system, registry, docs and API gateway
-([`mzizi-dev/mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway)).
+develops its framework, design system, registry, docs and API
+([`mzizi-dev/mzizi-api`](https://github.com/mzizi-dev/mzizi-api), formerly `mzizi-api-gateway`).
 This console is a **Nyuchi** surface built on Mzizi: it is run under Nyuchi, like
 everything revenue-generating.
 
@@ -150,7 +168,8 @@ not be "simplified" back.**
 `"origin": "https://mzizi.dev/api"`". It does not. That response now carries no
 `origin` field at all, and every response from `api.mzizi.dev` arrives with
 `x-opennext: 1` and Next.js `vary` headers — the signature of the registry's own
-Next.js app on Cloudflare, not of the Rust Worker in `mzizi-api-gateway`. What
+Next.js app on Cloudflare, not of the Hono (TypeScript) Worker in `mzizi-dev/mzizi-api`
+(formerly `mzizi-api-gateway`). What
 holds `api.mzizi.dev` today is not what this README last recorded. The address
 is stable; the thing behind it moved, which is exactly what owning the name was
 for.
@@ -179,11 +198,12 @@ There is **no database** behind any of it. The registry is disk: `registry.json`
 and `content/doctrine/**` in
 [`mzizi-dev/mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry).
 Anything describing Supabase as the source of truth for components, brand or
-tokens is wrong.
+tokens is wrong. The rebuild's data store is decided as Cloudflare D1, not
+Supabase; that is not built.
 
 ## Authentication
 
-The console is gated behind **WorkOS AuthKit**, entirely client-side —
+Today the console is gated behind **WorkOS AuthKit**, entirely client-side —
 `@workos-inc/authkit-js`, not the SSR-only `@workos/authkit-astro`, because this site is
 `output: "static"` with no server to receive an OAuth callback. No API key, no client
 secret, and no cookie password ever enter the browser bundle: the browser SDK runs
@@ -195,7 +215,9 @@ do is real: the island doesn't mount, and the ~1 MiB WASM bundle isn't downloade
 AuthKit reports a signed-in user. It fails closed — an unset `PUBLIC_WORKOS_CLIENT_ID`
 refuses every visitor, says so on the page, and disables the sign-in button rather than
 quietly letting everyone through. See `.env.example` for the four variables involved and
-[`AGENTS.md`](./AGENTS.md) for the toolchain and deploy mechanics.
+[`AGENTS.md`](./AGENTS.md) for the toolchain and deploy mechanics. Moving sign-in to the
+server with a session cookie is decided, not built (see
+[Where it is going](#where-it-is-going-decided-not-built)).
 
 ## Toolchain and commands
 
@@ -208,13 +230,13 @@ deploy — the route footgun this org has already hit twice.
 
 ## Related repositories
 
-| Repository                                                            | What it is                                     | Address                                       |
-| --------------------------------------------------------------------- | ---------------------------------------------- | --------------------------------------------- |
-| [`mzizi`](https://github.com/mzizi-dev/mzizi)                         | The language — Rust compiler research, Phase 0 | —                                             |
-| [`mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry)       | The component registry, brand and architecture | Portal currently unrouted                     |
-| [`mzizi-api-gateway`](https://github.com/mzizi-dev/mzizi-api-gateway) | The registry API as a pure-Rust Worker         | [api.mzizi.dev](https://api.mzizi.dev/api/v1) |
-| [`mzizi-site`](https://github.com/mzizi-dev/mzizi-site)               | Mzizi's front door                             | [mzizi.dev](https://mzizi.dev)                |
-| `mzizi-console`                                                       | This repository, run under Nyuchi              | [app.mzizi.dev](https://app.mzizi.dev)        |
+| Repository                                                                           | What it is                                     | Address                                       |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------- | --------------------------------------------- |
+| [`mzizi`](https://github.com/mzizi-dev/mzizi)                                        | The language — Rust compiler research, Phase 0 | —                                             |
+| [`mzizi-registry`](https://github.com/mzizi-dev/mzizi-registry)                      | The component registry, brand and architecture | Portal currently unrouted                     |
+| [`mzizi-api`](https://github.com/mzizi-dev/mzizi-api) (formerly `mzizi-api-gateway`) | The registry API, a Hono (TypeScript) Worker   | [api.mzizi.dev](https://api.mzizi.dev/api/v1) |
+| [`mzizi-site`](https://github.com/mzizi-dev/mzizi-site)                              | Mzizi's front door                             | [mzizi.dev](https://mzizi.dev)                |
+| `mzizi-console`                                                                      | This repository, run under Nyuchi              | [app.mzizi.dev](https://app.mzizi.dev)        |
 
 ## Contributing
 
