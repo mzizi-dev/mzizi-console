@@ -2,7 +2,7 @@
 //!
 //! The unit tests in `api.rs` decode fixtures this repo wrote, which proves the
 //! types are self-consistent and nothing more. These decode bytes the live API
-//! actually sent. That difference is the whole point: the Svelte client this
+//! actually sent. That difference is the whole point: the earlier client this
 //! replaces had types that were self-consistent and wrong, and no test it had
 //! could tell.
 //!
