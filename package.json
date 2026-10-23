@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "app.mzizi.dev — the Mzizi console. Astro in front, Rust/Dioxus islands behind.",
+  "description": "app.mzizi.dev \u2014 the Mzizi console. Astro in front, Rust/Dioxus islands behind.",
   "type": "module",
   "packageManager": "pnpm@10.33.0",
   "scripts": {
@@ -31,5 +31,14 @@
   },
   "dependencies": {
     "@workos-inc/authkit-js": ">=0.20.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "devalue@<5.9.3": ">=5.9.3",
+      "http-cache-semantics@<4.3.0": ">=4.3.0",
+      "sharp@<0.35.5": ">=0.35.5",
+      "source-map-js@<1.2.2": ">=1.2.2",
+      "vite@>=8.0.0 <8.3.5": ">=8.3.5"
+    }
   }
 }

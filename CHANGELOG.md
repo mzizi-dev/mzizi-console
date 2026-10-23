@@ -13,6 +13,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Every entry in `dependencies` and `devDependencies` is now `>=x.y.z` with no maximum, at the version the
   lockfile already resolved (owner, 2026-10-21: "mark packages with minimum acceptable, latest shouldn't be a
   blocker on too old of a version").
+- New `pnpm.overrides`, each a minimum with no maximum, clear the high advisories the org `audit` job
+  reported through `astro`: `devalue@<5.9.3` `>=5.9.3` (resolves 5.9.4), `http-cache-semantics@<4.3.0`
+  `>=4.3.0`, `sharp@<0.35.5` `>=0.35.5`, `source-map-js@<1.2.2` `>=1.2.2` and `vite@>=8.0.0 <8.3.5`
+  `>=8.3.5` (astro's vite moves from 8.2.2 to 8.3.5, with rolldown 1.2.15). The console renders as before.
 
 ### Added — Dependabot version updates target `staging` (2026-10-21)
 
