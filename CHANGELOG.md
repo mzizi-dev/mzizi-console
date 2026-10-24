@@ -6,6 +6,25 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Security — `undici` at 8.12.2 or later and `zod` at 4.6.6 or later (2026-10-24)
+
+- Two new `pnpm.overrides`, each a minimum with no maximum, clear the high advisories the org `audit` job
+  reported through `astro`: `undici@>=8.0.0 <8.12.2` `>=8.12.2` moves `unifont`'s copy from 8.10.2 to 8.12.3
+  (GHSA-xjj6-f33q-929c), and `zod@<4.6.6` `>=4.6.6` moves 4.5.4 to 4.6.7 (GHSA-mrhx-c7xc-m3w5). Both are
+  build-time dependencies; the console renders as before.
+
+### Changed — `vite-plus` 1.3.0, and every dependency is a minimum (2026-10-21)
+
+- `vite-plus` moves from 1.0.0 to 1.3.0 (oxfmt 0.73, oxlint 1.88, Vitest 5.0.5). Only that tree moves in
+  `pnpm-lock.yaml`; the console's own dependencies resolve as before.
+- Every entry in `dependencies` and `devDependencies` is now `>=x.y.z` with no maximum, at the version the
+  lockfile already resolved (owner, 2026-10-21: "mark packages with minimum acceptable, latest shouldn't be a
+  blocker on too old of a version").
+- New `pnpm.overrides`, each a minimum with no maximum, clear the high advisories the org `audit` job
+  reported through `astro`: `devalue@<5.9.3` `>=5.9.3` (resolves 5.9.4), `http-cache-semantics@<4.3.0`
+  `>=4.3.0`, `sharp@<0.35.5` `>=0.35.5`, `source-map-js@<1.2.2` `>=1.2.2` and `vite@>=8.0.0 <8.3.5`
+  `>=8.3.5` (astro's vite moves from 8.2.2 to 8.3.5, with rolldown 1.2.15). The console renders as before.
+
 ### Added — Dependabot version updates target `staging` (2026-10-21)
 
 - `.github/dependabot.yml` is new: weekly version updates for GitHub Actions and this repository's package manifests, every entry with `target-branch: staging` (owner rule, 2026-10-21: "all dependabot should target staging not main.") and a seven-day cooldown before a new release is proposed.
