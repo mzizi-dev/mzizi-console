@@ -6,6 +6,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Security — `undici` at 8.12.2 or later and `zod` at 4.6.6 or later (2026-10-24)
+
+- Two new `pnpm.overrides`, each a minimum with no maximum, clear the high advisories the org `audit` job
+  reported through `astro`: `undici@>=8.0.0 <8.12.2` `>=8.12.2` moves `unifont`'s copy from 8.10.2 to 8.12.3
+  (GHSA-xjj6-f33q-929c), and `zod@<4.6.6` `>=4.6.6` moves 4.5.4 to 4.6.7 (GHSA-mrhx-c7xc-m3w5). Both are
+  build-time dependencies; the console renders as before.
+
 ### Changed — `vite-plus` 1.3.0, and every dependency is a minimum (2026-10-21)
 
 - `vite-plus` moves from 1.0.0 to 1.3.0 (oxfmt 0.73, oxlint 1.88, Vitest 5.0.5). Only that tree moves in
