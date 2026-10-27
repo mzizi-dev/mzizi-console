@@ -24,7 +24,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^24.19.1",
-    "astro": "^7.2.9",
+    "astro": "^7.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
     "vite-plus": "^1.0.0"
