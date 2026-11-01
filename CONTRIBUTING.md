@@ -179,6 +179,18 @@ Two consequences worth knowing before you write a component:
 - **No router, no layout, no nav in Rust.** Astro owns all three. `src/main.rs`
   is an entry point, not an app shell.
 
+### Where the split is going (decided, not built)
+
+The rebuild is decided in
+[`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-console/issues/34): one Rust Worker
+serves Astro's output, sign-in moves to the server (WorkOS, session cookie), the data store is
+Cloudflare D1 rather than Supabase, and the console depends on the published Mzizi Roots
+crates with no Dioxus in new work. The RFC is open as
+[PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35) and is not yet on `staging`, so
+this document does not repeat it. Until the rebuild lands, the islands, the client-side AuthKit
+gate and the Dioxus dependency in `Cargo.toml` is the running code, and the sections
+above describe them.
+
 ### The API base is measured, not preferred
 
 `api::DEFAULT_API_BASE` is `https://api.mzizi.dev/v1` — the **gateway**, not the
@@ -188,7 +200,7 @@ It read `https://mzizi.dev/api/v1` for as long as `api.mzizi.dev` was NXDOMAIN,
 and that earlier value was correct: the imported version pointed at a host with
 no DNS record and would have rendered every view empty against a perfectly
 healthy API. The correction carried a condition — switch the day the host
-answers. `mzizi-dev/mzizi-api-gateway` shipped, `api.mzizi.dev` answers, and all
+answers. `mzizi-dev/mzizi-api` (formerly `mzizi-api-gateway`) shipped, `api.mzizi.dev` answers, and all
 four endpoints this client reads are byte-identical through both hosts, so the
 condition is met.
 
@@ -245,7 +257,7 @@ cargo test
 Two kinds, and the difference is the point:
 
 - **Unit tests in `src/api.rs`** decode fixtures this repo wrote. They prove the
-  types are self-consistent and nothing more. The Svelte client this replaces had
+  types are self-consistent and nothing more. The earlier client this replaces had
   types that were self-consistent and wrong.
 - **`tests/live_shapes.rs`** decodes **captured live responses** under
   `tests/live/` with the production types. That is a different and stronger claim.
@@ -321,30 +333,30 @@ zero checks — a PR with nothing run looks identical to a passing one.
 
 ---
 
-## 8. Merging: rebase, or squash; never a merge commit
+## 8. Merging: squash through the merge queue
 
-Merge commits are off: the repo flag is `allow_merge_commit: false`, and the org and
-enterprise rulesets allow only squash and rebase and require linear history on `main` and
-`staging`. Org admins can bypass those rulesets; nobody else can, and nobody uses `--admin`.
-The earlier merge-commit-only policy from `mzizi/MIGRATION.md` §1.1 no longer matches; the
-live API and rulesets are the authority. `AGENTS.md` "Merge convention" has the full rules.
-
-Rebase a PR whose branch is linear:
+Squash merges through the merge queue. Rebase and merge commits are disabled (repo settings
+and rulesets, 2026-10-21). Org admins can bypass those rulesets; nobody else can, and nobody
+uses `--admin`. The earlier merge-commit-only policy from `mzizi/MIGRATION.md` §1.1 no longer
+matches; the live settings and rulesets are the authority. `AGENTS.md` "Merge convention" has
+the full rules.
 
 ```bash
-gh pr merge <n> --rebase
+gh pr merge <n> --squash --auto
 ```
 
-Squash a PR whose branch carries merge commits, including one updated with "Update branch"
-(required checks are strict, so a PR behind its base must be updated first). Squash keeps
-every commit message, as text in the one squash commit's body. Branches are deleted on merge by the repo
-setting, so `--delete-branch` adds nothing.
+The squash commit keeps every commit message in its body (`COMMIT_MESSAGES`), so the
+per-commit reasoning is preserved. Updating a branch with the base (GitHub's "Update
+branch") is fine; the squash makes `main` linear. The merge queue tests each PR against the
+latest base. Branches are deleted on merge by the repo setting, so `--delete-branch` adds
+nothing.
 
 Before merging anything:
 
 - **The merge gate.** The work is complete, CI is green, it is verified at runtime, and code
   review has run with its findings resolved.
-- **No auto-merge.** Never pass `--auto`: it merges on green CI, before the gate.
+- **Enqueue only past the gate.** `--auto` adds the PR to the merge queue, and is how PRs
+  land, so pass it only once the gate above is met.
 - **Releases are the owner's.** A merge into `main` deploys `app.mzizi.dev`. Only the owner,
   or someone the owner authorised, releases `staging` to `main`: a `release/` branch made of
   `main` plus `staging`'s exact tree, squashed, then synced back into `staging` (a branch off
@@ -353,9 +365,8 @@ Before merging anything:
 This project's commit messages carry the measurement behind a change — which
 host answered, which status a route returns, which limit a bundle is up against.
 `52218dc` is a worked example: it is the record of _why_ two CI jobs failed and
-what the underlying cause was. A rebase merge keeps it as its own commit (with a new SHA,
-so cite commits by their SHA on `staging` or `main`, not on a branch); a squash keeps it only
-as a line in one larger commit's body. That is why rebase is the default.
+what the underlying cause was. The squash keeps it in the squash commit's body, word for
+word, so cite the squash commit's SHA on `staging` or `main`, not a commit on a branch.
 
 Practical consequences:
 
