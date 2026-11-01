@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — GitHub releases carry the CHANGELOG entries they ship (2026-11-01)
+
+- Owner, 2026-11-01: a release is not done until its tag and its GitHub release, with notes from `CHANGELOG.md`, exist on the merge commit on `main`. `main-release.yml` now opens each release's notes with every `CHANGELOG.md` entry added since the previous `main` release (`.github/scripts/release_notes.py`, adapted from `mzizi-dev/mzizi`), followed by GitHub's list of merged pull requests. Before, the notes were the pull-request list alone.
+- A commit that already carries its minor tag but has no release gets one, and a manual run of the workflow on such a commit rewrites its notes from `CHANGELOG.md`, so an earlier release can be corrected.
+- Nothing served changes; only the release pages do.
+
 ### Security — `undici` at 8.12.2 or later and `zod` at 4.6.6 or later (2026-10-24)
 
 - Two new `pnpm.overrides`, each a minimum with no maximum, clear the high advisories the org `audit` job
