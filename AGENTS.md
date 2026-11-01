@@ -10,6 +10,23 @@
 HTML at build time; a Rust/Dioxus island renders the data, fetched live from the registry
 API at runtime. Two languages, two toolchains, one set of script names.
 
+## Standalone, and where it is going
+
+The console is a standalone surface at its own domain, not a page inside the Nyuchi Console.
+Its scope is the registry, components, tokens, architecture and developer tooling.
+
+Decided, not built ([`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-console/issues/34);
+RFC in [PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35), not yet on `staging`): one
+Rust Worker serves Astro's output; sign-in moves to the server (WorkOS, session cookie); the
+data store is Cloudflare D1, not Supabase; the console depends on the published Mzizi Roots
+crates, with no Dioxus in new work. Until that lands, the Dioxus islands and client-side
+AuthKit below are what runs. Do not describe the decided shape as built.
+
+## Branches
+
+Branch from `origin/staging` and open pull requests against `staging`. CI runs on pushes to
+`main` and `staging` and on pull requests into `main`, `staging` and `claude/**`.
+
 ## Toolchain
 
 |        | front (Astro)             | behind (Rust)              |
@@ -61,7 +78,7 @@ after any rename, and see
 
 `tests/live_shapes.rs` decodes **captured live responses** with the production types — a
 different claim from the unit tests, which decode fixtures this repo wrote and prove only
-internal self-consistency (the Svelte client this replaced had types that were
+internal self-consistency (the earlier client this replaced had types that were
 self-consistent and wrong). Refresh the captures by hand:
 
 ```bash
@@ -125,19 +142,21 @@ this route class of config are worth keeping straight:
 
 ## Merge convention
 
-Read off the GitHub API and the rulesets on 2026-10-20; they are the authority if this drifts.
+Read off the repo settings and the rulesets on 2026-10-21; they are the authority if this
+drifts.
 
-- **Merge methods.** Rebase and squash are allowed; merge commits are not (repo flag
-  `allow_merge_commit: false`, and the org and enterprise rulesets allow only `squash` and
-  `rebase` and require linear history on `main` and `staging`). Org admins can bypass those
-  rulesets; agents never do, and never use `--admin`.
-- **Which one.** Rebase a PR whose branch is linear. Squash a PR whose branch carries merge
-  commits, including one brought up to date with GitHub's "Update branch" (required status
-  checks are strict, so a PR behind its base must be updated before it can merge). Squash
-  keeps every commit message in the squash commit's body (`COMMIT_MESSAGES`).
-- **No auto-merge, ever.** `allow_auto_merge` is on for the repo, but never pass `--auto` or
-  enable auto-merge on any PR: it merges on green CI, before the merge gate's runtime check
-  and code review (see "Dev skills, progress reports and the merge gate" below).
+- **Merge method.** Squash merges through the merge queue: `gh pr merge <n> --squash --auto`.
+  Never `--admin`. The squash commit keeps every commit message in its body
+  (`COMMIT_MESSAGES`), so the per-commit reasoning is preserved. Rebase and merge commits are
+  disabled (repo settings and rulesets, 2026-10-21). Org admins can bypass those rulesets;
+  agents never do.
+- **Branches.** Updating a branch with the base (GitHub's "Update branch") is fine; the
+  squash makes `main` linear. The merge queue tests each PR against the latest base. Merged
+  branches are deleted.
+- **`--auto` enqueues; enqueue only past the merge gate.** `--auto` adds the PR to the merge
+  queue, and is how PRs land. The merge gate must be met before you enqueue: the work is
+  complete, CI is green, it's verified at runtime, and `/code-review` has run with findings
+  resolved (see "Dev skills, progress reports and the merge gate" below).
 - **Releases.** A merge into `main` deploys `app.mzizi.dev`, so only the owner releases
   `staging` to `main`, or an agent the owner has authorised for that release. A release is a
   `release/` branch made of `main` plus `staging`'s exact tree, squashed into `main`.
@@ -151,7 +170,8 @@ Read off the GitHub API and the rulesets on 2026-10-20; they are the authority i
 
 - **No database behind the registry.** It's disk: `registry.json` and
   `content/doctrine/**` in `mzizi-registry`. Anything describing Supabase as the source of
-  truth for components, brand, or tokens is wrong.
+  truth for components, brand, or tokens is wrong. The rebuild's store is decided as
+  Cloudflare D1, not Supabase, and is not built.
 - **"Axis", "axes" and "layer" are retired vocabulary** — the model is nodes, rungs, and
   strands (8 nodes, 4 rungs, 6 strands). Legacy route names may still say otherwise; prose
   shouldn't.
