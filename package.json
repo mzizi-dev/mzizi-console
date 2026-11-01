@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@astrojs/check": ">=0.9.10",
-    "@types/node": ">=24.19.1",
+    "@types/node": ">=26.6.5",
     "astro": ">=7.3.2",
     "prettier-plugin-astro": ">=0.14.1",
     "typescript": ">=5.9.3",
