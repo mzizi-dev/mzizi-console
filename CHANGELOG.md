@@ -6,6 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — Dioxus is out of the documented stack (2026-11-04)
+
+- Owner decision, 2026-11-04 ([`mzizi-registry#635`](https://github.com/mzizi-dev/mzizi-registry/issues/635)): "dioxus is out!!!"; components and primitives are Mzizi first, TypeScript second, native (Swift, Kotlin) where those exist. `README.md`, `AGENTS.md`, `CONTRIBUTING.md` and the `package.json` description no longer present Dioxus as the stack; they say the running islands were built on Dioxus, are being removed, and that what replaces them is open for the owner. The Rust island code, `Cargo.toml` and `Cargo.lock` are unchanged and still depend on `dioxus` until that decision lands. Nothing served changes.
+- The console reads no Dioxus-specific field from the API; its response types do not reject unknown fields, so a change to the shape the API serves for Rust components does not break it.
+
 ### Fixed — release notes when the previous release has no `CHANGELOG.md` (2026-11-01)
 
 - `release_notes.py` treats a previous release with no `CHANGELOG.md` as the first release, as its docstring says. It matched git's "does not exist" message, but in a checkout where the file exists on disk git says "exists on disk, but not in", so the first `main-release.yml` run that met such a tag stopped before tagging. It now asks git directly (`git cat-file -e`).
