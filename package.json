@@ -30,7 +30,7 @@
     "vite-plus": ">=1.4.0"
   },
   "dependencies": {
-    "@workos-inc/authkit-js": ">=0.20.4"
+    "@workos-inc/authkit-js": ">=0.20.5"
   },
   "pnpm": {
     "overrides": {
