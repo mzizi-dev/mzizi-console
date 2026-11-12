@@ -10,6 +10,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - `AGENTS.md` and `CONTRIBUTING.md` state the owner's release rule: the owner approves major releases only; minor and patch releases (the `staging` → `main` release PR, its tag and the sync-back into `staging`) and merges of green PRs that have passed review are done by agents following the repo's playbook, without asking the owner (owner, 2026-11-02). "Only the owner releases `staging` to `main`, or an agent the owner has authorised for that release", "Releases are the owner's" and the progress-report line (report ticks never publish, release, merge or deploy without the owner's approval) are replaced with it. Merge method, the merge gate, auto-merge and the changelog rules are unchanged. Nothing served or published changes.
 
+### Security — CI actions pinned to commit SHAs (2026-11-12)
+
+- Every third-party `uses:` in `.github/workflows/ci.yml` now names a full 40-character commit SHA with the
+  version as a trailing comment, at the version it already ran: `actions/checkout` v5.1.0,
+  `actions/setup-node` v5.0.0, `pnpm/action-setup` v4.3.0, `Swatinem/rust-cache` v2.9.3 and
+  `dtolnay/rust-toolchain` at its `stable` branch as of 2026-11-12. A moving tag can be repointed by
+  its owner; a SHA cannot. This clears the org `scan` check's mutable-tag finding, so Dependabot's
+  actions-group update can land on a pinned base. Nothing is upgraded here; upgrades stay with Dependabot.
+- Nothing served changes; only CI does.
+
 ### Changed — Dioxus is out of the documented stack (2026-11-04)
 
 - Owner decision, 2026-11-04 ([`mzizi-registry#635`](https://github.com/mzizi-dev/mzizi-registry/issues/635)): "dioxus is out!!!"; components and primitives are Mzizi first, TypeScript second, native (Swift, Kotlin) where those exist. `README.md`, `AGENTS.md`, `CONTRIBUTING.md` and the `package.json` description no longer present Dioxus as the stack; they say the running islands were built on Dioxus, are being removed, and that what replaces them is open for the owner. The Rust island code, `Cargo.toml` and `Cargo.lock` are unchanged and still depend on `dioxus` until that decision lands. Nothing served changes.
