@@ -6,6 +6,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Security — `cargo audit` clean on `Cargo.lock` (2026-11-12)
+
+- `rustix` moves from 1.1.4 to 1.1.6, clearing RUSTSEC-2026-0486 (an "unsound" warning). Cargo also
+  re-resolves the Windows-only `windows-sys` dependency of `errno`, `quinn-udp`, `rustix` and `winapi-util`
+  onto the 0.52.0 already in the lockfile. No crate is added. Lockfile only.
+- This also records the lockfile update already on `staging` (bc2d7ee, 2026-11-11), which had no entry
+  here. It cleared RUSTSEC-2026-0338, -0340 and -0343 (`quinn-proto` 0.11.19), RUSTSEC-2026-0285, -0346,
+  -0348 and -0349 (`rustls` 0.23.46), RUSTSEC-2026-0382 (`rustls-webpki` 0.103.16), RUSTSEC-2026-0381
+  (`webpki-roots` 1.0.12) and RUSTSEC-2026-0009 (`time` 0.3.47).
+- `cargo audit` now reports no vulnerabilities and no warnings. Nothing served changes.
+
 ### Changed — the agent guides state the owner's release rule (2026-11-12, [mzizi-dev/mzizi-registry#661](https://github.com/mzizi-dev/mzizi-registry/issues/661))
 
 - `AGENTS.md` and `CONTRIBUTING.md` state the owner's release rule: the owner approves major releases only; minor and patch releases (the `staging` → `main` release PR, its tag and the sync-back into `staging`) and merges of green PRs that have passed review are done by agents following the repo's playbook, without asking the owner (owner, 2026-11-02). "Only the owner releases `staging` to `main`, or an agent the owner has authorised for that release", "Releases are the owner's" and the progress-report line (report ticks never publish, release, merge or deploy without the owner's approval) are replaced with it. Merge method, the merge gate, auto-merge and the changelog rules are unchanged. Nothing served or published changes.
