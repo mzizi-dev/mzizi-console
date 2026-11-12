@@ -159,8 +159,10 @@ drifts.
   queue, and is how PRs land. The merge gate must be met before you enqueue: the work is
   complete, CI is green, it's verified at runtime, and `/code-review` has run with findings
   resolved (see "Dev skills, progress reports and the merge gate" below).
-- **Releases.** A merge into `main` deploys `app.mzizi.dev`, so only the owner releases
-  `staging` to `main`, or an agent the owner has authorised for that release. A release is a
+- **Releases.** A merge into `main` deploys `app.mzizi.dev`. The owner approves major releases
+  only. Minor and patch releases (the `staging` → `main` release PR, its tag, and the sync-back
+  into `staging`), and merges of green PRs that have passed review, are done by agents
+  following the repo's playbook, without asking the owner (owner, 2026-11-02). A release is a
   `release/` branch made of `main` plus `staging`'s exact tree, squashed into `main`.
 - **Sync back after a release.** The squash commit on `main` is never in `staging`'s history,
   and `staging` cannot be reset (non-fast-forward pushes are blocked). After each release,
@@ -221,7 +223,10 @@ Load the Mzizi **dev skills** before starting work:
   another agent's.
 - **Progress reports.** All dev work runs on a 10-minute progress-report loop
   (`progress-report` skill): measured bars, what changed, and a final "Needs
-  you:" line. Report ticks never publish, release, merge or deploy without the
-  owner's approval.
+  you:" line. Report ticks never release a major without the owner's go-ahead.
+  The owner approves major releases only. Minor and patch releases (the
+  `staging` → `main` release PR, its tag, and the sync-back into `staging`),
+  and merges of green PRs that have passed review, are done by agents
+  following the repo's playbook, without asking the owner (owner, 2026-11-02).
 - **Merge gate.** Merge only when the work is complete, CI is green, it's
   verified at runtime, and `/code-review` has run with findings resolved.
