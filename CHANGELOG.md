@@ -6,6 +6,21 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Security — `astro` 7.4.12 for GHSA-r3h5-4585-7x3w (2026-11-14, Refs #74)
+
+- `package.json` raises the `astro` floor from `>=7.4.4` to `>=7.4.12`, and `pnpm-lock.yaml` resolves 7.4.12,
+  clearing [GHSA-r3h5-4585-7x3w](https://github.com/advisories/GHSA-r3h5-4585-7x3w) (moderate; affects
+  5.14.3 to 7.4.6). This ports Dependabot's #74 (7.4.7, opened against `main`, which only takes release pull
+  requests) into `staging`, at the latest 7.4 patch, the floor `mzizi-registry` set for the same advisory
+  (#679). Astro's own dependencies move with it, including `vite` 8.3.5 to 8.3.8 (astro 7.4.12 needs
+  `^8.3.6`) and `rolldown` 1.2.15 to 1.2.19.
+- `@astrojs/astro2tsx` (under `@astrojs/check`) moves from 0.1.3 to 0.1.4 in the lockfile. With 0.1.3,
+  `rolldown` 1.2.19's WASM binding pulled `@emnapi/runtime` 2.0.0-beta.2 into `astro2tsx`'s peer slot,
+  beside `@emnapi/core` 1.11.3, and `astro check` crashed (`this.bridge.setLastError is not a function`).
+  0.1.4 depends on `@emnapi/runtime` 1.11.3 itself.
+- Checked: `astro check` (0 errors), `vp check`, `pnpm build`, `pnpm test` and `pnpm audit` (no known
+  vulnerabilities). Nothing served should change.
+
 ### Security — `quinn-udp` 0.5.16 for RUSTSEC-2026-0538 (2026-11-14)
 
 - `quinn-udp` moves from 0.5.15 to 0.5.16 (`cargo update -p quinn-udp`), clearing
