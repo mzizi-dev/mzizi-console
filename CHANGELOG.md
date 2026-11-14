@@ -6,6 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Security — `quinn-udp` 0.5.16 for RUSTSEC-2026-0538 (2026-11-14)
+
+- `quinn-udp` moves from 0.5.15 to 0.5.16 (`cargo update -p quinn-udp`), clearing
+  [RUSTSEC-2026-0538](https://rustsec.org/advisories/RUSTSEC-2026-0538) ("Receive loop can spin after a
+  truncated datagram"), which the CI `audit` job reported on the 2026-11-14 release pull request (#73).
+  Cargo also re-resolves the Windows-only `windows-sys` dependency of `errno`, `quinn-udp`, `rustix` and
+  `winapi-util` from 0.52.0 to the 0.61.2 already in the lockfile. No crate is added. Lockfile only.
+- `cargo audit` reports no vulnerabilities again. Nothing served changes.
+
 ### Security — `cargo audit` clean on `Cargo.lock` (2026-11-12)
 
 - `rustix` moves from 1.1.4 to 1.1.6, clearing RUSTSEC-2026-0486 (an "unsound" warning). Cargo also
