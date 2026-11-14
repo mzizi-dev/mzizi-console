@@ -6,6 +6,36 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Security — `cargo audit` clean on `Cargo.lock` (2026-11-12)
+
+- `rustix` moves from 1.1.4 to 1.1.6, clearing RUSTSEC-2026-0486 (an "unsound" warning). Cargo also
+  re-resolves the Windows-only `windows-sys` dependency of `errno`, `quinn-udp`, `rustix` and `winapi-util`
+  onto the 0.52.0 already in the lockfile. No crate is added. Lockfile only.
+- This also records the lockfile update already on `staging` (bc2d7ee, 2026-11-11), which had no entry
+  here. It cleared RUSTSEC-2026-0338, -0340 and -0343 (`quinn-proto` 0.11.19), RUSTSEC-2026-0285, -0346,
+  -0348 and -0349 (`rustls` 0.23.46), RUSTSEC-2026-0382 (`rustls-webpki` 0.103.16), RUSTSEC-2026-0381
+  (`webpki-roots` 1.0.12) and RUSTSEC-2026-0009 (`time` 0.3.47).
+- `cargo audit` now reports no vulnerabilities and no warnings. Nothing served changes.
+
+### Changed — the agent guides state the owner's release rule (2026-11-12, [mzizi-dev/mzizi-registry#661](https://github.com/mzizi-dev/mzizi-registry/issues/661))
+
+- `AGENTS.md` and `CONTRIBUTING.md` state the owner's release rule: the owner approves major releases only; minor and patch releases (the `staging` → `main` release PR, its tag and the sync-back into `staging`) and merges of green PRs that have passed review are done by agents following the repo's playbook, without asking the owner (owner, 2026-11-02). "Only the owner releases `staging` to `main`, or an agent the owner has authorised for that release", "Releases are the owner's" and the progress-report line (report ticks never publish, release, merge or deploy without the owner's approval) are replaced with it. Merge method, the merge gate, auto-merge and the changelog rules are unchanged. Nothing served or published changes.
+
+### Security — CI actions pinned to commit SHAs (2026-11-12)
+
+- Every third-party `uses:` in `.github/workflows/ci.yml` now names a full 40-character commit SHA with the
+  version as a trailing comment, at the version it already ran: `actions/checkout` v5.1.0,
+  `actions/setup-node` v5.0.0, `pnpm/action-setup` v4.3.0, `Swatinem/rust-cache` v2.9.3 and
+  `dtolnay/rust-toolchain` at its `stable` branch as of 2026-11-12. A moving tag can be repointed by
+  its owner; a SHA cannot. This clears the org `scan` check's mutable-tag finding, so Dependabot's
+  actions-group update can land on a pinned base. Nothing is upgraded here; upgrades stay with Dependabot.
+- Nothing served changes; only CI does.
+
+### Changed — Dioxus is out of the documented stack (2026-11-04)
+
+- Owner decision, 2026-11-04 ([`mzizi-registry#635`](https://github.com/mzizi-dev/mzizi-registry/issues/635)): "dioxus is out!!!"; components and primitives are Mzizi first, TypeScript second, native (Swift, Kotlin) where those exist. `README.md`, `AGENTS.md`, `CONTRIBUTING.md` and the `package.json` description no longer present Dioxus as the stack; they say the running islands were built on Dioxus, are being removed, and that what replaces them is open for the owner. The Rust island code, `Cargo.toml` and `Cargo.lock` are unchanged and still depend on `dioxus` until that decision lands. Nothing served changes.
+- The console reads no Dioxus-specific field from the API; its response types do not reject unknown fields, so a change to the shape the API serves for Rust components does not break it.
+
 ### Fixed — release notes when the previous release has no `CHANGELOG.md` (2026-11-01)
 
 - `release_notes.py` treats a previous release with no `CHANGELOG.md` as the first release, as its docstring says. It matched git's "does not exist" message, but in a checkout where the file exists on disk git says "exists on disk, but not in", so the first `main-release.yml` run that met such a tag stopped before tagging. It now asks git directly (`git cat-file -e`).

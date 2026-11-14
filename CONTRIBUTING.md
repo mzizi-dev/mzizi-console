@@ -155,7 +155,7 @@ contribution.
 ## 4. Why the split is what it is
 
 Astro renders the **chrome** — nav, headings, prose, the page shell — as static
-HTML at build time. Rust/Dioxus **islands** render the **data**, fetched from the
+HTML at build time. Rust **islands** render the **data**, fetched from the
 registry API at runtime. Both halves of that are choices, not accidents, and a
 change that blurs them needs an argument.
 
@@ -185,10 +185,13 @@ The rebuild is decided in
 [`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-console/issues/34): one Rust Worker
 serves Astro's output, sign-in moves to the server (WorkOS, session cookie), the data store is
 Cloudflare D1 rather than Supabase, and the console depends on the published Mzizi Roots
-crates with no Dioxus in new work. The RFC is open as
+crates. Dioxus is out of the stack (owner decision, 2026-11-04,
+[`mzizi-registry#635`](https://github.com/mzizi-dev/mzizi-registry/issues/635)): components and
+primitives are Mzizi first, TypeScript second, native (Swift, Kotlin) where those exist, and what
+replaces the Rust islands is open for the owner. The RFC is open as
 [PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35) and is not yet on `staging`, so
 this document does not repeat it. Until the rebuild lands, the islands, the client-side AuthKit
-gate and the Dioxus dependency in `Cargo.toml` is the running code, and the sections
+gate and the island crate in `Cargo.toml` (still built on Dioxus, being removed) are the running code, and the sections
 above describe them.
 
 ### The API base is measured, not preferred
@@ -357,8 +360,11 @@ Before merging anything:
   review has run with its findings resolved.
 - **Enqueue only past the gate.** `--auto` adds the PR to the merge queue, and is how PRs
   land, so pass it only once the gate above is met.
-- **Releases are the owner's.** A merge into `main` deploys `app.mzizi.dev`. Only the owner,
-  or someone the owner authorised, releases `staging` to `main`: a `release/` branch made of
+- **Releases.** A merge into `main` deploys `app.mzizi.dev`. The owner approves major releases
+  only. Minor and patch releases (the `staging` → `main` release PR, its tag, and the sync-back
+  into `staging`), and merges of green PRs that have passed review, are done by agents
+  following the repo's playbook, without asking the owner (owner, 2026-11-02). A release is
+  a `release/` branch made of
   `main` plus `staging`'s exact tree, squashed, then synced back into `staging` (a branch off
   `staging` with `main` merged in, squashed) so the trees match again.
 

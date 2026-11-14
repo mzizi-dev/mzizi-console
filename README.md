@@ -5,7 +5,7 @@
 [![CI](https://github.com/mzizi-dev/mzizi-console/actions/workflows/ci.yml/badge.svg)](https://github.com/mzizi-dev/mzizi-console/actions/workflows/ci.yml)
 [![Lint](https://github.com/mzizi-dev/mzizi-console/actions/workflows/lint.yml/badge.svg)](https://github.com/mzizi-dev/mzizi-console/actions/workflows/lint.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-![Rust](https://img.shields.io/badge/Rust-Dioxus_0.7-000000?style=flat-square&logo=rust&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-islands-000000?style=flat-square&logo=rust&logoColor=white)
 ![Astro](https://img.shields.io/badge/Astro-shell-BC52EE?style=flat-square&logo=astro&logoColor=white)
 ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white)
 
@@ -28,7 +28,7 @@ anything is "simplified".
 ## The split
 
 Astro renders the **chrome** — navigation, headings, prose, the page shell — as
-static HTML at build time. Rust/Dioxus **islands** render the **data**, fetched
+static HTML at build time. Rust **islands** render the **data**, fetched
 from the registry API at runtime.
 
 Both halves of that are deliberate.
@@ -54,8 +54,11 @@ Decided, not built:
   described under [Authentication](#authentication).
 - The data store is Cloudflare D1, not Supabase. Today there is no database, as described
   under [The API has three envelope conventions](#the-api-has-three-envelope-conventions).
-- It depends on the published Mzizi Roots crates. No Dioxus in new work. Today the islands are
-  Dioxus, so the sections above describe the running console, not the decided one.
+- It depends on the published Mzizi Roots crates. Dioxus is out (owner decision, 2026-11-04,
+  [`mzizi-registry#635`](https://github.com/mzizi-dev/mzizi-registry/issues/635)): components and
+  primitives are Mzizi first, TypeScript second, native (Swift, Kotlin) where those exist. The islands
+  that run today were built on Dioxus and are being removed; what replaces them is open for the
+  owner. The sections above describe the running console, not the decided one.
 
 The console is a standalone surface at its own domain. It is not mounted inside the Nyuchi
 Console. Its scope is the registry, components, tokens, architecture and developer tooling.

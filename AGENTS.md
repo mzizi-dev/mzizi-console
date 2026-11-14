@@ -7,7 +7,7 @@
 ## What this repo is
 
 `app.mzizi.dev` — Astro renders the chrome (navigation, headings, page shell) as static
-HTML at build time; a Rust/Dioxus island renders the data, fetched live from the registry
+HTML at build time; a Rust island renders the data, fetched live from the registry
 API at runtime. Two languages, two toolchains, one set of script names.
 
 ## Standalone, and where it is going
@@ -19,8 +19,10 @@ Decided, not built ([`mzizi-console#34`](https://github.com/mzizi-dev/mzizi-cons
 RFC in [PR #35](https://github.com/mzizi-dev/mzizi-console/pull/35), not yet on `staging`): one
 Rust Worker serves Astro's output; sign-in moves to the server (WorkOS, session cookie); the
 data store is Cloudflare D1, not Supabase; the console depends on the published Mzizi Roots
-crates, with no Dioxus in new work. Until that lands, the Dioxus islands and client-side
-AuthKit below are what runs. Do not describe the decided shape as built.
+crates. Dioxus is out of the stack (owner decision, 2026-11-04,
+[`mzizi-registry#635`](https://github.com/mzizi-dev/mzizi-registry/issues/635)); what replaces the
+Rust islands is open for the owner. Until that lands, the existing islands (still built on Dioxus,
+being removed) and client-side AuthKit below are what runs. Do not describe the decided shape as built.
 
 ## Branches
 
@@ -55,8 +57,8 @@ and the package scripts; Cargo drives the Rust half; `pnpm run build` composes b
 Both toolchains must be installed for `pnpm run build` to produce a working site — a
 machine with only Node completes `astro build` happily and ships a page whose island never
 loads. [`CONTRIBUTING.md` §1](./CONTRIBUTING.md#1-two-toolchains-one-build) lists exactly
-what to install, including the `wasm-bindgen-cli` version pin (must track the `dioxus`
-dependency's resolved `wasm-bindgen` version exactly — see `scripts/build-island.sh`).
+what to install, including the `wasm-bindgen-cli` version pin (must track the island
+crate's resolved `wasm-bindgen` version exactly — see `scripts/build-island.sh`).
 
 ## The crate name is load-bearing — read before renaming anything
 
@@ -157,8 +159,10 @@ drifts.
   queue, and is how PRs land. The merge gate must be met before you enqueue: the work is
   complete, CI is green, it's verified at runtime, and `/code-review` has run with findings
   resolved (see "Dev skills, progress reports and the merge gate" below).
-- **Releases.** A merge into `main` deploys `app.mzizi.dev`, so only the owner releases
-  `staging` to `main`, or an agent the owner has authorised for that release. A release is a
+- **Releases.** A merge into `main` deploys `app.mzizi.dev`. The owner approves major releases
+  only. Minor and patch releases (the `staging` → `main` release PR, its tag, and the sync-back
+  into `staging`), and merges of green PRs that have passed review, are done by agents
+  following the repo's playbook, without asking the owner (owner, 2026-11-02). A release is a
   `release/` branch made of `main` plus `staging`'s exact tree, squashed into `main`.
 - **Sync back after a release.** The squash commit on `main` is never in `staging`'s history,
   and `staging` cannot be reset (non-fast-forward pushes are blocked). After each release,
@@ -219,7 +223,10 @@ Load the Mzizi **dev skills** before starting work:
   another agent's.
 - **Progress reports.** All dev work runs on a 10-minute progress-report loop
   (`progress-report` skill): measured bars, what changed, and a final "Needs
-  you:" line. Report ticks never publish, release, merge or deploy without the
-  owner's approval.
+  you:" line. Report ticks never release a major without the owner's go-ahead.
+  The owner approves major releases only. Minor and patch releases (the
+  `staging` → `main` release PR, its tag, and the sync-back into `staging`),
+  and merges of green PRs that have passed review, are done by agents
+  following the repo's playbook, without asking the owner (owner, 2026-11-02).
 - **Merge gate.** Merge only when the work is complete, CI is green, it's
   verified at runtime, and `/code-review` has run with findings resolved.
