@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — vite-plus 1.6.0 (2026-11-17)
+
+`package.json` raises the `vite-plus` floor from `>=1.4.0` to `>=1.6.0` and `pnpm-lock.yaml` resolves 1.6.0, the release Dependabot's minor-and-patch groups move to. `check`, `lint`, the tests and the full build pass on it. Dev tooling only: nothing the site serves changes.
+
 ### Security — `astro` 7.4.12 for GHSA-r3h5-4585-7x3w (2026-11-14, Refs #74)
 
 - `package.json` raises the `astro` floor from `>=7.4.4` to `>=7.4.12`, and `pnpm-lock.yaml` resolves 7.4.12,
