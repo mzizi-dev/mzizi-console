@@ -24,10 +24,10 @@
   "devDependencies": {
     "@astrojs/check": ">=0.9.12",
     "@types/node": ">=26.6.6",
-    "astro": ">=7.4.12",
+    "astro": ">=7.4.13",
     "prettier-plugin-astro": ">=1.1.2",
     "typescript": "^6.0.3",
-    "vite-plus": ">=1.6.0"
+    "vite-plus": ">=1.7.0"
   },
   "dependencies": {
     "@workos-inc/authkit-js": ">=0.20.5"
