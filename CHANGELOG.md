@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — staging wording removed from comments (2026-11-28)
+
+Comments in the release and Dependabot workflows no longer describe a `staging` branch; the repo is trunk-based. No behaviour changes.
+
 ### Changed — vite-plus 1.6.0 (2026-11-17)
 
 `package.json` raises the `vite-plus` floor from `>=1.4.0` to `>=1.6.0` and `pnpm-lock.yaml` resolves 1.6.0, the release Dependabot's minor-and-patch groups move to. `check`, `lint`, the tests and the full build pass on it. Dev tooling only: nothing the site serves changes.
